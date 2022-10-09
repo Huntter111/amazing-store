@@ -12,7 +12,7 @@ function App() {
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					Learn React
+					Learn React product card
 				</a>
 			</header>
 		</div>
