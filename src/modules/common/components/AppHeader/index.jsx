@@ -7,31 +7,37 @@ import AppLogo from "../AppLogo";
 import styles from "./header.module.scss";
 import { BUTTON_TYPE } from "../../constants";
 import AuthModal from "../../../auth/components/AuthModal";
+import { useUserAuth } from "../../../auth/context/AuthContext";
 import { AUTH_FORM_TYPE } from "../../constants";
 
 const AppHeader = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [authFormType, setAuthFormType] = useState(AUTH_FORM_TYPE.SIGN_IN);
+  const { user, signOut } = useUserAuth();
 
   return (
     <header className={styles.header}>
       <AppLogo />
-      <AppButton
-        type={BUTTON_TYPE.PRIMARY}
-        name={"Sign in"}
-        onClick={() => setIsOpenModal(true)}
-      />
-      <div className={styles.headerControl}>
-        <AppButton type={BUTTON_TYPE.DEFAULT} name={"My Orders"} />
-        <Popconfirm
-          okText={"Exit"}
-          showCancel={false}
-          icon={false}
-          className={styles.popconfirm}
-        >
-          <Avatar className={styles.avatar} icon={<UserOutlined />} />
-        </Popconfirm>
-      </div>
+      {!user ? (
+        <AppButton
+          type={BUTTON_TYPE.PRIMARY}
+          name={"Sign in"}
+          onClick={() => setIsOpenModal(true)}
+        />
+      ) : (
+        <div className={styles.headerControl}>
+          <AppButton type={BUTTON_TYPE.DEFAULT} name={"My Orders"} />
+          <Popconfirm
+            okText={"Exit"}
+            onConfirm={() => signOut()}
+            showCancel={false}
+            icon={false}
+            className={styles.popconfirm}
+          >
+            <Avatar className={styles.avatar} icon={<UserOutlined />} />
+          </Popconfirm>
+        </div>
+      )}
       <AuthModal
         isOpenModal={isOpenModal}
         authFormType={authFormType}

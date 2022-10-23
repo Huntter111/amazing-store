@@ -1,23 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Formik, Form } from "formik";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import * as Yup from "yup";
+
 import InputField from "../../../common/components/InputField";
 import AppButton from "../../../common/components/AppButton";
 import { BUTTON_TYPE } from "../../../common/constants";
+import { useUserAuth } from "../../context/AuthContext";
 import styles from "./signIn.module.scss";
+import { notification } from "antd";
 
-const SignInForm = ({ setAuthFormType }) => {
-  const handleSubmit = useCallback((values, { setSubmitting }) => {
-    setTimeout(() => {
-      console.log("Logging in", values);
-      setSubmitting(false);
-    }, 500);
+const SignInForm = ({ goToSignUp, closeModal }) => {
+  const { signIn, error, resetError } = useUserAuth();
+  const handleSubmit = useCallback(async (values, { setSubmitting }) => {
+    const { email, password } = values;
+    signIn(email, password);
+    setSubmitting(false);
+    closeModal();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      notification.error({
+        message: error,
+        description: "Невірний логін або пароль",
+      });
+    }
+
+    return () => {
+      resetError();
+    };
+  }, [error]);
 
   return (
     <>
-    <h1 className={styles.formHeader}>Sign In</h1>
+      <h1 className={styles.formHeader}>Sign In</h1>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}
@@ -55,6 +73,7 @@ const SignInForm = ({ setAuthFormType }) => {
                 name="password"
                 title="Password"
                 placeholder="Enter your password"
+                passwordEye={true}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
@@ -70,7 +89,7 @@ const SignInForm = ({ setAuthFormType }) => {
           );
         }}
       </Formik>
-      <a className={styles.changeFormButton} onClick={setAuthFormType}>
+      <a className={styles.changeFormButton} onClick={goToSignUp}>
         Go to Sign Up
       </a>
     </>

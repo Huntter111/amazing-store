@@ -6,17 +6,20 @@ import ProductsModule from "./modules/products";
 import CartModule from "./modules/cart";
 import "antd/dist/antd.min.css";
 import reportWebVitals from "./reportWebVitals";
+import { AuthContextProvider } from "./modules/auth/context/AuthContext";
 import "./modules/common/globalStyles/antd.scss";
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
 
 root.render(
-  <Router>
-    <ProductsModule />
-    <CartModule />
-    <OrdersModule />
-  </Router>
+  <AuthContextProvider>
+    <Router>
+      <ProductsModule />
+      <CartModule />
+      <OrdersModule />
+    </Router>
+  </AuthContextProvider>
 );
 
 reportWebVitals();

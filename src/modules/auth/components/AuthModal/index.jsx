@@ -9,13 +9,17 @@ const AuthModal = ({
   setIsOpenModal,
   setAuthFormType,
 }) => {
-  
   return (
     <AppModal isOpen={isOpenModal} onCancel={() => setIsOpenModal(false)}>
       {authFormType === AUTH_FORM_TYPE.SIGN_IN ? (
-        <SignInForm setAuthFormType={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_UP)} />
+        <SignInForm
+          closeModal={() => setIsOpenModal(false)}
+          goToSignUp={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_UP)}
+        />
       ) : (
-        <SignUpForm setAuthFormType={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_IN)} />
+        <SignUpForm
+          goToSignIn={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_IN)}
+        />
       )}
     </AppModal>
   );
