@@ -63,7 +63,7 @@ const SignInForm = ({ setAuthFormType }) => {
               <AppButton
                 type={BUTTON_TYPE.PRIMARY}
                 className={styles.formButton}
-                name="Submit"
+                name="Sign In"
                 onClick={handleSubmit}
               />
             </Form>
@@ -71,7 +71,7 @@ const SignInForm = ({ setAuthFormType }) => {
         }}
       </Formik>
       <a className={styles.changeFormButton} onClick={setAuthFormType}>
-        Go to SignUp
+        Go to Sign Up
       </a>
     </>
   );
