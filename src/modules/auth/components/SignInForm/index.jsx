@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Formik, Form } from "formik";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import * as Yup from "yup";
 
 import InputField from "../../../common/components/InputField";
@@ -9,29 +9,15 @@ import AppButton from "../../../common/components/AppButton";
 import { BUTTON_TYPE } from "../../../common/constants";
 import { useUserAuth } from "../../context/AuthContext";
 import styles from "./signIn.module.scss";
-import { notification } from "antd";
 
 const SignInForm = ({ goToSignUp, closeModal }) => {
-  const { signIn, error, resetError } = useUserAuth();
+  const { signIn } = useUserAuth();
   const handleSubmit = useCallback(async (values, { setSubmitting }) => {
     const { email, password } = values;
     signIn(email, password);
     setSubmitting(false);
     closeModal();
   }, []);
-
-  useEffect(() => {
-    if (error) {
-      notification.error({
-        message: error,
-        description: "Невірний логін або пароль",
-      });
-    }
-
-    return () => {
-      resetError();
-    };
-  }, [error]);
 
   return (
     <>
