@@ -1,4 +1,4 @@
-const SignUp = ({ setAuthFormType }) => {
+const SignUpForm = ({ setAuthFormType }) => {
   return (
     <>
       <div>Sign up</div>
@@ -7,4 +7,4 @@ const SignUp = ({ setAuthFormType }) => {
   );
 };
 
-export default SignUp;
+export default SignUpForm;

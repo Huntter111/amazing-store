@@ -1,6 +1,6 @@
 import AppModal from "../../../common/components/AppModal";
-import SignIn from "../SignIn";
-import SignUp from "../SignUp";
+import SignInForm from "../SignInForm";
+import SignUpForm from "../SignUpForm";
 import { AUTH_FORM_TYPE } from "../../constants";
 
 const AuthModal = ({
@@ -13,9 +13,9 @@ const AuthModal = ({
   return (
     <AppModal isOpen={isOpenModal} onCancel={() => setIsOpenModal(false)}>
       {authFormType === AUTH_FORM_TYPE.SIGN_IN ? (
-        <SignIn setAuthFormType={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_UP)} />
+        <SignInForm setAuthFormType={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_UP)} />
       ) : (
-        <SignUp setAuthFormType={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_IN)} />
+        <SignUpForm setAuthFormType={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_IN)} />
       )}
     </AppModal>
   );
