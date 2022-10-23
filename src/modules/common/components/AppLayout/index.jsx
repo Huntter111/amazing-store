@@ -1,12 +1,12 @@
 import React from "react";
 import { Layout } from "antd";
-import Header from "../Header";
+import AppHeader from "../AppHeader";
 import styles from "./appLayout.module.scss";
 
 const AppLayout = ({ children }) => {
   return (
     <Layout className={styles.layout}>
-      <Header />
+      <AppHeader />
       <div className={styles.wrapper}>{children}</div>
     </Layout>
   );

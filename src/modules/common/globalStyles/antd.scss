@@ -1,0 +1,12 @@
+@import "./colors.scss";
+
+.ant-popconfirm .ant-popover-message {
+  padding: 2px 0;
+}
+
+.ant-btn.ant-btn-primary {
+  border: 1px solid $gold !important;
+  color: $black !important;
+  background: $gold !important;
+  text-transform: uppercase;
+}
