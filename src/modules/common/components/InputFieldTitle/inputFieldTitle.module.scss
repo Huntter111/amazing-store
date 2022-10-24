@@ -1,0 +1,13 @@
+@import "../../globalStyles/colors.scss";
+
+.inputWrapper {
+  margin-bottom: 5px;
+}
+
+.errorMassage {
+  font-size: 8px;
+}
+
+.asterisk,.title {
+  color: $black;
+}

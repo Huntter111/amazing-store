@@ -1,0 +1,18 @@
+@import "../../globalStyles/colors.scss";
+
+.primaryButton {
+  border: 1px solid $gold !important;
+  color: $black !important;
+  background: $gold !important;
+}
+
+.defaultButton {
+  border: 1px solid $gold !important;
+  background: none !important;
+  color: $gold !important;
+  width: 100px;
+
+  &:hover {
+    background: none;
+  }
+}

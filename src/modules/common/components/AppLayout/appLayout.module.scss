@@ -1,0 +1,12 @@
+@import "../../globalStyles/colors.scss";
+
+.layout {
+  min-height: 100vh;
+  background-color: $white !important;
+}
+
+.wrapper {
+  padding: 20px;
+  margin: 0 auto;
+  width: 90vw;
+}

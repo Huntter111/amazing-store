@@ -1,0 +1,26 @@
+@import "../../globalStyles/colors.scss";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: $black;
+  color: $black;
+  padding: 0 30px;
+}
+
+.headerLogo {
+  color: $gold;
+}
+
+.headerControl {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  margin-left: 30px !important;
+  cursor: pointer;
+}
+
