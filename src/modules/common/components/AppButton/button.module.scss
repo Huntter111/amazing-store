@@ -4,13 +4,14 @@
   border: 1px solid $gold !important;
   color: $black !important;
   background: $gold !important;
+  min-width: 100px;
 }
 
 .defaultButton {
   border: 1px solid $gold !important;
   background: none !important;
   color: $gold !important;
-  width: 100px;
+  min-width: 100px;
 
   &:hover {
     background: none;
