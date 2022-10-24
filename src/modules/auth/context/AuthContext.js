@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { notification } from "antd";
+
 import {
   checkUser,
   logoutUser,
@@ -10,7 +12,6 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     checkUser((user) => setUser(user));
@@ -20,9 +21,11 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const data = await createUser(email, password);
       setUser(data);
-      setError(null);
     } catch (error) {
-      setError(error.message);
+      notification.error({
+        message: "Не вдалося зареєструватися",
+        description: "На жаль не вдалося зареєструватися, спробуйте пізніше",
+      });
     }
   };
 
@@ -30,9 +33,11 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const data = await loginUser(email, password);
       setUser(data);
-      setError(null);
     } catch (error) {
-      setError(error.message);
+      notification.error({
+        message: "Паролі не співпадають",
+        description: "Будь-ласка перевірте чи співпадають паролі в обох полях",
+      });
     }
   };
 
@@ -40,20 +45,17 @@ export const AuthContextProvider = ({ children }) => {
     try {
       logoutUser();
       setUser(null);
-      setError(null);
     } catch (error) {
-      setError(error.message);
+      notification.error({
+        message: "Не вдалося вийти з облікового запису",
+        description:
+          "На жаль не вдалося вийти з облікового запису, спробуйте пізніше",
+      });
     }
   };
 
-  const resetError = () => {
-    setError(null);
-  };
-
   return (
-    <UserContext.Provider
-      value={{ user, error, signOut, signUp, signIn, resetError }}
-    >
+    <UserContext.Provider value={{ user, signOut, signUp, signIn }}>
       {children}
     </UserContext.Provider>
   );

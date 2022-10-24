@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Formik, Form } from "formik";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import * as Yup from "yup";
 
 import InputField from "../../../common/components/InputField";
@@ -9,10 +9,9 @@ import AppButton from "../../../common/components/AppButton";
 import { BUTTON_TYPE } from "../../../common/constants";
 import { useUserAuth } from "../../context/AuthContext";
 import styles from "./signIn.module.scss";
-import { notification } from "antd";
 
 const SignInForm = ({ goToSignUp, closeModal }) => {
-  const { signIn, error, resetError } = useUserAuth();
+  const { signIn } = useUserAuth();
   const handleSubmit = useCallback(async (values, { setSubmitting }) => {
     const { email, password } = values;
     signIn(email, password);
@@ -20,31 +19,18 @@ const SignInForm = ({ goToSignUp, closeModal }) => {
     closeModal();
   }, []);
 
-  useEffect(() => {
-    if (error) {
-      notification.error({
-        message: error,
-        description: "Невірний логін або пароль",
-      });
-    }
-
-    return () => {
-      resetError();
-    };
-  }, [error]);
-
   return (
     <>
-      <h1 className={styles.formHeader}>Sign In</h1>
+      <h1 className={styles.formHeader}>Вхід</h1>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email().required("Email is Required"),
+          email: Yup.string().email().required("Email є обов'язковим"),
           password: Yup.string()
-            .required("Password is Required")
-            .min(8, "Password is too short - should be 8 chars minimum.")
-            .matches(/(?=.*[0-9])/, "Password must contain a number."),
+            .required("Пароль є обов'язковим")
+            .min(8, "Пароль має бути не меньше 8 символів.")
+            .matches(/(?=.*[0-9])/, "Пароль має містити цифри."),
         })}
       >
         {(props) => {
@@ -62,7 +48,7 @@ const SignInForm = ({ goToSignUp, closeModal }) => {
                 type="email"
                 name="email"
                 title="Email"
-                placeholder="Enter your email"
+                placeholder="Введіть email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
@@ -71,8 +57,8 @@ const SignInForm = ({ goToSignUp, closeModal }) => {
               <InputField
                 type="password"
                 name="password"
-                title="Password"
-                placeholder="Enter your password"
+                title="Пароль"
+                placeholder="Введіть пароль"
                 passwordEye={true}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -82,7 +68,7 @@ const SignInForm = ({ goToSignUp, closeModal }) => {
               <AppButton
                 type={BUTTON_TYPE.PRIMARY}
                 className={styles.formButton}
-                name="Sign In"
+                name="Увійти"
                 onClick={handleSubmit}
               />
             </Form>
@@ -90,7 +76,7 @@ const SignInForm = ({ goToSignUp, closeModal }) => {
         }}
       </Formik>
       <a className={styles.changeFormButton} onClick={goToSignUp}>
-        Go to Sign Up
+        Перейти до реєстрації
       </a>
     </>
   );
