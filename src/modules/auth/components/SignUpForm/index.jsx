@@ -30,20 +30,20 @@ const SignUpForm = ({ goToSignIn, closeModal }) => {
 
   return (
     <>
-      <h1 className={styles.formHeader}>Sign Up</h1>
+      <h1 className={styles.formHeader}>Реєстрація</h1>
       <Formik
         initialValues={{ email: "", password: "", confirmPpassword: "" }}
         onSubmit={handleSubmit}
         validationSchema={Yup.object().shape({
           email: Yup.string().email().required("Email is Required"),
           password: Yup.string()
-            .required("Password is Required")
-            .min(8, "Password is too short - should be 8 chars minimum.")
-            .matches(/(?=.*[0-9])/, "Password must contain a number."),
+            .required("Пароль є обов'язковим")
+            .min(8, "Пароль має бути не меньше 8 символів.")
+            .matches(/(?=.*[0-9])/, "Пароль має містити цифри."),
           confirmPpassword: Yup.string()
-            .required("Password is Required")
-            .min(8, "Password is too short - should be 8 chars minimum.")
-            .matches(/(?=.*[0-9])/, "Password must contain a number."),
+            .required("Пароль є обов'язковим")
+            .min(8, "Пароль має бути не меньше 8 символів.")
+            .matches(/(?=.*[0-9])/, "Пароль має містити цифри."),
         })}
       >
         {(props) => {
@@ -61,7 +61,7 @@ const SignUpForm = ({ goToSignIn, closeModal }) => {
                 type="email"
                 name="email"
                 title="Email"
-                placeholder="Enter your email"
+                placeholder="Введіть email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
@@ -70,8 +70,8 @@ const SignUpForm = ({ goToSignIn, closeModal }) => {
               <InputField
                 type="password"
                 name="password"
-                title="Password"
-                placeholder="Enter your password"
+                title="Пароль"
+                placeholder="Введіть пароль"
                 passwordEye={true}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -81,8 +81,8 @@ const SignUpForm = ({ goToSignIn, closeModal }) => {
               <InputField
                 type="password"
                 name="confirmPpassword"
-                title="Confirm Password"
-                placeholder="Confirm your password"
+                title="Підтвердження паролю"
+                placeholder="Підтвердіть пароль"
                 passwordEye={true}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -94,7 +94,7 @@ const SignUpForm = ({ goToSignIn, closeModal }) => {
               <AppButton
                 type={BUTTON_TYPE.PRIMARY}
                 className={styles.formButton}
-                name="Sign Up"
+                name="Реєстрація"
                 onClick={handleSubmit}
               />
             </Form>
@@ -102,7 +102,7 @@ const SignUpForm = ({ goToSignIn, closeModal }) => {
         }}
       </Formik>
       <a className={styles.changeFormButton} onClick={goToSignIn}>
-        Go to Sign In
+        Перейти до входу
       </a>
     </>
   );

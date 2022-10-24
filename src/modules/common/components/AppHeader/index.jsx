@@ -21,14 +21,14 @@ const AppHeader = () => {
       {!user ? (
         <AppButton
           type={BUTTON_TYPE.PRIMARY}
-          name={"Sign in"}
+          name={"Увійти"}
           onClick={() => setIsOpenModal(true)}
         />
       ) : (
         <div className={styles.headerControl}>
-          <AppButton type={BUTTON_TYPE.DEFAULT} name={"My Orders"} />
+          <AppButton type={BUTTON_TYPE.DEFAULT} name={"Мої замовлення"} />
           <Popconfirm
-            okText={"Exit"}
+            okText={"Вихід"}
             onConfirm={() => signOut()}
             showCancel={false}
             icon={false}
