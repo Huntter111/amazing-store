@@ -22,7 +22,10 @@ const AppHeader = () => {
         <AppButton
           type={BUTTON_TYPE.PRIMARY}
           name={"Увійти"}
-          onClick={() => setIsOpenModal(true)}
+          onClick={() => {
+            setAuthFormType(AUTH_FORM_TYPE.SIGN_IN);
+            setIsOpenModal(true);
+          }}
         />
       ) : (
         <div className={styles.headerControl}>
