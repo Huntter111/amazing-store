@@ -16,7 +16,6 @@ const SignUpForm = ({ goToSignIn, closeModal }) => {
   const handleSubmit = useCallback((values, { setSubmitting }) => {
     const { email, password, confirmPpassword } = values;
     if (password === confirmPpassword) {
-      console.log(values);
       signUp(email, password);
       setSubmitting(false);
       closeModal();
