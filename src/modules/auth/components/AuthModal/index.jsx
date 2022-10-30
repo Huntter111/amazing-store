@@ -18,6 +18,7 @@ const AuthModal = ({
         />
       ) : (
         <SignUpForm
+          closeModal={() => setIsOpenModal(false)}
           goToSignIn={() => setAuthFormType(AUTH_FORM_TYPE.SIGN_IN)}
         />
       )}
