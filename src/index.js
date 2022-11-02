@@ -8,6 +8,7 @@ import "antd/dist/antd.min.css";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./modules/auth/context/AuthContext";
 import "./modules/common/globalStyles/antd.scss";
+import "./modules/common/globalStyles/app.scss"
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
