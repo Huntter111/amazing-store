@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useMemo } from "react";
+import { Col, Row } from "antd";
 import useProducts from "../../../../contentful/useProducts";
 import ProductCard from "../ProductCard";
 
@@ -14,20 +15,22 @@ const ProductsList = () => {
 
     const { products } = productData;
 
-    console.log('products', products)
+    console.log("products", products);
 
     return (
-      <div className={styles.wrapper}>
+      <Row gutter={24}>
         {products?.map(({ id, name, description, images, price }) => (
-          <ProductCard
-            key={id}
-            title={name}
-            description={description}
-            price={price}
-            url={images[0].file.url}
-          />
+          <Col className="row" lg={6} sm={12} xs={24} >
+            <ProductCard
+              key={id}
+              title={name}
+              description={description}
+              price={price}
+              url={images[0].file.url}
+            />
+          </Col>
         ))}
-      </div>
+      </Row>
     );
   }, [productData]);
 };

@@ -1,13 +1,11 @@
 @import "../../../common/globalStyles/colors.scss";
 
 .card {
-  width: 320px;
-  min-width: 320px;
-  margin: 10px!important;
+  width: 100%;
+  margin: 10px 0!important;
 }
 
 .pricesWrapper {
-  margin-top: 20px;
   padding-top: 10px;
   border-top: 1px solid $gold;
 }
@@ -17,6 +15,10 @@
   align-items: center;
   justify-content: space-between;
   margin: 5px 0;
+}
+
+.description {
+  height: 160px;
 }
 
 .priceButton {

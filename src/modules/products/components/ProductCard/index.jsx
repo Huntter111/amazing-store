@@ -14,6 +14,7 @@ const ProductCard = ({ title, description, url, price }) => (
     cover={<img alt="pizza card img" src={url} />}
   >
     <Meta
+      className={styles.description}
       title={title}
       description={<ReactMarkdown>{description}</ReactMarkdown>}
     />
