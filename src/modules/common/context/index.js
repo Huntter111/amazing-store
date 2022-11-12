@@ -7,8 +7,7 @@ const GlobalState = ({ children }) => {
   const { productData } = useProducts();
 
   const products = useMemo(() => {
-    if (!productData) return [];
-    return productData.products;
+    return productData ? productData.products : [];
   }, [productData]);
 
   return (
