@@ -5,8 +5,6 @@ import { Col, Row } from "antd";
 import useProducts from "../../../../contentful/useProducts";
 import ProductCard from "../ProductCard";
 
-import styles from "./productList.module.scss";
-
 const ProductsList = () => {
   const { productData } = useProducts();
 
