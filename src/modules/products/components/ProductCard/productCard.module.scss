@@ -1,14 +1,42 @@
-@import '../../../common/globalStyles/colors.scss';
+@import "../../../common/globalStyles/colors.scss";
 
 .card {
   width: 320px;
+  min-width: 320px;
+  margin: 10px!important;
+}
+
+.pricesWrapper {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid $gold;
 }
 
 .price {
-  margin-top: 20px;
-  padding-top: 10px;
-  font-weight: bold;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.priceButton {
+  font-size: 22px!important;
+  width: 64px!important;
+  min-width: 64px!important;
+  height: 42px!important;
+}
+
+.priceName,
+.priceAmount {
+  font-size: 15px;
+}
+
+.priceName {
+  margin: 0 5px;
+}
+
+.priceAmount {
   text-align: right;
-  border-top: 1px solid $gold;
+  width: 70px;
+  font-weight: bold;
 }

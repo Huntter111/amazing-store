@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import useProducts from "../../../../contentful/useProducts";
 import ProductCard from "../ProductCard";
 
+import styles from "./productList.module.scss";
+
 const ProductsList = () => {
   const { productData } = useProducts();
 
@@ -12,18 +14,21 @@ const ProductsList = () => {
 
     const { products } = productData;
 
-    return products?.map(({ id, name, description, images, price }) => {
-      console.log(images)
-      return (
-        <ProductCard
-          key={id}
-          title={name}
-          description={description}
-          price={price}
-          url={images[0].file.url}
-        />
-      );
-    });
+    console.log('products', products)
+
+    return (
+      <div className={styles.wrapper}>
+        {products?.map(({ id, name, description, images, price }) => (
+          <ProductCard
+            key={id}
+            title={name}
+            description={description}
+            price={price}
+            url={images[0].file.url}
+          />
+        ))}
+      </div>
+    );
   }, [productData]);
 };
 
