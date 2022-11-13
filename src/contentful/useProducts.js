@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useGetContentfulEntries } from "./";
 
-const useProducts = () => {
+const useProductsContentful = () => {
   const [productData, setProductData] = useState();
   const getContentfulEntry = useGetContentfulEntries();
 
@@ -32,4 +32,4 @@ const useProducts = () => {
   return { productData };
 };
 
-export default useProducts;
+export default useProductsContentful;

@@ -1,30 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useMemo } from "react";
-import useProducts from "../../../../contentful/useProducts";
+import { Col, Row } from "antd";
+import { useGlobalContext } from "../../../common/context";
 import ProductCard from "../ProductCard";
 
 const ProductsList = () => {
-  const { productData } = useProducts();
+  const { products } = useGlobalContext();
 
   return useMemo(() => {
-    if (!productData) return null;
+    if (!products) return null;
 
-    const { products } = productData;
-
-    return products?.map(({ id, name, description, images, price }) => {
-      console.log(images)
-      return (
-        <ProductCard
-          key={id}
-          title={name}
-          description={description}
-          price={price}
-          url={images[0].file.url}
-        />
-      );
-    });
-  }, [productData]);
+    return (
+      <Row gutter={24}>
+        {products?.map(({ id, name, description, images, price }) => (
+          <Col key={id} className="row" lg={6} sm={12} xs={24}>
+            <ProductCard
+              title={name}
+              description={description}
+              price={price}
+              url={images[0].file.url}
+            />
+          </Col>
+        ))}
+      </Row>
+    );
+  }, [products]);
 };
 
 export default ProductsList;

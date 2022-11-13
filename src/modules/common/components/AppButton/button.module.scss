@@ -5,6 +5,12 @@
   color: $black !important;
   background: $gold !important;
   min-width: 100px;
+
+  &:hover {
+    background: none!important;
+    border: 1px solid $gold !important;
+    color: $gold !important;
+  }
 }
 
 .defaultButton {
@@ -14,6 +20,7 @@
   min-width: 100px;
 
   &:hover {
-    background: none;
+    background: $gold!important;
+    color: $black !important;
   }
 }
