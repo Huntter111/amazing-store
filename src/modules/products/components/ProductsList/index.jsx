@@ -11,16 +11,11 @@ const ProductsList = () => {
   return useMemo(() => {
     if (!products) return null;
 
-    // const { products } = productData;
-
-    // console.log("products", products);
-
     return (
       <Row gutter={24}>
         {products?.map(({ id, name, description, images, price }) => (
-          <Col className="row" lg={6} sm={12} xs={24}>
+          <Col key={id} className="row" lg={6} sm={12} xs={24}>
             <ProductCard
-              key={id}
               title={name}
               description={description}
               price={price}
