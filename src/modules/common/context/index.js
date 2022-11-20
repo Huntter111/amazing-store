@@ -10,7 +10,7 @@ export const GlobalContext = createContext();
 
 const GlobalState = ({ children }) => {
   const { productData } = useProductsContentful();
-  const { products, createProduct, getProducts, updateProduct } =
+  const { products, createProduct, getProducts, updateProduct, deleteProduct } =
     useProductsDB();
 
   const productsFromContentful = useMemo(() => {
@@ -31,6 +31,23 @@ const GlobalState = ({ children }) => {
         return !foundProduct;
       });
 
+      const formatedUninitializedProducts = formatProductsContentfulFirebase(
+        uninitializedProducts
+      );
+
+      formatedUninitializedProducts.forEach((product) =>
+        createProduct(product)
+      );
+
+      if (uninitializedProducts.length) {
+        getProducts();
+        console.log(`${uninitializedProducts.length} products created`);
+      }
+    }
+  }, [products, productsFromContentful]);
+
+  useEffect(() => {
+    if (products && productsFromContentful && productsFromContentful.length) {
       const updatedProducts = productsFromContentful
         .filter((product) => {
           const foundProduct = products.find(
@@ -45,26 +62,19 @@ const GlobalState = ({ children }) => {
           return !foundProduct;
         })
         .map((product) => {
-          const { id, contentfulId } = products.find(({ contentfulId }) =>
+          const foundProduct = products.find(({ contentfulId }) =>
             isEqual(contentfulId, product.id)
           );
+
           return {
             ...product,
-            id,
-            contentfulId,
+            id: foundProduct?.id,
+            contentfulId: foundProduct?.contentfulId,
           };
         });
 
-      const formatedUninitializedProducts = formatProductsContentfulFirebase(
-        uninitializedProducts
-      );
-
       const formatedUpdatedProducts =
         formatProductsContentfulFirebase(updatedProducts);
-
-      formatedUninitializedProducts.forEach((product) =>
-        createProduct(product)
-      );
 
       formatedUpdatedProducts.forEach((product) => {
         const updateData = {
@@ -78,7 +88,29 @@ const GlobalState = ({ children }) => {
         updateProduct(product.id, updateData);
       });
 
-      if (uninitializedProducts.length || updatedProducts.length) getProducts();
+      if (updatedProducts.length) {
+        getProducts();
+        console.log(`${updatedProducts.length} products updated`);
+      }
+    }
+  }, [products, productsFromContentful]);
+
+  useEffect(() => {
+    if (products && productsFromContentful && productsFromContentful.length) {
+      const shouldDeleteProducts = products.filter(({ contentfulId }) => {
+        const foundProduct = productsFromContentful.find((product) =>
+          isEqual(contentfulId, product.id)
+        );
+
+        return !foundProduct;
+      });
+
+      shouldDeleteProducts.forEach((product) => deleteProduct(product.id));
+
+      if (shouldDeleteProducts.length) {
+        getProducts();
+        console.log(`${shouldDeleteProducts.length} products removed`);
+      }
     }
   }, [products, productsFromContentful]);
 
