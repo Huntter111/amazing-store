@@ -1,0 +1,58 @@
+@import "../../../common/globalStyles/colors.scss";
+
+.breadcrumbs {
+  margin-bottom: 20px !important;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  background-color: $white;
+}
+
+.info {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 30px;
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 350px;
+  width: 60%;
+}
+
+.priceButton {
+  font-size: 22px !important;
+  width: 120px !important;
+  min-width: 64px !important;
+  height: 45px !important;
+}
+
+.priceName,
+.priceAmount {
+  font-size: 17px;
+}
+
+.priceName {
+  margin: 0 5px;
+}
+
+.priceAmount {
+  text-align: right;
+  width: 100px;
+  font-weight: bold;
+}
