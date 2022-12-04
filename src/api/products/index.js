@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { db, collection, doc, getDocs, addDoc, updateDoc, deleteDoc } from "../";
+import { db, collection, doc, getDocs, getDoc, addDoc, updateDoc, deleteDoc } from "../";
 
 const useProductsDB = () => {
   const [products, setProducts] = useState(null);
+  const [product, setProduct] = useState(null);
 
   const productsRef = collection(db, "products");
 
@@ -26,7 +27,14 @@ const useProductsDB = () => {
     setProducts(formatedData);
   };
 
-  return { products, createProduct, getProducts, updateProduct, deleteProduct };
+  const getProduct = async (id) => {
+    const productDoc = doc(db, "products", id);
+    const data = await getDoc(productDoc);
+    const formatedData = data.data();
+    setProduct(formatedData);
+  };
+
+  return { product, products, createProduct, getProducts, getProduct, updateProduct, deleteProduct };
 };
 
 export default useProductsDB;

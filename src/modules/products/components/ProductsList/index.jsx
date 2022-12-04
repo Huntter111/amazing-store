@@ -16,6 +16,7 @@ const ProductsList = () => {
         {products?.map(({ id, name, description, images, price }) => (
           <Col key={id} className="row" lg={6} sm={12} xs={24}>
             <ProductCard
+              id={id}
               title={name}
               description={description}
               price={price}

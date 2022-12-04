@@ -1,13 +1,4 @@
-import { Route, Routes } from "react-router-dom";
-import { ROUTES } from "../../routes";
 import ProductsListPage from "./pages/ProductsList";
+import ProductInfoPage from "./pages/ProductInfo";
 
-const ProductsModule = () => {
-  return (
-    <Routes>
-      <Route path={ROUTES.PRODUCTS_LIST} element={<ProductsListPage />} />
-    </Routes>
-  );
-};
-
-export default ProductsModule;
+export { ProductsListPage, ProductInfoPage };

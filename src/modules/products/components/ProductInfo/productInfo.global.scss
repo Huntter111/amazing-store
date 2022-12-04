@@ -1,0 +1,29 @@
+@import "../../../common/globalStyles/colors.scss";
+
+.swiper {
+  width: 50%;
+  margin: 0;
+  background-color: gray;
+
+  .swiper-pagination-bullet {
+    background: $white !important;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: $white !important;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .swiper {
+    width: 100%;
+    margin: 0;
+    background-color: gray;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+}
