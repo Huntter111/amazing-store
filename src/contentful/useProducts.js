@@ -10,12 +10,13 @@ const useProductsContentful = () => {
     getContentfulEntry("product", "fields").then(({ total, items }) => {
       const products = items.map(({ fields, sys }) => {
         const { id } = sys;
-        const { description, name, price, productSlides } = fields;
+        const { description, name, price, type, productSlides } = fields;
         const images = productSlides.map(({ fields }) => fields);
 
         return {
           id,
           name,
+          type,
           description,
           price,
           images,

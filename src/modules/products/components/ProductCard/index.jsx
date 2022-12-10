@@ -47,7 +47,7 @@ const ProductCard = ({ id, title, description, url, price }) => {
                   e.stopPropagation();
                 }}
               />
-              <p className={styles.priceName}>{priceRadius}</p>
+              {priceRadius && <p className={styles.priceName}>{priceRadius}</p>}
               <p className={styles.priceAmount}>{`${priceAmount} UAH`}</p>
             </div>
           );

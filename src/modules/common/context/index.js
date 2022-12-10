@@ -51,9 +51,10 @@ const GlobalState = ({ children }) => {
       const updatedProducts = productsFromContentful
         .filter((product) => {
           const foundProduct = products.find(
-            ({ contentfulId, description, images, name, price }) =>
+            ({ contentfulId, description, images, type, name, price }) =>
               isEqual(contentfulId, product.id) &&
               isEqual(description, product.description) &&
+              isEqual(type, product.type) &&
               isEqual(images, product.images) &&
               isEqual(name, product.name) &&
               isEqual(price, product.price)
@@ -80,6 +81,7 @@ const GlobalState = ({ children }) => {
         const updateData = {
           contentfulId: product.contentfulId,
           description: product.description,
+          type: product.type,
           images: product.images,
           name: product.name,
           price: product.price,
