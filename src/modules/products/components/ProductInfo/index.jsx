@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Breadcrumb } from "antd";
+import { RestOutlined } from "@ant-design/icons";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -74,12 +75,19 @@ const ProductsInfo = () => {
                 {description}
               </ReactMarkdown>
             </>
-            <>
+            <div>
               {price.map(({ fields }, idx) => {
                 const { priceRadius, priceAmount } = fields;
                 return (
                   <div key={idx} className={styles.price}>
-                    <p className={styles.priceName}>{priceRadius}</p>
+                    {priceRadius ? (
+                      <p className={styles.priceName}>{priceRadius}</p>
+                    ) : (
+                      <div className={styles.drinkIcon}>
+                        <RestOutlined />
+                        <span>DRINK</span>
+                      </div>
+                    )}
                     <p className={styles.priceAmount}>{`${priceAmount} UAH`}</p>
                     <AppButton
                       className={styles.priceButton}
@@ -92,7 +100,7 @@ const ProductsInfo = () => {
                   </div>
                 );
               })}
-            </>
+            </div>
           </div>
         </div>
       </>
