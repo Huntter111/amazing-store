@@ -63,13 +63,10 @@ const ProductsList = () => {
       });
     }
 
-    console.log("filter", filter);
-
     return productsByType;
   }, [filter, products]);
 
   return useMemo(() => {
-    console.log("productFiltered", productFiltered);
     if (!products) return null;
 
     return (
@@ -92,17 +89,20 @@ const ProductsList = () => {
           </Select>
         </div>
         <Row gutter={24}>
-          {productFiltered?.map(({ id, name, description, images, price }) => (
-            <Col key={id} className="row" lg={6} sm={12} xs={24}>
-              <ProductCard
-                id={id}
-                title={name}
-                description={description}
-                price={price}
-                url={images[0].file.url}
-              />
-            </Col>
-          ))}
+          {productFiltered?.map(
+            ({ id, name, description, type, images, price }) => (
+              <Col key={id} className="row" lg={6} sm={12} xs={24}>
+                <ProductCard
+                  id={id}
+                  title={name}
+                  type={type[0].fields.name}
+                  description={description}
+                  price={price}
+                  url={images[0].file.url}
+                />
+              </Col>
+            )
+          )}
         </Row>
       </>
     );

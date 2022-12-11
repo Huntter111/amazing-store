@@ -4,6 +4,7 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
+import { useCart } from "../../../cart/context/CartContext";
 import { ROUTES } from "../../../../routes";
 import styles from "./productCard.module.scss";
 import AppButton from "../../../common/components/AppButton";
@@ -11,8 +12,9 @@ import { BUTTON_TYPE } from "../../../common/constants";
 
 const { Meta } = Card;
 
-const ProductCard = ({ id, title, description, url, price }) => {
+const ProductCard = ({ id, title, description, type, url, price }) => {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   return (
     <Card
@@ -45,6 +47,14 @@ const ProductCard = ({ id, title, description, url, price }) => {
                 name={<ShoppingCartOutlined />}
                 onClick={(e) => {
                   e.stopPropagation();
+                  addToCart({
+                    id: id + priceRadius,
+                    title,
+                    description,
+                    price: { priceRadius, priceAmount },
+                    url,
+                    type,
+                  });
                 }}
               />
               {priceRadius && <p className={styles.priceName}>{priceRadius}</p>}

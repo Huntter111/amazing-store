@@ -22,10 +22,17 @@ export const AuthContextProvider = ({ children }) => {
       const data = await createUser(email, password);
       setUser(data);
     } catch (error) {
-      notification.error({
-        message: "Не вдалося зареєструватися",
-        description: "На жаль не вдалося зареєструватися, спробуйте пізніше",
-      });
+      if(error.code === 'auth/email-already-in-use') {
+        notification.error({
+          message: "Не вдалося зареєструватися",
+          description: "Користувач з таким Email вже існує",
+        });
+      } else {
+        notification.error({
+          message: "Не вдалося зареєструватися",
+          description: "На жаль не вдалося зареєструватися, спробуйте пізніше",
+        });
+      }
     }
   };
 
