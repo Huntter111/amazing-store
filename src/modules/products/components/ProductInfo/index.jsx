@@ -36,7 +36,7 @@ const ProductsInfo = () => {
 
     console.log(product)
 
-    const { name, url, type, description, images, price } = product;
+    const { name, type, description, images, price } = product;
 
     return (
       <>
