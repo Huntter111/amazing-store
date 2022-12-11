@@ -14,6 +14,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./productInfo.global.scss";
 
+import { useCart } from "../../../cart/context/CartContext";
 import { ROUTES } from "../../../../routes";
 import useProductsDB from "../../../../api/products";
 import AppButton from "../../../common/components/AppButton";
@@ -23,6 +24,7 @@ import styles from "./productInfo.module.scss";
 const ProductsInfo = () => {
   const { id } = useParams();
   const { product, getProduct } = useProductsDB();
+  const { addToCart } = useCart();
 
   useEffect(() => {
     getProduct(id);
@@ -32,8 +34,9 @@ const ProductsInfo = () => {
   return useMemo(() => {
     if (!product) return null;
 
-    const { name, description, images, price } = product;
-    console.log("products", product);
+    console.log(product)
+
+    const { name, type, description, images, price } = product;
 
     return (
       <>
@@ -55,7 +58,7 @@ const ProductsInfo = () => {
             onSwiper={(swiper) => console.log(swiper)}
           >
             {images.map(({ file }) => (
-              <SwiperSlide>
+              <SwiperSlide key={file.url}>
                 <div className={styles.imageWrapper}>
                   <LazyLoadImage
                     alt="Product image"
@@ -95,6 +98,14 @@ const ProductsInfo = () => {
                       name={<ShoppingCartOutlined />}
                       onClick={(e) => {
                         e.stopPropagation();
+                        addToCart({
+                          id: id + priceRadius,
+                          title: name,
+                          description,
+                          price: { priceRadius, priceAmount },
+                          url: images[0].file.url,
+                          type: type[0].fields.name,
+                        });
                       }}
                     />
                   </div>
@@ -105,6 +116,7 @@ const ProductsInfo = () => {
         </div>
       </>
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 };
 

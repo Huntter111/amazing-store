@@ -1,0 +1,22 @@
+.breadcrumbs {
+  margin-bottom: 20px !important;
+}
+
+.summary {
+  min-width: 300px;
+  width: 40%;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.positionCount,
+.totalPrice {
+  font-size: 16px;
+}
+
+.cartListWrapper {
+  height: 79vh;
+  overflow: scroll;
+}

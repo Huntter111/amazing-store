@@ -1,6 +1,9 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+  sendPasswordResetEmail,
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
@@ -15,7 +18,21 @@ export const checkUser = (getUser) => {
 };
 
 export const loginUser = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password)
-}
+  return signInWithEmailAndPassword(auth, email, password);
+};
+
+export const updateUserProfile = ({ phone, displayName, photoURL }) => {
+  const auth = getAuth();
+  updateProfile(auth.currentUser, {
+    displayName: displayName || null,
+    photoURL: photoURL || null,
+    phone: phone || null,
+  });
+};
+
+export const passwordReset = (email) => {
+  const auth = getAuth();
+  return sendPasswordResetEmail(auth, email);
+};
 
 export const logoutUser = () => signOut(auth);
