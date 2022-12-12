@@ -15,6 +15,7 @@ import InputField from "../../../common/components/InputField";
 import InputPhoneField from "../../../common/components/InputPhoneField";
 import AppButton from "../../../common/components/AppButton";
 import { BUTTON_TYPE } from "../../../common/constants";
+import {sendOrderMessage} from '../../helpers/orderMessanger';
 
 import styles from "./orderForm.module.scss";
 
@@ -70,6 +71,7 @@ const OrderForm = ({ closeModal, clearCart }) => {
       closeModal();
       clearCart();
       resetForm();
+      sendOrderMessage(orderData);
       navigate(ROUTES.PRODUCTS_LIST);
     },
     [orderNumber, userData]
