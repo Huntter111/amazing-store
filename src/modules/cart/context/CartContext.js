@@ -91,9 +91,14 @@ export const CartContextProvider = ({ children }) => {
     [cart]
   );
 
+  const clearCart = useCallback(() => {
+    sessionStorage.removeItem("cart");
+    setCart([]);
+  }, [])
+
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, setProductCount, removeFromCart }}
+      value={{ cart, addToCart, setProductCount, removeFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>

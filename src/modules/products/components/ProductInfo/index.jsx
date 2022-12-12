@@ -34,8 +34,6 @@ const ProductsInfo = () => {
   return useMemo(() => {
     if (!product) return null;
 
-    console.log(product)
-
     const { name, type, description, images, price } = product;
 
     return (

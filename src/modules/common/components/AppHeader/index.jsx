@@ -50,7 +50,11 @@ const AppHeader = () => {
               />
             ) : (
               <div>
-                <AppButton type={BUTTON_TYPE.DEFAULT} name={"Мої замовлення"} />
+                <AppButton
+                  type={BUTTON_TYPE.DEFAULT}
+                  name={"Мої замовлення"}
+                  onClick={() => navigate(`${ROUTES.ORDERS_LIST}`)}
+                />
                 <Popconfirm
                   okText={"Вихід"}
                   onConfirm={() => signOut()}
@@ -73,7 +77,7 @@ const AppHeader = () => {
       );
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [cart, user]
+    [cart, user, isOpenModal, authFormType]
   );
 };
 

@@ -3,6 +3,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { InputNumber } from "antd";
 import { debounce } from "lodash";
 
+import { PRODUCT_TYPES } from "../../../products/constants";
 import { useCart } from "../../context/CartContext";
 import styles from "./cartProduct.module.scss";
 
@@ -34,7 +35,7 @@ const CartProduct = (props) => {
         <p className={styles.priceName}>{price.priceRadius}</p>
         <p className={styles.priceAmount}>{`${price.priceAmount} UAH`}</p>
       </div>
-      <div className={styles.type}>{type}</div>
+      <div className={styles.type}>{PRODUCT_TYPES[type]}</div>
       <InputNumber
         min={1}
         max={100}

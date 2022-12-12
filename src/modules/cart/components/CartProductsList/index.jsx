@@ -6,12 +6,14 @@ import { ROUTES } from "../../../../routes";
 import CartProduct from "../CartProduct";
 import AppButton from "../../../common/components/AppButton";
 import { BUTTON_TYPE } from "../../../common/constants";
+import OrderModal from "../../../orders/components/OrderModal";
 
 import styles from "./cartProductsList.module.scss";
 
 const CartProductsList = () => {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
     const totalPrice = cart.reduce((acc, item) => {
@@ -42,10 +44,13 @@ const CartProductsList = () => {
       </div>
       <div className={styles.summary}>
         <AppButton
+          disabled={!cart.length}
           className={styles.priceButton}
           type={BUTTON_TYPE.PRIMARY}
           name="Зробити замовлення"
-          onClick={() => {}}
+          onClick={() => {
+            setIsOpenModal(true);
+          }}
         />
         <div className={styles.positionCount}>
           <span>Всього позицій:</span>{" "}
@@ -61,6 +66,11 @@ const CartProductsList = () => {
           <span>UAH</span>
         </div>
       </div>
+      <OrderModal
+        clearCart={clearCart}
+        isOpenModal={isOpenModal}
+        setIsOpenModal={setIsOpenModal}
+      />
     </>
   );
 };

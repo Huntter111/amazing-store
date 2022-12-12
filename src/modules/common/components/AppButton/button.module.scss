@@ -24,3 +24,12 @@
     color: $black !important;
   }
 }
+
+.disabledButton {
+  opacity: 0.5;
+
+  &:hover {
+    background: inherit;
+    opacity: 0.5;
+  }
+}
