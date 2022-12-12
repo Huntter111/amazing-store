@@ -33,7 +33,7 @@ const AppHeader = () => {
                 className={styles.cartButton}
                 type={BUTTON_TYPE.DEFAULT}
                 name={"Корзина"}
-                onClick={() => navigate(`${ROUTES.CART}`)}
+                onClick={() => navigate(ROUTES.CART)}
               />
               {isShowCartProductCount && (
                 <div className={styles.cartProductCount}>{cart.length}</div>
@@ -57,7 +57,10 @@ const AppHeader = () => {
                 />
                 <Popconfirm
                   okText={"Вихід"}
-                  onConfirm={() => signOut()}
+                  onConfirm={() => {
+                    signOut();
+                    navigate(ROUTES.PRODUCTS_LIST);
+                  }}
                   showCancel={false}
                   icon={false}
                   className={styles.popconfirm}
