@@ -11,6 +11,8 @@ import "antd/dist/antd.min.css";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./modules/auth/context/AuthContext";
 import { CartContextProvider } from "./modules/cart/context/CartContext";
+import { OrdersProvider } from "./modules/orders/context/OrdersContext";
+import { UserDataProvider } from "./modules/auth/context/UserDataContext";
 import GlobalState from "./modules/common/context";
 import "./modules/common/globalStyles/antd.scss";
 import "./modules/common/globalStyles/app.scss";
@@ -21,17 +23,27 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <AuthContextProvider>
     <GlobalState>
-      <CartContextProvider>
-        <Router>
-          <Routes>
-            <Route path={ROUTES.PRODUCTS_LIST} element={<ProductsListPage />} />
-            <Route path={ROUTES.PRODUCT_INFO} element={<ProductInfoPage />} />
-            <Route path={ROUTES.ORDERS_LIST} element={<OrdersListPage />} />
-            <Route path={ROUTES.CART} element={<CartPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Router>
-      </CartContextProvider>
+      <UserDataProvider>
+        <OrdersProvider>
+          <CartContextProvider>
+            <Router>
+              <Routes>
+                <Route
+                  path={ROUTES.PRODUCTS_LIST}
+                  element={<ProductsListPage />}
+                />
+                <Route
+                  path={ROUTES.PRODUCT_INFO}
+                  element={<ProductInfoPage />}
+                />
+                <Route path={ROUTES.ORDERS_LIST} element={<OrdersListPage />} />
+                <Route path={ROUTES.CART} element={<CartPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Router>
+          </CartContextProvider>
+        </OrdersProvider>
+      </UserDataProvider>
     </GlobalState>
   </AuthContextProvider>
 );

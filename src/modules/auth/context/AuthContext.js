@@ -15,14 +15,14 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     checkUser((user) => setUser(user));
-  }, []);
+  }, [user]);
 
   const signUp = async (email, password) => {
     try {
       const data = await createUser(email, password);
       setUser(data);
     } catch (error) {
-      if(error.code === 'auth/email-already-in-use') {
+      if (error.code === "auth/email-already-in-use") {
         notification.error({
           message: "Не вдалося зареєструватися",
           description: "Користувач з таким Email вже існує",
@@ -41,10 +41,17 @@ export const AuthContextProvider = ({ children }) => {
       const data = await loginUser(email, password);
       setUser(data);
     } catch (error) {
-      notification.error({
-        message: "Паролі не співпадають",
-        description: "Будь-ласка перевірте чи співпадають паролі в обох полях",
-      });
+      if (error.code === "auth/user-not-found") {
+        notification.error({
+          message: "Не вдалося увійти",
+          description: "Такого користувача не знайдено",
+        });
+      } else {
+        notification.error({
+          message: "Не вдалося увійти",
+          description: "На жаль не вдалося увійти, спробуйте пізніше",
+        });
+      }
     }
   };
 

@@ -34,7 +34,7 @@ const SignUpForm = ({ goToSignIn, closeModal }) => {
         initialValues={{ email: "", password: "", confirmPpassword: "" }}
         onSubmit={handleSubmit}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email().required("Email is Required"),
+          email: Yup.string().email().required("Email є обов'язковим"),
           password: Yup.string()
             .required("Пароль є обов'язковим")
             .min(8, "Пароль має бути не меньше 8 символів.")

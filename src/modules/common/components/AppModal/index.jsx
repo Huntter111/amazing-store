@@ -1,8 +1,14 @@
 import { Modal } from "antd";
 
-const AppModal = ({ children, isOpen, onCancel }) => {
+const AppModal = ({ children, isOpen, onCancel, className }) => {
   return (
-    <Modal closable={false} footer={false} open={isOpen} onCancel={onCancel}>
+    <Modal
+      className={className}
+      closable={false}
+      footer={false}
+      open={isOpen}
+      onCancel={onCancel}
+    >
       {children}
     </Modal>
   );
