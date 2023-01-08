@@ -1,0 +1,35 @@
+@import "../../globalStyles/colors.scss";
+
+.primaryButton {
+  border: 1px solid $gold !important;
+  color: $black !important;
+  background: $gold !important;
+  min-width: 100px;
+
+  &:hover {
+    background: none!important;
+    border: 1px solid $gold !important;
+    color: $gold !important;
+  }
+}
+
+.defaultButton {
+  border: 1px solid $gold !important;
+  background: none !important;
+  color: $gold !important;
+  min-width: 100px;
+
+  &:hover {
+    background: $gold!important;
+    color: $black !important;
+  }
+}
+
+.disabledButton {
+  opacity: 0.5;
+
+  &:hover {
+    background: inherit;
+    opacity: 0.5;
+  }
+}

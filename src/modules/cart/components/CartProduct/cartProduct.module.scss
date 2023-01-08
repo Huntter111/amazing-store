@@ -1,0 +1,57 @@
+@import '../../../common/globalStyles/colors.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  margin: 10px auto;
+  background-color: white;
+  padding: 5px;
+}
+
+.title {
+  width: 200px;
+}
+
+.type {
+  width: 100px;
+}
+
+.lazyImageWrapper {
+  width: 120px;
+  height: 80px;
+}
+
+.price {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.priceName,
+.priceAmount {
+  font-size: 15px;
+}
+
+.priceName {
+  margin: 0 5px;
+}
+
+.priceAmount {
+  text-align: right;
+  font-weight: bold;
+  align-self: flex-end;
+}
+
+.deleteIcon {
+  font-size: 20px;
+  margin: 0 30px;
+  cursor: pointer;
+
+  & > svg {
+    fill: $red;
+  }
+}

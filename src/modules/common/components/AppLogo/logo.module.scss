@@ -1,0 +1,9 @@
+@import "../../globalStyles/fonts.scss";
+@import "../../globalStyles/colors.scss";
+
+.logo {
+  font-family: $fredocaOne;
+  font-size: 30px;
+  color: $gold;
+  line-height: 30px;
+}

@@ -1,0 +1,46 @@
+@import "../../../common/globalStyles/colors.scss";
+
+.card {
+  width: 100%;
+  margin: 10px 0!important;
+}
+
+.pricesWrapper {
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid $gold;
+  min-height: 158px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.description {
+  height: 160px;
+}
+
+.priceButton {
+  font-size: 22px!important;
+  width: 64px!important;
+  min-width: 64px!important;
+  height: 42px!important;
+}
+
+.priceName,
+.priceAmount {
+  font-size: 15px;
+}
+
+.priceName {
+  margin: 0 5px;
+}
+
+.priceAmount {
+  text-align: right;
+  width: 70px;
+  font-weight: bold;
+}

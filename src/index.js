@@ -1,17 +1,51 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom/client";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { ROUTES } from "./routes";
+import { OrdersListPage } from "./modules/orders";
+import { ProductsListPage, ProductInfoPage } from "./modules/products";
+import { CartPage } from "./modules/cart";
+import NotFoundPage from "./modules/common/pages/NotFound";
+import "antd/dist/antd.min.css";
+import reportWebVitals from "./reportWebVitals";
+import { AuthContextProvider } from "./modules/auth/context/AuthContext";
+import { CartContextProvider } from "./modules/cart/context/CartContext";
+import { OrdersProvider } from "./modules/orders/context/OrdersContext";
+import { UserDataProvider } from "./modules/auth/context/UserDataContext";
+import GlobalState from "./modules/common/context";
+import "./modules/common/globalStyles/antd.scss";
+import "./modules/common/globalStyles/app.scss";
+
+const container = document.getElementById("root");
+const root = ReactDOM.createRoot(container);
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <AuthContextProvider>
+    <GlobalState>
+      <UserDataProvider>
+        <OrdersProvider>
+          <CartContextProvider>
+            <Router>
+              <Routes>
+                <Route
+                  path={ROUTES.PRODUCTS_LIST}
+                  element={<ProductsListPage />}
+                />
+                <Route
+                  path={ROUTES.PRODUCT_INFO}
+                  element={<ProductInfoPage />}
+                />
+                <Route path={ROUTES.ORDERS_LIST} element={<OrdersListPage />} />
+                <Route path={ROUTES.CART} element={<CartPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Router>
+          </CartContextProvider>
+        </OrdersProvider>
+      </UserDataProvider>
+    </GlobalState>
+  </AuthContextProvider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

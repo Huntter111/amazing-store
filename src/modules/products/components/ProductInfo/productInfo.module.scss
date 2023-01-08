@@ -1,0 +1,99 @@
+@import "../../../common/globalStyles/colors.scss";
+
+.breadcrumbs {
+  margin-bottom: 20px !important;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  background-color: $white;
+}
+
+.info {
+  width: 45%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 30px;
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 350px;
+  width: 60%;
+  margin: 5px 0;
+}
+
+.priceButton {
+  font-size: 22px !important;
+  width: 120px !important;
+  min-width: 64px !important;
+  height: 45px !important;
+}
+
+.drinkIcon {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.priceName,
+.priceAmount {
+  font-size: 17px;
+}
+
+.priceName {
+  margin: 0 5px;
+}
+
+.priceAmount {
+  text-align: right;
+  width: 100px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 900px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .info {
+    width: 100%;
+  }
+
+  .price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 150px;
+    width: 270px;
+    margin: 5px 0;
+  }
+
+  .priceButton {
+    font-size: 16px !important;
+    width: 60px !important;
+    min-width: 54px !important;
+    height: 40px !important;
+  }
+
+  .priceName,
+  .priceAmount {
+    font-size: 15px;
+  }
+
+  .priceAmount {
+    margin-right: 30px;
+  }
+}
