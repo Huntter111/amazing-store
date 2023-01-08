@@ -102,7 +102,7 @@ const OrderForm = ({ closeModal, clearCart }) => {
         onSubmit={handleSubmit}
         validationSchema={Yup.object().shape({
           firstName: Yup.string().required("Iм'я є обов'язковим"),
-          lastName: Yup.string().required("Iм'я по батькові є обов'язковим"),
+          lastName: Yup.string().required("Прізвище є обов'язковим"),
           email: Yup.string().email().required("Email є обов'язковим"),
           phone: Yup.string().required("Телефон є обов'язковим"),
           city: Yup.string().required("Місто є обов'язковим"),
@@ -137,8 +137,8 @@ const OrderForm = ({ closeModal, clearCart }) => {
               <InputField
                 type="lastName"
                 name="lastName"
-                title="По батькові"
-                placeholder="По батькові"
+                title="Прізвище"
+                placeholder="Прізвище"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.lastName}
