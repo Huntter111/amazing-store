@@ -32,7 +32,7 @@ const AppHeader = () => {
               <AppButton
                 className={styles.cartButton}
                 type={BUTTON_TYPE.DEFAULT}
-                name={"Корзина"}
+                name={"Кошик"}
                 onClick={() => navigate(ROUTES.CART)}
               />
               {isShowCartProductCount && (

@@ -7,7 +7,16 @@ const useUsersDB = () => {
   const usersRef = collection(db, "users");
 
   const createUserData = async (data) => {
-    await addDoc(usersRef, data);
+    const userData = await getDocs(usersRef);
+    const formatedData = userData.docs.map((doc) => ({
+      ...doc.data(),
+    }));
+
+    const isExist = formatedData.find(
+      (userInfo) => userInfo.email === data.email
+    );
+
+    !isExist && await addDoc(usersRef, data);
   };
 
   const getUserData = async (email) => {
