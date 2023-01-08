@@ -30,7 +30,7 @@ const CartProductsList = () => {
         <Breadcrumb.Item href={ROUTES.PRODUCTS_LIST}>
           Список продуктів
         </Breadcrumb.Item>
-        <Breadcrumb.Item>Корзина</Breadcrumb.Item>
+        <Breadcrumb.Item>Кошик</Breadcrumb.Item>
       </Breadcrumb>
       <div className={styles.cartListWrapper}>
         {cart.map(({ id, count, description, price, title, type, url }) => {
