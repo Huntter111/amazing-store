@@ -12,11 +12,14 @@ import { useUserAuth } from "../../../auth/context/AuthContext";
 import { AUTH_FORM_TYPE } from "../../constants";
 import { ROUTES } from "../../../../routes";
 import { useCart } from "../../../cart/context/CartContext";
+import { useMedia } from "../../hooks/useMedia";
+import MobileMenu from "../MobileMenu";
 
 const AppHeader = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [authFormType, setAuthFormType] = useState(AUTH_FORM_TYPE.SIGN_IN);
   const { user, signOut } = useUserAuth();
+  const { isLarge, isMedium, isSmall, isXlarge, ref: headerRef } = useMedia();
   const navigate = useNavigate();
   const { cart } = useCart();
 
@@ -25,8 +28,9 @@ const AppHeader = () => {
       const isShowCartProductCount = cart.length >= 1;
 
       return (
-        <header className={styles.header}>
+        <header className={styles.header} ref={headerRef}>
           <AppLogo />
+          <MobileMenu />
           <div className={styles.headerControl}>
             <div className={styles.cartButtonWrapper}>
               <AppButton
