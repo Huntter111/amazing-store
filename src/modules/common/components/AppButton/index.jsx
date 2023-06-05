@@ -1,9 +1,9 @@
-import { Button } from 'antd'
-import { BUTTON_TYPE } from '../../constants'
-import React from 'react'
-import styles from './button.module.scss'
+import { Button } from "antd";
+import { BUTTON_TYPE } from "../../constants";
+import React from "react";
+import styles from "./button.module.scss";
 
-const AppButton = ({ type, name, className, onClick, disabled, ...props }) => {
+const AppButton = ({ type, name, className, onClick, disabled }) => {
   if (type === BUTTON_TYPE.PRIMARY) {
     return (
       <Button
@@ -12,11 +12,10 @@ const AppButton = ({ type, name, className, onClick, disabled, ...props }) => {
           disabled ? styles.disabledButton : styles.primaryButton
         } ${className}`}
         onClick={onClick}
-        {...props}
       >
         {name}
       </Button>
-    )
+    );
   }
   if (type === BUTTON_TYPE.DEFAULT) {
     return (
@@ -26,12 +25,11 @@ const AppButton = ({ type, name, className, onClick, disabled, ...props }) => {
           disabled ? styles.disabledButton : styles.defaultButton
         } ${className}`}
         onClick={onClick}
-        {...props}
       >
         {name}
       </Button>
-    )
+    );
   }
-}
+};
 
-export default AppButton
+export default AppButton;
