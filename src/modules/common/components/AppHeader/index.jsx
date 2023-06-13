@@ -2,27 +2,28 @@ import React, { useMemo, useState } from 'react'
 import { UserOutlined } from '@ant-design/icons'
 import { Avatar, Popconfirm } from 'antd'
 import { useNavigate } from 'react-router-dom'
-
-import AppButton from '../AppButton'
-import AppLogo from '../AppLogo'
-import { useModal } from '../AppModal'
-import styles from './header.module.scss'
-import { BUTTON_TYPE } from '../../constants'
-import AuthModal from '../../../auth/components/AuthModal'
-import { useUserAuth } from '../../../auth/context/AuthContext'
-import { AUTH_FORM_TYPE } from '../../constants'
-import { ROUTES } from '../../../../routes'
-import { useCart } from '../../../cart/context/CartContext'
+import AppButton from "../AppButton";
+import AppLogo from "../AppLogo";
+import styles from "./header.module.scss";
+import { BUTTON_TYPE } from "../../constants";
+import AuthModal from "../../../auth/components/AuthModal";
+import { useUserAuth } from "../../../auth/context/AuthContext";
+import { AUTH_FORM_TYPE } from "../../constants";
+import { ROUTES } from "../../../../routes";
+import { useCart } from "../../../cart/context/CartContext";
+import { useMedia } from "../../hooks/useMedia";
+import MobileMenu from "../MobileMenu";
 import { HelperModal } from '../../../helper/HelperModal'
 
 const AppHeader = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false)
-  const [authFormType, setAuthFormType] = useState(AUTH_FORM_TYPE.SIGN_IN)
-  const { user, signOut } = useUserAuth()
-  const navigate = useNavigate()
-  const { cart } = useCart()
-
-  const {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [authFormType, setAuthFormType] = useState(AUTH_FORM_TYPE.SIGN_IN);
+  const { user, signOut } = useUserAuth();
+  const { isLarge, isMedium, isSmall, isXlarge, ref: headerRef } = useMedia();
+  const navigate = useNavigate();
+  const { cart } = useCart();
+  
+    const {
     isOpen: isOpenHelper,
     openModal: openHelper,
     closeModal: closeHelper,
@@ -33,8 +34,9 @@ const AppHeader = () => {
       const isShowCartProductCount = cart.length >= 1
 
       return (
-        <header className={styles.header}>
+        <header className={styles.header} ref={headerRef}>
           <AppLogo />
+          <MobileMenu />
           <div className={styles.headerControl}>
             <div className={styles.cartButtonWrapper}>
               <AppButton
