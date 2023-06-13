@@ -18,3 +18,18 @@
 .ant-card-meta-title {
   font-size: 24px;
 }
+
+.ant-drawer-content-wrapper {
+  height: 300px !important;
+
+  .ant-drawer-content {
+    background-color: $black !important;
+    color: $white;
+  }
+  .anticon-close > svg {
+    fill: $gold;
+  }
+  .ant-drawer-title {
+    text-align: right;
+  }
+}
