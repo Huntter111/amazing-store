@@ -1,4 +1,5 @@
 export const TYPES = {
+  sets: 'sets',
   product: 'product',
   productSize: 'productSize',
   productCost: 'productCost',
@@ -7,32 +8,32 @@ export const TYPES = {
 }
 
 export const SINGLE_PRODUCT = {
-  pizza: { value: 'pizza', label: 'Пицца' },
+  pizza: { value: 'pizza', label: 'Піцца' },
   burger: { value: 'burger', label: 'Бургер' },
   bowl: { value: 'bowl', label: 'Боул' },
-  sushi: { value: 'sushi', label: 'Суши' },
+  sushi: { value: 'sushi', label: 'Суші' },
   donner: { value: 'donner', label: 'Донер' },
   tacos: { value: 'tacos', label: 'Тако' },
 }
 
 export const SET_PRODUCTS = {
-  PIZZA_MENU: { value: 'pizza menu', label: 'Пицца меню' },
-  BURGER_MENU: { value: 'burger menu', label: 'Бургер меню' },
-  BOWL_MENU: { value: 'bowl menu', label: 'Боул меню' },
-  SUSHI_MENU: { value: 'sushi menu', label: 'Суши меню' },
-  DONNER_MENU: { value: 'donner menu', label: 'Донер меню' },
-  TACOS_MENU: { value: 'tacos menu', label: 'Тако меню' },
+  PIZZA_MENU: { value: 'pizzaMenu', label: 'Піцца меню' },
+  BURGER_MENU: { value: 'burgerMenu', label: 'Бургер меню' },
+  BOWL_MENU: { value: 'bowlMenu', label: 'Боул меню' },
+  SUSHI_MENU: { value: 'sushiMenu', label: 'Суші меню' },
+  DONNER_MENU: { value: 'donnerMenu', label: 'Донер меню' },
+  TACOS_MENU: { value: 'tacosMenu', label: 'Тако меню' },
 }
 
 export const PRODUCT_SIZE = {
   small: { value: 'small', label: 'Маленький' },
-  medium: { value: 'medium', label: 'Средний' },
-  big: { value: 'big', label: 'Большой' },
+  medium: { value: 'medium', label: 'Средній' },
+  big: { value: 'big', label: 'Великий' },
 }
 
 export const PRODUCT_COST = {
-  premium: { value: 'premium', label: 'Премиум' },
-  middle: { value: 'middle', label: 'Средний' },
+  premium: { value: 'premium', label: 'Преміум' },
+  middle: { value: 'middle', label: 'Середній' },
 }
 
 export const DRINK_PRODUCTS = {
@@ -43,7 +44,7 @@ export const DRINK_PRODUCTS = {
   fanta: { value: 'fanta', label: 'Фанта' },
   beer: { value: 'beer', label: 'Пиво' },
   juices: { value: 'juices', label: 'Соки' },
-  cocktail: { value: 'cocktail', label: 'Коктейли' },
+  cocktail: { value: 'cocktail', label: 'Коктейлі' },
 }
 
 export const DRINK_SIZE = PRODUCT_SIZE
@@ -56,8 +57,8 @@ export const STEPS = {
 }
 
 export const TEXTS = {
-  [TYPES.productSize]: { title: 'Выберите размер блюда' },
-  [TYPES.productCost]: { title: 'Выберите ценовой диапазон' },
-  [TYPES.drinkProduct]: { title: 'Выберите напиток' },
-  [TYPES.drinkSize]: { title: 'Выберите размер напитка' },
+  [TYPES.productSize]: { title: 'Оберіть розмір продукту' },
+  [TYPES.productCost]: { title: 'Оберіть ціновий діапазон' },
+  [TYPES.drinkProduct]: { title: 'Оберіть напій' },
+  [TYPES.drinkSize]: { title: 'Оберіть розмір напою' },
 }

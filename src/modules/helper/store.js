@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-export const useHelperStore = create((set, get) => ({
+export const useHelperStore = create((set) => ({
   current: 0,
   answers: {
     sets: null,
@@ -18,8 +18,4 @@ export const useHelperStore = create((set, get) => ({
     set(state => ({
       current: state.current - 1,
     })),
-  done: () => {
-    const answers = get().answers
-    alert(JSON.stringify(answers, null, 4))
-  },
 }))
