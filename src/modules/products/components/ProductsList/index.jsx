@@ -88,9 +88,6 @@ const ProductsList = () => {
         return 0;
       });
 
-    console.log("products", products);
-    console.log("productsIncludeHelper", productsByPriceAndSizeIncludeHelper);
-
     const productsByType = productsByPriceAndSizeIncludeHelper.filter(({ type }) => {
       if (filter.type === "ALL") return true;
       return type[0].fields.name === filter.type;
