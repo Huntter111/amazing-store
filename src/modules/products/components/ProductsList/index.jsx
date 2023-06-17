@@ -6,7 +6,7 @@ import { debounce } from "lodash";
 
 import { useGlobalContext } from "../../../common/context";
 import ProductCard from "../ProductCard";
-
+import { useUserData } from "../../../auth/context/UserDataContext";
 import { PRODUCT_TYPES } from "../../constants";
 import styles from "./productList.module.scss";
 
@@ -14,6 +14,7 @@ const { Option } = Select;
 
 const ProductsList = () => {
   const { products } = useGlobalContext();
+  const { userData } = useUserData();
   const [filter, setFilter] = useState({ name: null, type: "ALL" });
 
   const productTypes = useMemo(() => {
@@ -47,10 +48,50 @@ const ProductsList = () => {
     [filter]
   );
 
-  const productFiltered = useMemo(() => {
+  const filteredProducts = useMemo(() => {
     if (!products) return [];
 
-    const productsByType = products.filter(({ type }) => {
+    const productsByTypeIncludeHelper = userData?.helperData
+      ? products.sort((prevItem, nextItem) => {
+          const { drinkProduct, product } = userData?.helperData;
+
+          const matchCondition = (item) => {
+            return item.type.some(
+              (_) =>
+                _?.fields?.type === drinkProduct || _?.fields?.type === product
+            );
+          };
+
+          if (matchCondition(prevItem) && !matchCondition(nextItem)) return -1;
+          if (!matchCondition(prevItem) && matchCondition(nextItem)) return 1;
+          return 0;
+        })
+      : products;
+
+    const productsByPriceAndSizeIncludeHelper =
+      productsByTypeIncludeHelper.sort((prevItem, nextItem) => {
+        const { drinkSize, drinkCost, productCost, productSize } =
+          userData?.helperData;
+
+        const matchCondition = (item) => {
+          return item.price.some(
+            (_) =>
+              (drinkSize === _?.fields?.sizeType &&
+                drinkCost === _?.fields?.type) ||
+              (productSize === _?.fields?.sizeType &&
+                productCost === _?.fields?.type)
+          );
+        };
+
+        if (matchCondition(prevItem) && !matchCondition(nextItem)) return -1;
+        if (!matchCondition(prevItem) && matchCondition(nextItem)) return 1;
+        return 0;
+      });
+
+    console.log("products", products);
+    console.log("productsIncludeHelper", productsByPriceAndSizeIncludeHelper);
+
+    const productsByType = productsByPriceAndSizeIncludeHelper.filter(({ type }) => {
       if (filter.type === "ALL") return true;
       return type[0].fields.name === filter.type;
     });
@@ -89,7 +130,7 @@ const ProductsList = () => {
           </Select>
         </div>
         <Row gutter={24}>
-          {productFiltered?.map(
+          {filteredProducts?.map(
             ({ id, name, description, type, images, price }) => (
               <Col key={id} className="row" lg={6} sm={12} xs={24}>
                 <ProductCard
@@ -106,7 +147,7 @@ const ProductsList = () => {
         </Row>
       </>
     );
-  }, [productFiltered]);
+  }, [filteredProducts]);
 };
 
 export default ProductsList;

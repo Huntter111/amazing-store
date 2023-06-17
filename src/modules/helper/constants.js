@@ -5,6 +5,7 @@ export const TYPES = {
   productCost: 'productCost',
   drinkProduct: 'drinkProduct',
   drinkSize: 'drinkSize',
+  drinkCost: 'drinkCost',
 }
 
 export const SINGLE_PRODUCT = {
@@ -34,6 +35,7 @@ export const PRODUCT_SIZE = {
 export const PRODUCT_COST = {
   premium: { value: 'premium', label: 'Преміум' },
   middle: { value: 'middle', label: 'Середній' },
+  cheap: { value: 'cheap', label: 'Дешевий' },
 }
 
 export const DRINK_PRODUCTS = {
@@ -48,12 +50,14 @@ export const DRINK_PRODUCTS = {
 }
 
 export const DRINK_SIZE = PRODUCT_SIZE
+export const DRINK_COST = PRODUCT_COST
 
 export const STEPS = {
   [TYPES.productSize]: PRODUCT_SIZE,
   [TYPES.productCost]: PRODUCT_COST,
   [TYPES.drinkProduct]: DRINK_PRODUCTS,
   [TYPES.drinkSize]: DRINK_SIZE,
+  [TYPES.drinkCost]: DRINK_COST,
 }
 
 export const TEXTS = {
@@ -61,4 +65,5 @@ export const TEXTS = {
   [TYPES.productCost]: { title: 'Оберіть ціновий діапазон' },
   [TYPES.drinkProduct]: { title: 'Оберіть напій' },
   [TYPES.drinkSize]: { title: 'Оберіть розмір напою' },
+  [TYPES.drinkCost]: { title: 'Оберіть ціновий діапазон' },
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Popconfirm } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -16,11 +16,13 @@ import { useCart } from "../../../cart/context/CartContext";
 // import MobileMenu from "../MobileMenu";
 import { HelperModal } from "../../../helper/HelperModal";
 import { useModal } from "../AppModal";
+import { useUserData } from "../../../auth/context/UserDataContext";
 
 const AppHeader = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [authFormType, setAuthFormType] = useState(AUTH_FORM_TYPE.SIGN_IN);
   const { user, signOut } = useUserAuth();
+  const { userData, getUserDataInfo } = useUserData();
   //TODO: when mobile will need
   // const { isLarge, isMedium, isSmall, isXlarge, ref: headerRef } = useMedia();
   const navigate = useNavigate();
@@ -31,6 +33,11 @@ const AppHeader = () => {
     openModal: openHelper,
     closeModal: closeHelper,
   } = useModal();
+
+  useEffect(() => {
+    user && getUserDataInfo(user.email);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
 
   return useMemo(
     () => {
@@ -71,7 +78,7 @@ const AppHeader = () => {
                   onClick={() => navigate(`${ROUTES.ORDERS_LIST}`)}
                 />
                 <AppButton
-                  className={styles.btn}
+                  className={userData?.helperData ? styles.activeBtn : styles.btn}
                   type={BUTTON_TYPE.DEFAULT}
                   name={"Помічник"}
                   onClick={openHelper}
@@ -114,6 +121,7 @@ const AppHeader = () => {
       isOpenHelper,
       openHelper,
       closeHelper,
+      userData
     ]
   );
 };

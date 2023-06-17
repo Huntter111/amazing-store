@@ -33,6 +33,13 @@
   margin: 0 10px;
 }
 
+.activeBtn {
+  margin: 0 10px;
+  background-color: $green!important;
+  border: 1px solid $green!important;
+  color: $black!important;
+}
+
 .cartProductCount {
   position: absolute;
   bottom: -5px;

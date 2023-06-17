@@ -9,9 +9,7 @@ import { ProductStep } from "./ProductStep";
 import { Step } from "./Step";
 import { TYPES } from "./constants";
 import styles from "./helper.module.scss";
-import { useUserAuth } from "../auth/context/AuthContext";
 import { useUserData } from "../auth/context/UserDataContext";
-import { useEffect } from "react";
 
 const steps = [
   { content: <FirstStep type={TYPES.sets} /> },
@@ -34,14 +32,8 @@ const stepsOrder = [
 export const HelperModal = ({ isOpenModal, closeHelper }) => {
   const store = useHelperStore((state) => state);
   const { current, next, prev, answers } = store;
-  const { user } = useUserAuth();
-  const { userData, getUserDataInfo, updateUserDataInfo } = useUserData();
+  const { userData, updateUserDataInfo } = useUserData();
   const currentAnswerValue = store.answers[stepsOrder[current]];
-
-  useEffect(() => {
-    user && getUserDataInfo(user.email);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
   return (
     <AppModal
