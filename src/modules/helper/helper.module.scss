@@ -1,0 +1,16 @@
+.appModal {
+  & > div:nth-child(2) {
+    height: 440px !important;
+    position: relative;
+  }
+}
+
+.control {
+  position: absolute;
+  bottom: 24px;
+}
+
+.content {
+  text-align: center;
+  margin-top: 16px;
+}

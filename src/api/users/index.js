@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { db, collection, getDocs, addDoc } from "../";
+import { db, collection, getDocs, addDoc, updateDoc, doc } from "../";
 
 const useUsersDB = () => {
   const [userData, setUserData] = useState(null);
@@ -32,7 +32,12 @@ const useUsersDB = () => {
     setUserData(userByEmail);
   };
 
-  return { userData, createUserData, getUserData };
+  const updateUserData = async (id, data) => {
+    const userDoc = doc(db, "users", id);
+    await updateDoc(userDoc, data);
+  }
+
+  return { userData, createUserData, getUserData, updateUserData };
 };
 
 export default useUsersDB;
