@@ -68,30 +68,33 @@ const ProductsList = () => {
         })
       : products;
 
-    const productsByPriceAndSizeIncludeHelper =
-      productsByTypeIncludeHelper.sort((prevItem, nextItem) => {
-        const { drinkSize, drinkCost, productCost, productSize } =
-          userData?.helperData;
+    const productsByPriceAndSizeIncludeHelper = userData?.helperData
+      ? productsByTypeIncludeHelper.sort((prevItem, nextItem) => {
+          const { drinkSize, drinkCost, productCost, productSize } =
+            userData?.helperData;
 
-        const matchCondition = (item) => {
-          return item.price.some(
-            (_) =>
-              (drinkSize === _?.fields?.sizeType &&
-                drinkCost === _?.fields?.type) ||
-              (productSize === _?.fields?.sizeType &&
-                productCost === _?.fields?.type)
-          );
-        };
+          const matchCondition = (item) => {
+            return item.price.some(
+              (_) =>
+                (drinkSize === _?.fields?.sizeType &&
+                  drinkCost === _?.fields?.type) ||
+                (productSize === _?.fields?.sizeType &&
+                  productCost === _?.fields?.type)
+            );
+          };
 
-        if (matchCondition(prevItem) && !matchCondition(nextItem)) return -1;
-        if (!matchCondition(prevItem) && matchCondition(nextItem)) return 1;
-        return 0;
-      });
+          if (matchCondition(prevItem) && !matchCondition(nextItem)) return -1;
+          if (!matchCondition(prevItem) && matchCondition(nextItem)) return 1;
+          return 0;
+        })
+      : products;
 
-    const productsByType = productsByPriceAndSizeIncludeHelper.filter(({ type }) => {
-      if (filter.type === "ALL") return true;
-      return type[0].fields.name === filter.type;
-    });
+    const productsByType = productsByPriceAndSizeIncludeHelper.filter(
+      ({ type }) => {
+        if (filter.type === "ALL") return true;
+        return type[0].fields.name === filter.type;
+      }
+    );
 
     if (filter.name) {
       return productsByType.filter(({ name }) => {
