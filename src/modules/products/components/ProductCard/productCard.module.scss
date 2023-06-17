@@ -2,7 +2,13 @@
 
 .card {
   width: 100%;
-  margin: 10px 0!important;
+  margin: 10px 0 !important;
+
+  & > div:first-child {
+    width: calc(100% -2px);
+    margin: 0 auto;
+    height: 214px !important;
+  }
 }
 
 .pricesWrapper {
@@ -24,10 +30,10 @@
 }
 
 .priceButton {
-  font-size: 22px!important;
-  width: 64px!important;
-  min-width: 64px!important;
-  height: 42px!important;
+  font-size: 22px !important;
+  width: 64px !important;
+  min-width: 64px !important;
+  height: 42px !important;
 }
 
 .priceName,

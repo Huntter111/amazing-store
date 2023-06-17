@@ -9,8 +9,8 @@ export const ProductStep = ({ type }) => {
 
   const isSet = answers.sets
   const title = isSet
-    ? 'Что больше предпочитаете взять за основу?'
-    : 'Зделайте ваш выбор'
+    ? 'Що більше подобається як основна страва?'
+    : 'Зробіть вибір'
   const data = isSet
     ? Object.values(SET_PRODUCTS)
     : Object.values(SINGLE_PRODUCT)
