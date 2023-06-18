@@ -102,7 +102,7 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
               });
               closeHelper();
               notification.success({
-                message: "Помічнік відключеній",
+                message: "Помічник відключеній",
                 description:
                   "Помічнік був відключений. Якщо потрібно то ви можете його активувати у будь-який час.",
               });
