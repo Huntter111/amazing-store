@@ -18,6 +18,7 @@ const steps = [
   { content: <Step type={TYPES.productCost} /> },
   { content: <Step type={TYPES.drinkProduct} /> },
   { content: <Step type={TYPES.drinkSize} /> },
+  { content: <Step type={TYPES.drinkCost} /> },
 ];
 
 const stepsOrder = [
@@ -27,6 +28,7 @@ const stepsOrder = [
   TYPES.productCost,
   TYPES.drinkProduct,
   TYPES.drinkSize,
+  TYPES.drinkCost,
 ];
 
 export const HelperModal = ({ isOpenModal, closeHelper }) => {
@@ -41,46 +43,74 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
       onCancel={closeHelper}
       className={styles.appModal}
     >
-      <p>
-        {current + 1} / {6}
-      </p>
-      <div className={styles.content}>{steps[current].content}</div>
-      <div className={styles.control}>
-        {current > 0 && (
-          <AppButton
-            type={BUTTON_TYPE.DEFAULT}
-            onClick={prev}
-            name="Повернутися"
-            style={{ marginRight: 16 }}
-          />
-        )}
-        {console.log("ddd", store.answers[stepsOrder[current]])}
-        {current < steps.length - 1 && (
-          <AppButton
-            type={BUTTON_TYPE.PRIMARY}
-            disabled={
-              currentAnswerValue === undefined || currentAnswerValue === null
-            }
-            onClick={next}
-            name="Далі"
-          />
-        )}
-        {current === steps.length - 1 && (
+      {!userData?.helperData ? (
+        <>
+          <p>
+            {current + 1} / {7}
+          </p>
+          <div className={styles.content}>{steps[current].content}</div>
+          <div className={styles.control}>
+            {current > 0 && (
+              <AppButton
+                type={BUTTON_TYPE.DEFAULT}
+                onClick={prev}
+                name="Повернутися"
+                style={{ marginRight: 16 }}
+              />
+            )}
+            {console.log("ddd", store.answers[stepsOrder[current]])}
+            {current < steps.length - 1 && (
+              <AppButton
+                type={BUTTON_TYPE.PRIMARY}
+                disabled={
+                  currentAnswerValue === undefined ||
+                  currentAnswerValue === null
+                }
+                onClick={next}
+                name="Далі"
+              />
+            )}
+            {current === steps.length - 1 && (
+              <AppButton
+                type={BUTTON_TYPE.PRIMARY}
+                onClick={() => {
+                  updateUserDataInfo(userData.id, {
+                    ...userData,
+                    helperData: answers,
+                  });
+                  closeHelper();
+                  notification.success({
+                    message: "Дякуємо за ваш вибір",
+                    description:
+                      "Тепер вам будуть запропановані найкращі для вас продукти",
+                  });
+                }}
+                name="Завершити"
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <div className={styles.deacivateWrapper}>
+          <h2 className={styles.deacivateTitle}>Ви точно бажаєте відключити помічника?</h2>
           <AppButton
             type={BUTTON_TYPE.PRIMARY}
             onClick={() => {
-              updateUserDataInfo(userData.id, {...userData, helperData: answers});
+              updateUserDataInfo(userData.id, {
+                ...userData,
+                helperData: null,
+              });
               closeHelper();
               notification.success({
-                message: "Дякуємо за ваш вибір",
+                message: "Помічнік відключеній",
                 description:
-                  "Тепер вам будуть запропановані найкращі для вас продукти",
+                  "Помічнік був відключений. Якщо потрібно то ви можете його активувати у будь-який час.",
               });
             }}
-            name="Завершити"
+            name="Відключити помічника"
           />
-        )}
-      </div>
+        </div>
+      )}
     </AppModal>
   );
 };
