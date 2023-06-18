@@ -7,7 +7,7 @@ export const Step = ({ type }) => {
   const onChange = event => addAnswer(type, event.target.value)
   const value = answers[type]
 
-  const title = TEXTS[type]?.title || `Зделайте ваш выбор ${type}`
+  const title = TEXTS[type]?.title || `Зробіть ваш вібір ${type}`
   const data = Object.values(STEPS[type])
 
   return (

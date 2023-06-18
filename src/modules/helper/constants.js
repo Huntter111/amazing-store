@@ -28,7 +28,7 @@ export const SET_PRODUCTS = {
 
 export const PRODUCT_SIZE = {
   small: { value: 'small', label: 'Маленький' },
-  medium: { value: 'medium', label: 'Средній' },
+  medium: { value: 'medium', label: 'Середній' },
   big: { value: 'big', label: 'Великий' },
 }
 
@@ -40,12 +40,12 @@ export const PRODUCT_COST = {
 
 export const DRINK_PRODUCTS = {
   tea: { value: 'tea', label: 'Чай' },
-  coffee: { value: 'coffee', label: 'Кофе' },
+  coffee: { value: 'coffee', label: 'Кава' },
   cola: { value: 'cola', label: 'Кола' },
   sprite: { value: 'sprite', label: 'Спрайт' },
   fanta: { value: 'fanta', label: 'Фанта' },
   beer: { value: 'beer', label: 'Пиво' },
-  juices: { value: 'juices', label: 'Соки' },
+  juices: { value: 'juices', label: 'Сік' },
   cocktail: { value: 'cocktail', label: 'Коктейлі' },
 }
 
