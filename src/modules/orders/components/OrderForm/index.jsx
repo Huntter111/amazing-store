@@ -83,14 +83,14 @@ const OrderForm = ({ closeModal, clearCart }) => {
     return {
       firstName: "",
       lastName: "",
-      email: "",
+      email: user?.email || "",
       phone: "",
       city: "",
       street: "",
       house: "",
       apartment: "",
     };
-  }, [userData]);
+  }, [userData, user?.email]);
 
   return (
     <>
