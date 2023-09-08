@@ -40,7 +40,7 @@ const useUsersDB = () => {
       id: doc.id,
     }));
 
-    setUserData(formatedData);
+    setUsersData(formatedData);
   };
 
   const updateUserData = async (id, data) => {
