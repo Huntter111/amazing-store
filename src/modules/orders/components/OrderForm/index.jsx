@@ -52,7 +52,7 @@ const OrderForm = ({ closeModal, clearCart }) => {
           firstName,
           lastName,
           email,
-          phone,
+          phone
         },
         address: {
           city,
