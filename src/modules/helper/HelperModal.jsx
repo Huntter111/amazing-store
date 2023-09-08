@@ -10,6 +10,7 @@ import { Step } from "./Step";
 import { TYPES } from "./constants";
 import styles from "./helper.module.scss";
 import { useUserData } from "../auth/context/UserDataContext";
+import {useUserAuth} from "../auth/context/AuthContext";
 
 const steps = [
   { content: <FirstStep type={TYPES.sets} /> },
@@ -34,6 +35,7 @@ const stepsOrder = [
 export const HelperModal = ({ isOpenModal, closeHelper }) => {
   const store = useHelperStore((state) => state);
   const { current, next, prev, answers } = store;
+  const { user } = useUserAuth();
   const { userData, updateUserDataInfo, createUserDataInfo } = useUserData();
   const currentAnswerValue = store.answers[stepsOrder[current]];
 
@@ -79,7 +81,7 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
                       helperData: answers,
                     });
                   } else {
-                    createUserDataInfo({helperData: answers})
+                    createUserDataInfo({email: user?.email || "", helperData: answers})
                   }
                   closeHelper();
                   notification.success({
@@ -105,7 +107,7 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
                   helperData: null,
                 });
               } else {
-                createUserDataInfo({helperData: null})
+                createUserDataInfo({email: user?.email || "", helperData: answers})
               }
               closeHelper();
               notification.success({
