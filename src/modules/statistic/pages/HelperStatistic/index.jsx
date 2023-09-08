@@ -3,6 +3,7 @@ import AppLayout from '../../../common/components/AppLayout';
 import { useUserData } from '../../../auth/context/UserDataContext';
 import getCountData from '../../helpers/getCountData';
 import Chart from '../../../common/components/Chart';
+import styles from './helperStatistic.module.scss';
 
 const ProductsListPage = () => {
   const { usersData, getAllUsersDataInfo } = useUserData();
@@ -18,17 +19,19 @@ const ProductsListPage = () => {
 
   return (
     <AppLayout>
-      {graphData?.map((graphData) => {
-        return (
-          <Chart
-            dataY={graphData.data.y}
-            dataX={graphData.data.x}
-            title={graphData.title}
-            hole={graphData.hole}
-            type={graphData.graphType}
-          />
-        );
-      })}
+      <div className={styles.wrapper}>
+        {graphData?.map((graphData) => {
+          return (
+              <Chart
+                dataY={graphData.data.y}
+                dataX={graphData.data.x}
+                title={graphData.title}
+                hole={graphData.hole}
+                type={graphData.graphType}
+              />
+          );
+        })}
+      </div>
     </AppLayout>
   );
 };
