@@ -1,34 +1,38 @@
 import { SINGLE_PRODUCT, SET_PRODUCTS, DRINK_PRODUCTS } from '../../helper/constants';
-import {sum} from 'lodash';
+import { sum } from 'lodash';
+import { TYPE_CHART } from '../../common/constants';
 
 const formattedHelperConstants = (constant) => {
   return Object.values(constant).reduce((acc, item) => {
     acc[item.value] = item.label;
-    return acc
-  }, {})
-}
+    return acc;
+  }, {});
+};
 
 const countedProducts = (productsMap, data, productType) => {
   return data.reduce((acc, item) => {
     if (productsMap[item[productType]]) {
-      if(acc[item[productType]]) {
-      acc[item[productType]] = acc[item[productType]] + 1
-    } else {
-      acc[item[productType]] = 1
+      if (acc[item[productType]]) {
+        acc[item[productType]] = acc[item[productType]] + 1;
+      } else {
+        acc[item[productType]] = 1;
+      }
     }
-  }
-  return acc;
-  }, {})
-}
+    return acc;
+  }, {});
+};
 
 const generateXYObj = (productsMap, countedProducts) => {
-  return {x: Object.keys(countedProducts).map(_ => productsMap[_]), y: Object.values(countedProducts)}
-}
+  return {
+    x: Object.keys(countedProducts).map((_) => productsMap[_]),
+    y: Object.values(countedProducts),
+  };
+};
 const getCountData = (usersData) => {
   const helperData = usersData.reduce((acc, item) => {
-    if(item.helperData) return [...acc, item.helperData];
-    return acc
-  },[])
+    if (item.helperData) return [...acc, item.helperData];
+    return acc;
+  }, []);
 
   const singleProductsMap = formattedHelperConstants(SINGLE_PRODUCT);
   const setProductsMap = formattedHelperConstants(SET_PRODUCTS);
@@ -41,22 +45,34 @@ const getCountData = (usersData) => {
   const [singleProductsCountData, setProductsCountData, drinksProductsCountData] = [
     generateXYObj(singleProductsMap, countedSingleProducts),
     generateXYObj(setProductsMap, countedSetProducts),
-    generateXYObj(drinkProductsMap, countedDrinksProducts)
-  ]
+    generateXYObj(drinkProductsMap, countedDrinksProducts),
+  ];
 
-  const setsCountData =     {
-    x:['Сети', 'Не сети'],
-    y:[
-      sum(singleProductsCountData.y),
-      sum(setProductsCountData.y)
-    ]
-  }
+  const setsCountData = {
+    x: ['Сети', 'Не сети'],
+    y: [sum(singleProductsCountData.y), sum(setProductsCountData.y)],
+  };
 
   return [
-    {graphType: "bar", title: "Продаж комбінованих або одиничних продуктів", data: setsCountData},
-    {graphType: "pai", title: "Продаж комбінованих продуктів", data: singleProductsCountData},
-    {graphType: "pai", title: "Продаж одиничних продуктів", data: setProductsCountData},
-    {graphType: "pai", title: "Продаж напоїв", data: drinksProductsCountData}
-  ]
+    {
+      graphType: TYPE_CHART.BAR,
+      title: 'Продаж комбінованих або одиничних продуктів',
+      data: setsCountData,
+      hole: null,
+    },
+    {
+      graphType: TYPE_CHART.PIE,
+      title: 'Продаж комбінованих продуктів',
+      data: singleProductsCountData,
+      hole: 0.5,
+    },
+    {
+      graphType: TYPE_CHART.PIE,
+      title: 'Продаж одиничних продуктів',
+      data: setProductsCountData,
+      hole: 0.5,
+    },
+    { graphType: TYPE_CHART.PIE, title: 'Продаж напоїв', data: drinksProductsCountData, hole: 0.5 },
+  ];
 };
 export default getCountData;
