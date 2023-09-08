@@ -6,7 +6,7 @@ import useUsersDB from "../../../api/users";
 const UserDataContext = createContext();
 
 export const UserDataProvider = ({ children }) => {
-  const { userData, createUserData, getUserData, updateUserData } = useUsersDB();
+  const { userData, usersData, createUserData, getUserData, getAllUsersData, updateUserData } = useUsersDB();
 
   const getUserDataInfo = async (email) => {
     try {
@@ -16,6 +16,18 @@ export const UserDataProvider = ({ children }) => {
         message: "Не вдалося отримати даних користувача",
         description:
           "На жаль не вдалося отримати даних користувача, спробуйте пізніше",
+      });
+    }
+  };
+
+  const getAllUsersDataInfo = async (email) => {
+    try {
+      await getAllUsersData();
+    } catch (error) {
+      notification.error({
+        message: "Не вдалося отримати даних користувачів",
+        description:
+          "На жаль не вдалося отримати даних користувачів, спробуйте пізніше",
       });
     }
   };
@@ -45,7 +57,7 @@ export const UserDataProvider = ({ children }) => {
   };
 
   return (
-    <UserDataContext.Provider value={{ userData, getUserDataInfo, createUserDataInfo, updateUserDataInfo }}>
+    <UserDataContext.Provider value={{ userData, usersData, getUserDataInfo, getAllUsersDataInfo, createUserDataInfo, updateUserDataInfo }}>
       {children}
     </UserDataContext.Provider>
   );

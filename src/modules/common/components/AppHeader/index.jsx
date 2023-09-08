@@ -72,7 +72,7 @@ const AppHeader = () => {
               />
             ) : (
               <div>
-                {user?.role === 'admin' && <AppButton
+                {userData?.role === 'admin' && <AppButton
                   type={BUTTON_TYPE.DEFAULT}
                   name={"Кабінет"}
                   onClick={() => navigate(`${ROUTES.HELPER_STATISTIC}`)}

@@ -3,6 +3,7 @@ import { db, collection, getDocs, addDoc, updateDoc, doc } from "../";
 
 const useUsersDB = () => {
   const [userData, setUserData] = useState(null);
+  const [usersData, setUsersData] = useState(null);
 
   const usersRef = collection(db, "users");
 
@@ -32,12 +33,22 @@ const useUsersDB = () => {
     setUserData(userByEmail);
   };
 
+  const getAllUsersData = async () => {
+    const data = await getDocs(usersRef);
+    const formatedData = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+
+    setUserData(formatedData);
+  };
+
   const updateUserData = async (id, data) => {
     const userDoc = doc(db, "users", id);
     await updateDoc(userDoc, data);
   }
 
-  return { userData, createUserData, getUserData, updateUserData };
+  return { userData, usersData, createUserData, getUserData, getAllUsersData, updateUserData };
 };
 
 export default useUsersDB;
