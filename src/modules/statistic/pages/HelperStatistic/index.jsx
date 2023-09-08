@@ -8,8 +8,11 @@ const ProductsListPage = () => {
 
   useEffect(() => {
     getAllUsersDataInfo();
-    getCountData(usersData);
   }, []);
+
+  useEffect(() => {
+    usersData && getCountData(usersData);
+  }, [usersData]);
 
   return <AppLayout></AppLayout>;
 };
