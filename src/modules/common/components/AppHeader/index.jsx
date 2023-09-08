@@ -74,6 +74,12 @@ const AppHeader = () => {
               <div>
                 <AppButton
                   type={BUTTON_TYPE.DEFAULT}
+                  name={"Кабінет"}
+                  onClick={() => navigate(`${ROUTES.HELPER_STATISTIC}`)}
+                />
+                <AppButton
+                  type={BUTTON_TYPE.DEFAULT}
+                  className={styles.btn}
                   name={"Мої замовлення"}
                   onClick={() => navigate(`${ROUTES.ORDERS_LIST}`)}
                 />
