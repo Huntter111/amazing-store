@@ -19,7 +19,6 @@ const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) =
   }, [menuState, data]);
 
   const SelectWithOptions = useMemo(() => {
-    console.log(menuState, 'menuState');
     return (
       <Select placeholder="Тип продукту" value={menuState} className={styles.select} onChange={handlerChangeState}>
         <Option value="all" key="all">
