@@ -11,7 +11,3 @@ export const COMPONENT_TITLES = {
   SINGLES_PRODUCTS_TITLE: 'Одиничнi продукти',
   SETS_PRODUCTS_TITLE: 'Комбiнованi продукти ',
 };
-export const PRODUCTS_TYPE = {
-  FOOD: 'FOOD',
-  DRINKS: 'DRINK'
-};
