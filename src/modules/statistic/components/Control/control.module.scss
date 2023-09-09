@@ -1,0 +1,10 @@
+@import '../../../common/globalStyles/colors.scss';
+.wrapper {
+  display: flex;
+  justify-content: center;
+
+  .activeBtn {
+    background: $gold !important;
+    color: $black !important;
+  }
+}

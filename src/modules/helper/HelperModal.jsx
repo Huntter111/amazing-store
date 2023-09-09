@@ -10,6 +10,7 @@ import { Step } from "./Step";
 import { TYPES } from "./constants";
 import styles from "./helper.module.scss";
 import { useUserData } from "../auth/context/UserDataContext";
+import {useUserAuth} from "../auth/context/AuthContext";
 
 const steps = [
   { content: <FirstStep type={TYPES.sets} /> },
@@ -34,7 +35,8 @@ const stepsOrder = [
 export const HelperModal = ({ isOpenModal, closeHelper }) => {
   const store = useHelperStore((state) => state);
   const { current, next, prev, answers } = store;
-  const { userData, updateUserDataInfo } = useUserData();
+  const { user } = useUserAuth();
+  const { userData, updateUserDataInfo, createUserDataInfo } = useUserData();
   const currentAnswerValue = store.answers[stepsOrder[current]];
 
   return (
@@ -58,7 +60,6 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
                 style={{ marginRight: 16 }}
               />
             )}
-            {console.log("ddd", store.answers[stepsOrder[current]])}
             {current < steps.length - 1 && (
               <AppButton
                 type={BUTTON_TYPE.PRIMARY}
@@ -74,10 +75,14 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
               <AppButton
                 type={BUTTON_TYPE.PRIMARY}
                 onClick={() => {
-                  updateUserDataInfo(userData.id, {
-                    ...userData,
-                    helperData: answers,
-                  });
+                  if(userData?.id) {
+                    updateUserDataInfo(userData.id, {
+                      ...userData,
+                      helperData: answers,
+                    });
+                  } else {
+                    createUserDataInfo({email: user?.email || "", helperData: answers})
+                  }
                   closeHelper();
                   notification.success({
                     message: "Дякуємо за ваш вибір",
@@ -96,10 +101,14 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
           <AppButton
             type={BUTTON_TYPE.PRIMARY}
             onClick={() => {
-              updateUserDataInfo(userData.id, {
-                ...userData,
-                helperData: null,
-              });
+              if(userData?.id) {
+                updateUserDataInfo(userData.id, {
+                  ...userData,
+                  helperData: null,
+                });
+              } else {
+                createUserDataInfo({email: user?.email || "", helperData: answers})
+              }
               closeHelper();
               notification.success({
                 message: "Помічник відключений",
