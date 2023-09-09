@@ -34,7 +34,7 @@ const SizeAndPriceGraph = ({ data, graphType, hole }) => {
           );
         })}
       </Select>
-      <div>
+      <div className={styles.graphWrapper}>
         {graphData?.map(({ title, productCosts, productSizes }, index) => {
           const sizeTitle = `${title} (Розмiр)`;
           const costTitle = `${title} (Цiна)`;

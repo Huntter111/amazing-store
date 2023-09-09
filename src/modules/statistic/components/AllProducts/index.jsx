@@ -1,9 +1,10 @@
 import React from 'react';
 import Chart from '../../../common/components/Chart';
+import styles from './allProducts.module.scss';
 
 const AllProducts = ({ graphData }) => {
   return (
-    <div>
+    <div className={styles.graphWrapper}>
       {graphData?.map((graphData) => {
         return (
           <Chart
