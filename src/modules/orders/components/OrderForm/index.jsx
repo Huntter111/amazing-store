@@ -23,7 +23,7 @@ const OrderForm = ({ closeModal, clearCart }) => {
   const { cart } = useCart();
   const { user } = useUserAuth();
   const navigate = useNavigate();
-  const { userData, createUserDataInfo, getUserDataInfo } = useUserData();
+  const { userData, createUserDataInfo, getUserDataInfo, updateUserDataInfo } = useUserData();
   const { createOrderData } = useOrders();
   const [orderNumber, setOrderNumber] = useState(null);
 
@@ -65,6 +65,8 @@ const OrderForm = ({ closeModal, clearCart }) => {
 
       if (!userData) {
         createUserDataInfo({ ...orderData.userInfo, ...orderData.address });
+      } else {
+        updateUserDataInfo(userData?.id, { ...orderData.userInfo, ...orderData.address })
       }
 
       createOrderData(orderData);

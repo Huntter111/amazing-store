@@ -43,7 +43,9 @@ const AppHeader = () => {
         //TODO: when mobile will need
         // <header className={styles.header} ref={headerRef}>
         <header className={styles.header}>
-          <AppLogo />
+          <div className={styles.headerLogo} onClick={() => navigate(ROUTES.PRODUCTS_LIST)}>
+            <AppLogo />
+          </div>
           {/* <MobileMenu /> */}
           <div className={styles.headerControl}>
             <div className={styles.cartButtonWrapper}>
