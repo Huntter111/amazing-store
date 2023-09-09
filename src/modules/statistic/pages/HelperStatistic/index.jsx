@@ -66,7 +66,11 @@ const HelperStatisticPage = () => {
   return (
     <AppLayout>
       <div>
-        <Control setGraphStatistic={setGraphStatistic} setMenuState={setMenuState} graphStatisticKey={graphStatisticKey} />
+        <Control
+          setGraphStatistic={setGraphStatistic}
+          setMenuState={setMenuState}
+          graphStatisticKey={graphStatisticKey}
+        />
         <GraphsLayout>{getGraphComponent}</GraphsLayout>
       </div>
     </AppLayout>
