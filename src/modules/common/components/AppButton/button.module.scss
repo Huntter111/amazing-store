@@ -1,4 +1,4 @@
-@import "../../globalStyles/colors.scss";
+@import '../../globalStyles/colors.scss';
 
 .primaryButton {
   border: 1px solid $gold !important;
@@ -7,7 +7,7 @@
   min-width: 100px;
 
   &:hover {
-    background: none!important;
+    background: none !important;
     border: 1px solid $gold !important;
     color: $gold !important;
   }
@@ -20,7 +20,7 @@
   min-width: 100px;
 
   &:hover {
-    background: $gold!important;
+    background: $gold !important;
     color: $black !important;
   }
 }
