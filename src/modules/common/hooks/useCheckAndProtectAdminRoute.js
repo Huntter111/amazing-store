@@ -1,15 +1,15 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
-import {useUserData} from "../../auth/context/UserDataContext";
+import {useUserAuth} from "../../auth/context/AuthContext";
 
 export const useCheckAndProtectAdminRoute = () => {
   const navigate = useNavigate();
-  const { usersData } = useUserData();
+  const { user } = useUserAuth();
 
   useEffect(() => {
-    if(usersData?.role !== 'admin') {
+    if(user?.email !== 'admin@gmail.com') {
       navigate('/');
     }
     // eslint-disable-next-line
-  }, [usersData]);
+  }, [user]);
 }
