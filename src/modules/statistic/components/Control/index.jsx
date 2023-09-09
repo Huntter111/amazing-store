@@ -4,7 +4,7 @@ import AppButton from '../../../common/components/AppButton';
 import { BUTTON_TYPE } from '../../../common/constants/';
 import styles from './control.module.scss';
 
-const Control = ({ setGraphStatistic, graphStatisticKey }) => {
+const Control = ({ setGraphStatistic, graphStatisticKey, setMenuState }) => {
   const buttonsInfo = [
     { keyGraph: COMPONENT_TYPE.ALL_PRODUCTS, title: COMPONENT_TITLES.ALL_PRODUCTS_TITLE },
     { keyGraph: COMPONENT_TYPE.SINGLES_PRODUCTS, title: COMPONENT_TITLES.SINGLES_PRODUCTS_TITLE },
@@ -12,6 +12,7 @@ const Control = ({ setGraphStatistic, graphStatisticKey }) => {
     { keyGraph: COMPONENT_TYPE.DRINKS_PRODUCTS, title: COMPONENT_TITLES.DRINKS_PRODUCTS_TITLE },
   ];
   const hendlerChangesGraphStatistic = (key) => {
+    setMenuState('all')
     setGraphStatistic(key);
   };
 

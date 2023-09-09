@@ -34,7 +34,6 @@ const HelperStatisticPage = () => {
 
   const getGraphComponent = useMemo(() => {
     if (graphData) {
-      setMenuState('all');
       const grapComponents = {
         [COMPONENT_TYPE.ALL_PRODUCTS]: <AllProducts graphData={graphData.generalStatistic} />,
         [COMPONENT_TYPE.SINGLES_PRODUCTS]: (
@@ -67,7 +66,7 @@ const HelperStatisticPage = () => {
   return (
     <AppLayout>
       <div>
-        <Control setGraphStatistic={setGraphStatistic} graphStatisticKey={graphStatisticKey} />
+        <Control setGraphStatistic={setGraphStatistic} setMenuState={setMenuState} graphStatisticKey={graphStatisticKey} />
         <GraphsLayout>{getGraphComponent}</GraphsLayout>
       </div>
     </AppLayout>

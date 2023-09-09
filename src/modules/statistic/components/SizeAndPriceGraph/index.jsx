@@ -1,19 +1,13 @@
-import React, { useEffect, useMemo } from 'react';
+import React, {useCallback, useMemo} from 'react';
 import Chart from '../../../common/components/Chart';
-import { useState } from 'react';
 import { Select } from 'antd';
 import styles from './siezeAndPrice.module.scss';
 const { Option } = Select;
 
 const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) => {
-  const handlerChangeState = (value) => {
-    console.log(value, 'handlerChangeState');
-    console.log(menuState, setMenuState);
+  const handlerChangeState = useCallback((value) => {
     setMenuState(value);
-  };
-  useEffect(() => {
-    console.log(menuState, 'menuState');
-  }, [menuState]);
+  }, [setMenuState]);
 
   const graphData = useMemo(() => {
     if (!menuState || menuState === 'all') {
@@ -25,8 +19,9 @@ const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) =
   }, [menuState, data]);
 
   const SelectWithOptions = useMemo(() => {
+    console.log(menuState, 'menuState');
     return (
-      <Select placeholder="Тип продукту" className={styles.select} onChange={handlerChangeState}>
+      <Select placeholder="Тип продукту" value={menuState} className={styles.select} onChange={handlerChangeState}>
         <Option value="all" key="all">
           Всi продукти
         </Option>
@@ -39,7 +34,8 @@ const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) =
         })}
       </Select>
     );
-  }, [menuState, handlerChangeState]);
+    // eslint-disable-next-line
+  }, [menuState, handlerChangeState, data]);
 
   return (
     <>
@@ -48,7 +44,6 @@ const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) =
         {graphData?.map(({ title, productCosts, productSizes }, index) => {
           const sizeTitle = `${title} (Розмiр)`;
           const costTitle = `${title} (Цiна)`;
-
           return (
             <React.Fragment key={index}>
               <Chart
