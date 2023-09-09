@@ -22,7 +22,7 @@ const GlobalState = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (products && productsFromContentful && productsFromContentful.length) {
+    if (products && productsFromContentful?.length) {
       const uninitializedProducts = productsFromContentful.filter((product) => {
         const foundProduct = products.find(({ contentfulId }) =>
           isEqual(contentfulId, product.id)
@@ -47,7 +47,7 @@ const GlobalState = ({ children }) => {
   }, [products, productsFromContentful]);
 
   useEffect(() => {
-    if (products && productsFromContentful && productsFromContentful.length) {
+    if (products?.length && productsFromContentful?.length) {
       const updatedProducts = productsFromContentful
         .filter((product) => {
           const foundProduct = products.find(
@@ -98,7 +98,7 @@ const GlobalState = ({ children }) => {
   }, [products, productsFromContentful]);
 
   useEffect(() => {
-    if (products && productsFromContentful && productsFromContentful.length) {
+    if (products && productsFromContentful?.length) {
       const shouldDeleteProducts = products.filter(({ contentfulId }) => {
         const foundProduct = productsFromContentful.find((product) =>
           isEqual(contentfulId, product.id)
