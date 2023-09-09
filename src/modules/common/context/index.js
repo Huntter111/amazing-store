@@ -1,20 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useContext, useEffect, useMemo } from "react";
-import { isEqual } from "lodash";
+import { createContext, useContext, useEffect, useMemo } from 'react';
+import { isEqual } from 'lodash';
 
-import { formatProductsContentfulFirebase } from "../utils";
-import useProductsContentful from "../../../contentful/useProducts";
-import useProductsDB from "../../../api/products";
+import { formatProductsContentfulFirebase } from '../utils';
+import useProductsContentful from '../../../contentful/useProducts';
+import useProductsDB from '../../../api/products';
 
 export const GlobalContext = createContext();
 
 const GlobalState = ({ children }) => {
   const { productData } = useProductsContentful();
-  const { products, createProduct, getProducts, updateProduct, deleteProduct } =
-    useProductsDB();
+  const { products, createProduct, getProducts, updateProduct, deleteProduct } = useProductsDB();
 
   const productsFromContentful = useMemo(() => {
-    return productData ? productData.products : [];
+    return productData?.products ? productData.products : [];
   }, [productData]);
 
   useEffect(() => {
@@ -24,20 +23,13 @@ const GlobalState = ({ children }) => {
   useEffect(() => {
     if (products && productsFromContentful?.length) {
       const uninitializedProducts = productsFromContentful.filter((product) => {
-        const foundProduct = products.find(({ contentfulId }) =>
-          isEqual(contentfulId, product.id)
-        );
-
+        const foundProduct = products.find(({ contentfulId }) => isEqual(contentfulId, product.id));
         return !foundProduct;
       });
 
-      const formatedUninitializedProducts = formatProductsContentfulFirebase(
-        uninitializedProducts
-      );
+      const formatedUninitializedProducts = formatProductsContentfulFirebase(uninitializedProducts);
 
-      formatedUninitializedProducts.forEach((product) =>
-        createProduct(product)
-      );
+      formatedUninitializedProducts.forEach((product) => createProduct(product));
 
       if (uninitializedProducts.length) {
         getProducts();
@@ -47,7 +39,7 @@ const GlobalState = ({ children }) => {
   }, [products, productsFromContentful]);
 
   useEffect(() => {
-    if (products?.length && productsFromContentful?.length) {
+    if (products?.length === productsFromContentful?.length) {
       const updatedProducts = productsFromContentful
         .filter((product) => {
           const foundProduct = products.find(
@@ -57,14 +49,14 @@ const GlobalState = ({ children }) => {
               isEqual(type, product.type) &&
               isEqual(images, product.images) &&
               isEqual(name, product.name) &&
-              isEqual(price, product.price)
+              isEqual(price, product.price),
           );
 
           return !foundProduct;
         })
         .map((product) => {
           const foundProduct = products.find(({ contentfulId }) =>
-            isEqual(contentfulId, product.id)
+            isEqual(contentfulId, product.id),
           );
 
           return {
@@ -74,8 +66,7 @@ const GlobalState = ({ children }) => {
           };
         });
 
-      const formatedUpdatedProducts =
-        formatProductsContentfulFirebase(updatedProducts);
+      const formatedUpdatedProducts = formatProductsContentfulFirebase(updatedProducts);
 
       formatedUpdatedProducts.forEach((product) => {
         const updateData = {
@@ -101,7 +92,7 @@ const GlobalState = ({ children }) => {
     if (products && productsFromContentful?.length) {
       const shouldDeleteProducts = products.filter(({ contentfulId }) => {
         const foundProduct = productsFromContentful.find((product) =>
-          isEqual(contentfulId, product.id)
+          isEqual(contentfulId, product.id),
         );
 
         return !foundProduct;
@@ -116,11 +107,7 @@ const GlobalState = ({ children }) => {
     }
   }, [products, productsFromContentful]);
 
-  return (
-    <GlobalContext.Provider value={{ products }}>
-      {children}
-    </GlobalContext.Provider>
-  );
+  return <GlobalContext.Provider value={{ products }}>{children}</GlobalContext.Provider>;
 };
 
 const useGlobalContext = () => {
