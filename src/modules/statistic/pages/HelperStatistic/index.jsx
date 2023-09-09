@@ -3,7 +3,6 @@ import AppLayout from '../../../common/components/AppLayout';
 import { useUserData } from '../../../auth/context/UserDataContext';
 import getCountData from '../../helpers/getCountData';
 
-import styles from './helperStatistic.module.scss';
 import { COMPONENT_TYPE } from '../../constants';
 import AllProducts from '../../components/AllProducts';
 import SizeAndPriceGraph from '../../components/SizeAndPriceGraph';
@@ -39,7 +38,7 @@ const HelperStatisticPage = () => {
 
   return (
     <AppLayout>
-      <div className={styles.wrapper}>
+      <div>
         <Control setGraphStatistic={setGraphStatistic} graphStatisticKey={graphStatisticKey} />
         <GraphsLayout>{getGraphComponent}</GraphsLayout>
       </div>
