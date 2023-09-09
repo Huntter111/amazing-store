@@ -45,6 +45,30 @@ const generateXYObj = (productsMap, countedProducts) => {
     y: Object.values(countedProducts),
   };
 };
+
+const generateProductsPricesCostsXYArray = (countedCosts, countedPrices, productsMap, sizesMap, costsMap) => {
+  const formattedDataCosts = Object.keys(countedCosts).reduce((acc,key) => {
+    acc[key] = generateXYObj(costsMap, countedCosts[key]);
+    return acc
+  }, {})
+
+  const formattedDataSizes = Object.keys(countedPrices).reduce((acc, key) => {
+    acc[key] = generateXYObj(sizesMap, countedPrices[key]);
+    return acc
+  }, {})
+
+  return  Object.keys(productsMap).reduce((acc, key) => {
+    if (formattedDataCosts[key] || formattedDataSizes[key]) {
+      return [...acc, {
+        title: productsMap[key],
+        ...formattedDataCosts[key] && {productCosts: formattedDataCosts[key]},
+        ...formattedDataSizes[key] && {productSizes: formattedDataSizes[key]}
+      }]
+    }
+
+    return acc;
+  }, []);
+}
 const getCountData = (usersData) => {
   const helperData = usersData.reduce((acc, item) => {
     if (item.helperData) return [...acc, item.helperData];
@@ -68,30 +92,63 @@ const getCountData = (usersData) => {
   ];
 
   const setsCountData = {
-    x: ['Сети', 'Не сети'],
+    x: ['Комбіновані', 'Одиничні'],
     y: [sum(singleProductsCountData.y), sum(setProductsCountData.y)],
   };
 
-  return [
-    {
-      graphType: TYPE_CHART.BAR,
-      title: 'Продаж комбінованих або одиничних продуктів',
-      data: setsCountData,
-      hole: null,
-    },
-    {
-      graphType: TYPE_CHART.PIE,
-      title: 'Продаж комбінованих продуктів',
-      data: singleProductsCountData,
-      hole: 0.5,
-    },
-    {
-      graphType: TYPE_CHART.PIE,
-      title: 'Продаж одиничних продуктів',
-      data: setProductsCountData,
-      hole: 0.5,
-    },
-    { graphType: TYPE_CHART.PIE, title: 'Продаж напоїв', data: drinksProductsCountData, hole: 0.5 },
+  const countedCostsBySingleProducts = countedCostAndSizeByProducts(singleProductsMap, helperData, 'product', "productCost");
+  const countedSizesBySingleProducts = countedCostAndSizeByProducts(singleProductsMap, helperData, 'product', "productSize");
+  const countedCostsBySetsProducts = countedCostAndSizeByProducts(setProductsMap, helperData, 'product', "productCost");
+  const countedSizesBySetsProducts = countedCostAndSizeByProducts(setProductsMap, helperData, 'product', "productSize");
+  const countedCostsByDrinksProducts = countedCostAndSizeByProducts(drinkProductsMap, helperData, 'drinkProduct', "productCost");
+  const countedSizesByDrinksProducts = countedCostAndSizeByProducts(drinkProductsMap, helperData, 'drinkProduct', "productSize");
+
+
+  const [singleProductsCountedSizeAndPriceData, setsProductsCountedSizeAndPriceData, drinksProductsCountedSizeAndPriceData] = [
+    generateProductsPricesCostsXYArray(countedCostsBySingleProducts, countedSizesBySingleProducts, singleProductsMap, sizesMap, costsMap),
+    generateProductsPricesCostsXYArray(countedCostsBySetsProducts, countedSizesBySetsProducts, setProductsMap, sizesMap, costsMap),
+    generateProductsPricesCostsXYArray(countedCostsByDrinksProducts, countedSizesByDrinksProducts, drinkProductsMap, sizesMap, costsMap),
   ];
+
+  return {
+    generalStatistic : [
+      {
+        graphType: TYPE_CHART.BAR,
+        title: 'Продаж комбінованих або одиничних продуктів',
+        data: setsCountData,
+        hole: null,
+      },
+      {
+        graphType: TYPE_CHART.PIE,
+        title: 'Продаж комбінованих продуктів',
+        data: singleProductsCountData,
+        hole: 0.5,
+      },
+      {
+        graphType: TYPE_CHART.PIE,
+        title: 'Продаж одиничних продуктів',
+        data: setProductsCountData,
+        hole: 0.5,
+      },
+      { graphType: TYPE_CHART.PIE, title: 'Продаж напоїв', data: drinksProductsCountData, hole: 0.5 }
+    ],
+    sizesAndPricesStatistic: [
+      {
+        graphType: TYPE_CHART.BAR,
+        data: singleProductsCountedSizeAndPriceData,
+        hole: null,
+      },
+      {
+        graphType: TYPE_CHART.BAR,
+        data: setsProductsCountedSizeAndPriceData,
+        hole: null,
+      },
+      {
+        graphType: TYPE_CHART.BAR,
+        data: drinksProductsCountedSizeAndPriceData,
+        hole: null,
+      },
+    ]
+  };
 };
 export default getCountData;
