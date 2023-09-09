@@ -4,7 +4,6 @@ import Chart from '../../../common/components/Chart';
 const AllProducts = ({ graphData }) => {
   return (
     <div>
-      <div>asas</div>
       {graphData?.map((graphData) => {
         return (
           <Chart
