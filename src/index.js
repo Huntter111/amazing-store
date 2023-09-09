@@ -16,6 +16,7 @@ import { UserDataProvider } from "./modules/auth/context/UserDataContext";
 import GlobalState from "./modules/common/context";
 import "./modules/common/globalStyles/antd.scss";
 import "./modules/common/globalStyles/app.scss";
+import {HelperStatisticPage} from "./modules/statistic";
 
 const container = document.getElementById("root");
 const root = ReactDOM.createRoot(container);
@@ -38,6 +39,7 @@ root.render(
                 />
                 <Route path={ROUTES.ORDERS_LIST} element={<OrdersListPage />} />
                 <Route path={ROUTES.CART} element={<CartPage />} />
+                <Route path={ROUTES.HELPER_STATISTIC} element={<HelperStatisticPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Router>
