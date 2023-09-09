@@ -9,12 +9,13 @@ import AllProducts from '../../components/AllProducts';
 import SizeAndPriceGraph from '../../components/SizeAndPriceGraph';
 import Control from '../../components/Control';
 import GraphsLayout from '../../components/GraphsLayout';
-import {useCheckAndProtectAdminRoute} from "../../../common/hooks/useCheckAndProtectAdminRoute";
+import { useCheckAndProtectAdminRoute } from '../../../common/hooks/useCheckAndProtectAdminRoute';
 
 const HelperStatisticPage = () => {
   const { usersData, getAllUsersDataInfo } = useUserData();
   const [graphData, setGraphData] = useState(null);
   const [graphStatisticKey, setGraphStatistic] = useState();
+  const [menuState, setMenuState] = useState(null);
 
   useCheckAndProtectAdminRoute();
 
@@ -29,20 +30,39 @@ const HelperStatisticPage = () => {
 
   useEffect(() => {
     setGraphStatistic(COMPONENT_TYPE.ALL_PRODUCTS);
-  }, [])
+  }, []);
 
   const getGraphComponent = useMemo(() => {
     if (graphData) {
+      setMenuState('all');
       const grapComponents = {
         [COMPONENT_TYPE.ALL_PRODUCTS]: <AllProducts graphData={graphData.generalStatistic} />,
-        [COMPONENT_TYPE.SINGLES_PRODUCTS]: <SizeAndPriceGraph {...graphData.singleSizeAndPrice} />,
-        [COMPONENT_TYPE.DRINKS_PRODUCTS]: <SizeAndPriceGraph {...graphData.drinksSizeAndPrice} />,
-        [COMPONENT_TYPE.SETS_PRODUCTS]: <SizeAndPriceGraph {...graphData.setsSizeAndPrice} />,
+        [COMPONENT_TYPE.SINGLES_PRODUCTS]: (
+          <SizeAndPriceGraph
+            setMenuState={setMenuState}
+            menuState={menuState}
+            {...graphData.singleSizeAndPrice}
+          />
+        ),
+        [COMPONENT_TYPE.DRINKS_PRODUCTS]: (
+          <SizeAndPriceGraph
+            setMenuState={setMenuState}
+            menuState={menuState}
+            {...graphData.drinksSizeAndPrice}
+          />
+        ),
+        [COMPONENT_TYPE.SETS_PRODUCTS]: (
+          <SizeAndPriceGraph
+            setMenuState={setMenuState}
+            menuState={menuState}
+            {...graphData.setsSizeAndPrice}
+          />
+        ),
       };
 
       return grapComponents[graphStatisticKey];
     }
-  }, [graphStatisticKey, graphData]);
+  }, [graphStatisticKey, graphData, menuState]);
 
   return (
     <AppLayout>

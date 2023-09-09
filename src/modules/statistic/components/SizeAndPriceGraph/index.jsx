@@ -1,15 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Chart from '../../../common/components/Chart';
 import { useState } from 'react';
 import { Select } from 'antd';
 import styles from './siezeAndPrice.module.scss';
 const { Option } = Select;
 
-const SizeAndPriceGraph = ({ data, graphType, hole }) => {
-  const [menuState, setMenuState] = useState(null);
+const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) => {
   const handlerChangeState = (value) => {
+    console.log(value, 'handlerChangeState');
+    console.log(menuState, setMenuState);
     setMenuState(value);
   };
+  useEffect(() => {
+    console.log(menuState, 'menuState');
+  }, [menuState]);
 
   const graphData = useMemo(() => {
     if (!menuState || menuState === 'all') {
@@ -20,8 +24,8 @@ const SizeAndPriceGraph = ({ data, graphType, hole }) => {
     });
   }, [menuState, data]);
 
-  return (
-    <>
+  const SelectWithOptions = useMemo(() => {
+    return (
       <Select placeholder="Тип продукту" className={styles.select} onChange={handlerChangeState}>
         <Option value="all" key="all">
           Всi продукти
@@ -34,6 +38,12 @@ const SizeAndPriceGraph = ({ data, graphType, hole }) => {
           );
         })}
       </Select>
+    );
+  }, [menuState, handlerChangeState]);
+
+  return (
+    <>
+      {SelectWithOptions}
       <div className={styles.graphWrapper}>
         {graphData?.map(({ title, productCosts, productSizes }, index) => {
           const sizeTitle = `${title} (Розмiр)`;
