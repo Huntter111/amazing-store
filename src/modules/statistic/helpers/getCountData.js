@@ -1,4 +1,10 @@
-import { SINGLE_PRODUCT, SET_PRODUCTS, DRINK_PRODUCTS, PRODUCT_COST, PRODUCT_SIZE } from '../../helper/constants';
+import {
+  SINGLE_PRODUCT,
+  SET_PRODUCTS,
+  DRINK_PRODUCTS,
+  PRODUCT_COST,
+  PRODUCT_SIZE,
+} from '../../helper/constants';
 import { sum } from 'lodash';
 import { TYPE_CHART } from '../../common/constants';
 
@@ -26,13 +32,13 @@ const countedCostAndSizeByProducts = (productsMap, data, productType, dataType) 
   return data.reduce((acc, item) => {
     if (productsMap[item[productType]]) {
       if (acc[item[productType]]) {
-        if(acc[item[productType]][item[dataType]]) {
+        if (acc[item[productType]][item[dataType]]) {
           acc[item[productType]][item[dataType]] = acc[item[productType]][item[dataType]] + 1;
         } else {
-          acc[item[productType]]={...acc[item[productType]], [item[dataType]]: 1};
+          acc[item[productType]] = { ...acc[item[productType]], [item[dataType]]: 1 };
         }
       } else {
-        acc[item[productType]]={[item[dataType]]: 1};
+        acc[item[productType]] = { [item[dataType]]: 1 };
       }
     }
     return acc;
@@ -46,29 +52,38 @@ const generateXYObj = (productsMap, countedProducts) => {
   };
 };
 
-const generateProductsPricesCostsXYArray = (countedCosts, countedPrices, productsMap, sizesMap, costsMap) => {
-  const formattedDataCosts = Object.keys(countedCosts).reduce((acc,key) => {
+const generateProductsPricesCostsXYArray = (
+  countedCosts,
+  countedPrices,
+  productsMap,
+  sizesMap,
+  costsMap,
+) => {
+  const formattedDataCosts = Object.keys(countedCosts).reduce((acc, key) => {
     acc[key] = generateXYObj(costsMap, countedCosts[key]);
-    return acc
-  }, {})
+    return acc;
+  }, {});
 
   const formattedDataSizes = Object.keys(countedPrices).reduce((acc, key) => {
     acc[key] = generateXYObj(sizesMap, countedPrices[key]);
-    return acc
-  }, {})
+    return acc;
+  }, {});
 
-  return  Object.keys(productsMap).reduce((acc, key) => {
+  return Object.keys(productsMap).reduce((acc, key) => {
     if (formattedDataCosts[key] || formattedDataSizes[key]) {
-      return [...acc, {
-        title: productsMap[key],
-        ...formattedDataCosts[key] && {productCosts: formattedDataCosts[key]},
-        ...formattedDataSizes[key] && {productSizes: formattedDataSizes[key]}
-      }]
+      return [
+        ...acc,
+        {
+          title: productsMap[key],
+          ...(formattedDataCosts[key] && { productCosts: formattedDataCosts[key] }),
+          ...(formattedDataSizes[key] && { productSizes: formattedDataSizes[key] }),
+        },
+      ];
     }
 
     return acc;
   }, []);
-}
+};
 const getCountData = (usersData) => {
   const helperData = usersData.reduce((acc, item) => {
     if (item.helperData) return [...acc, item.helperData];
@@ -96,22 +111,73 @@ const getCountData = (usersData) => {
     y: [sum(singleProductsCountData.y), sum(setProductsCountData.y)],
   };
 
-  const countedCostsBySingleProducts = countedCostAndSizeByProducts(singleProductsMap, helperData, 'product', "productCost");
-  const countedSizesBySingleProducts = countedCostAndSizeByProducts(singleProductsMap, helperData, 'product', "productSize");
-  const countedCostsBySetsProducts = countedCostAndSizeByProducts(setProductsMap, helperData, 'product', "productCost");
-  const countedSizesBySetsProducts = countedCostAndSizeByProducts(setProductsMap, helperData, 'product', "productSize");
-  const countedCostsByDrinksProducts = countedCostAndSizeByProducts(drinkProductsMap, helperData, 'drinkProduct', "productCost");
-  const countedSizesByDrinksProducts = countedCostAndSizeByProducts(drinkProductsMap, helperData, 'drinkProduct', "productSize");
+  const countedCostsBySingleProducts = countedCostAndSizeByProducts(
+    singleProductsMap,
+    helperData,
+    'product',
+    'productCost',
+  );
+  const countedSizesBySingleProducts = countedCostAndSizeByProducts(
+    singleProductsMap,
+    helperData,
+    'product',
+    'productSize',
+  );
+  const countedCostsBySetsProducts = countedCostAndSizeByProducts(
+    setProductsMap,
+    helperData,
+    'product',
+    'productCost',
+  );
+  const countedSizesBySetsProducts = countedCostAndSizeByProducts(
+    setProductsMap,
+    helperData,
+    'product',
+    'productSize',
+  );
+  const countedCostsByDrinksProducts = countedCostAndSizeByProducts(
+    drinkProductsMap,
+    helperData,
+    'drinkProduct',
+    'productCost',
+  );
+  const countedSizesByDrinksProducts = countedCostAndSizeByProducts(
+    drinkProductsMap,
+    helperData,
+    'drinkProduct',
+    'productSize',
+  );
 
-
-  const [singleProductsCountedSizeAndPriceData, setsProductsCountedSizeAndPriceData, drinksProductsCountedSizeAndPriceData] = [
-    generateProductsPricesCostsXYArray(countedCostsBySingleProducts, countedSizesBySingleProducts, singleProductsMap, sizesMap, costsMap),
-    generateProductsPricesCostsXYArray(countedCostsBySetsProducts, countedSizesBySetsProducts, setProductsMap, sizesMap, costsMap),
-    generateProductsPricesCostsXYArray(countedCostsByDrinksProducts, countedSizesByDrinksProducts, drinkProductsMap, sizesMap, costsMap),
+  const [
+    singleProductsCountedSizeAndPriceData,
+    setsProductsCountedSizeAndPriceData,
+    drinksProductsCountedSizeAndPriceData,
+  ] = [
+    generateProductsPricesCostsXYArray(
+      countedCostsBySingleProducts,
+      countedSizesBySingleProducts,
+      singleProductsMap,
+      sizesMap,
+      costsMap,
+    ),
+    generateProductsPricesCostsXYArray(
+      countedCostsBySetsProducts,
+      countedSizesBySetsProducts,
+      setProductsMap,
+      sizesMap,
+      costsMap,
+    ),
+    generateProductsPricesCostsXYArray(
+      countedCostsByDrinksProducts,
+      countedSizesByDrinksProducts,
+      drinkProductsMap,
+      sizesMap,
+      costsMap,
+    ),
   ];
 
   return {
-    generalStatistic : [
+    generalStatistic: [
       {
         graphType: TYPE_CHART.BAR,
         title: 'Продаж комбінованих або одиничних продуктів',
@@ -130,25 +196,28 @@ const getCountData = (usersData) => {
         data: setProductsCountData,
         hole: 0.5,
       },
-      { graphType: TYPE_CHART.PIE, title: 'Продаж напоїв', data: drinksProductsCountData, hole: 0.5 }
+      {
+        graphType: TYPE_CHART.PIE,
+        title: 'Продаж напоїв',
+        data: drinksProductsCountData,
+        hole: 0.5,
+      },
     ],
-    sizesAndPricesStatistic: [
-      {
-        graphType: TYPE_CHART.BAR,
-        data: singleProductsCountedSizeAndPriceData,
-        hole: null,
-      },
-      {
-        graphType: TYPE_CHART.BAR,
-        data: setsProductsCountedSizeAndPriceData,
-        hole: null,
-      },
-      {
-        graphType: TYPE_CHART.BAR,
-        data: drinksProductsCountedSizeAndPriceData,
-        hole: null,
-      },
-    ]
+    singleSizeAndPrice: {
+      graphType: TYPE_CHART.BAR,
+      data: singleProductsCountedSizeAndPriceData,
+      hole: null,
+    },
+    setsSizeAndPrice: {
+      graphType: TYPE_CHART.BAR,
+      data: setsProductsCountedSizeAndPriceData,
+      hole: null,
+    },
+    drinksSizeAndPrice: {
+      graphType: TYPE_CHART.BAR,
+      data: drinksProductsCountedSizeAndPriceData,
+      hole: null,
+    },
   };
 };
 export default getCountData;

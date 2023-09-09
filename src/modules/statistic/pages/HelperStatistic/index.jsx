@@ -6,9 +6,7 @@ import getCountData from '../../helpers/getCountData';
 import styles from './helperStatistic.module.scss';
 import { COMPONENT_TYPE } from '../../constants';
 import AllProducts from '../../components/AllProducts';
-import SingleProducts from '../../components/SinglesProducts';
-import DrinksProducts from '../../components/DrinksProducts';
-import SetsProducts from '../../components/SetsProducts';
+import SizeAndPriceGraph from '../../components/SizeAndPriceGraph';
 import Control from '../../components/Control';
 import GraphsLayout from '../../components/GraphsLayout';
 
@@ -21,20 +19,23 @@ const HelperStatisticPage = () => {
     getAllUsersDataInfo();
     // eslint-disable-next-line
   }, []);
+
   useEffect(() => {
     usersData && setGraphData(getCountData(usersData));
   }, [usersData]);
 
   const getGraphComponent = useMemo(() => {
-    const grapComponents = {
-      [COMPONENT_TYPE.ALL_PRODUCTS]: <AllProducts graphData={graphData} />,
-      [COMPONENT_TYPE.SINGLES_PRODUCTS]: <SingleProducts graphData={graphData} />,
-      [COMPONENT_TYPE.DRINKS_PRODUCTS]: <DrinksProducts graphData={graphData} />,
-      [COMPONENT_TYPE.SETS_PRODUCTS]: <SetsProducts graphData={graphData} />,
-    };
+    if (graphData) {
+      const grapComponents = {
+        [COMPONENT_TYPE.ALL_PRODUCTS]: <AllProducts graphData={graphData.generalStatistic} />,
+        [COMPONENT_TYPE.SINGLES_PRODUCTS]: <SizeAndPriceGraph {...graphData.singleSizeAndPrice} />,
+        [COMPONENT_TYPE.DRINKS_PRODUCTS]: <SizeAndPriceGraph {...graphData.drinksSizeAndPrice} />,
+        [COMPONENT_TYPE.SETS_PRODUCTS]: <SizeAndPriceGraph {...graphData.setsSizeAndPrice} />,
+      };
 
-    return grapComponents[graphStatisticKey];
-  }, [graphStatisticKey]);
+      return grapComponents[graphStatisticKey];
+    }
+  }, [graphStatisticKey, graphData]);
 
   return (
     <AppLayout>
