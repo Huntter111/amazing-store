@@ -2,7 +2,6 @@ import Plot from 'react-plotly.js';
 import { TYPE_CHART } from '../../constants/index';
 
 export const Chart = ({ dataX, dataY, title, hole, type }) => {
-  console.log(dataX, dataY, title, hole, type);
   const isPie = type === TYPE_CHART.PIE;
   const isBar = type === TYPE_CHART.BAR;
 

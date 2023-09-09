@@ -5,7 +5,7 @@ import getCountData from '../../helpers/getCountData';
 import Chart from '../../../common/components/Chart';
 import styles from './helperStatistic.module.scss';
 
-const ProductsListPage = () => {
+const HelperStatisticPage = () => {
   const { usersData, getAllUsersDataInfo } = useUserData();
   const [graphData, setGraphData] = useState(null);
 
@@ -20,9 +20,10 @@ const ProductsListPage = () => {
   return (
     <AppLayout>
       <div className={styles.wrapper}>
-        {graphData?.map((graphData) => {
+        {graphData?.map((graphData, idx) => {
           return (
               <Chart
+                key={graphData.title + idx}
                 dataY={graphData.data.y}
                 dataX={graphData.data.x}
                 title={graphData.title}
@@ -36,4 +37,4 @@ const ProductsListPage = () => {
   );
 };
 
-export default ProductsListPage;
+export default HelperStatisticPage;

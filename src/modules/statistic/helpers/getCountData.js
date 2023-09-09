@@ -1,4 +1,4 @@
-import { SINGLE_PRODUCT, SET_PRODUCTS, DRINK_PRODUCTS } from '../../helper/constants';
+import { SINGLE_PRODUCT, SET_PRODUCTS, DRINK_PRODUCTS, PRODUCT_COST, PRODUCT_SIZE } from '../../helper/constants';
 import { sum } from 'lodash';
 import { TYPE_CHART } from '../../common/constants';
 
@@ -22,6 +22,21 @@ const countedProducts = (productsMap, data, productType) => {
   }, {});
 };
 
+const countedCostAndSizeByProducts = (productsMap, data, productType, dataType) => {
+  return data.reduce((acc, item) => {
+    if (productsMap[item[productType]]) {
+      if (acc[item[productType]]) {
+        if(acc[item[productType]][item[dataType]]) {
+          acc[item[productType]][item[dataType]] = acc[item[productType]][item[dataType]] + 1;
+        }
+      } else {
+        acc[item[productType]]={[item[dataType]]: 1};
+      }
+    }
+    return acc;
+  }, {});
+};
+
 const generateXYObj = (productsMap, countedProducts) => {
   return {
     x: Object.keys(countedProducts).map((_) => productsMap[_]),
@@ -37,6 +52,8 @@ const getCountData = (usersData) => {
   const singleProductsMap = formattedHelperConstants(SINGLE_PRODUCT);
   const setProductsMap = formattedHelperConstants(SET_PRODUCTS);
   const drinkProductsMap = formattedHelperConstants(DRINK_PRODUCTS);
+  const sizesMap = formattedHelperConstants(PRODUCT_SIZE);
+  const costsMap = formattedHelperConstants(PRODUCT_COST);
 
   const countedSingleProducts = countedProducts(singleProductsMap, helperData, 'product');
   const countedSetProducts = countedProducts(setProductsMap, helperData, 'product');
