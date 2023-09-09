@@ -23,6 +23,10 @@ const HelperStatisticPage = () => {
     usersData && setGraphData(getCountData(usersData));
   }, [usersData]);
 
+  useEffect(() => {
+    setGraphStatistic(COMPONENT_TYPE.ALL_PRODUCTS);
+  }, [])
+
   const getGraphComponent = useMemo(() => {
     if (graphData) {
       const grapComponents = {
