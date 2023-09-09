@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+
 import AppLayout from '../../../common/components/AppLayout';
 import { useUserData } from '../../../auth/context/UserDataContext';
 import getCountData from '../../helpers/getCountData';
@@ -8,11 +9,14 @@ import AllProducts from '../../components/AllProducts';
 import SizeAndPriceGraph from '../../components/SizeAndPriceGraph';
 import Control from '../../components/Control';
 import GraphsLayout from '../../components/GraphsLayout';
+import {useCheckAndProtectAdminRoute} from "../../../common/hooks/useCheckAndProtectAdminRoute";
 
 const HelperStatisticPage = () => {
   const { usersData, getAllUsersDataInfo } = useUserData();
   const [graphData, setGraphData] = useState(null);
   const [graphStatisticKey, setGraphStatistic] = useState();
+
+  useCheckAndProtectAdminRoute();
 
   useEffect(() => {
     getAllUsersDataInfo();
