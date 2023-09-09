@@ -9,7 +9,7 @@ import styles from './statisticsPage.module.scss';
 const StatisticsPage = () => {
   return (
     <AppLayout>
-      <nav>
+      <nav className={styles.navMenu}>
         <Link to={ROUTES.HELPER_STATISTIC} className={styles.linkButtons}>
           <div className={styles.linkContent}>
             <h1>Helper</h1>
