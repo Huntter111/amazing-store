@@ -28,6 +28,8 @@ const countedCostAndSizeByProducts = (productsMap, data, productType, dataType) 
       if (acc[item[productType]]) {
         if(acc[item[productType]][item[dataType]]) {
           acc[item[productType]][item[dataType]] = acc[item[productType]][item[dataType]] + 1;
+        } else {
+          acc[item[productType]]={...acc[item[productType]], [item[dataType]]: 1};
         }
       } else {
         acc[item[productType]]={[item[dataType]]: 1};
