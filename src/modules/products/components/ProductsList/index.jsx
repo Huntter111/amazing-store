@@ -1,21 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useState } from "react";
-import { useMemo } from "react";
-import { Col, Row, Input, Select } from "antd";
-import { debounce } from "lodash";
+import React, { useCallback, useState } from 'react';
+import { useMemo } from 'react';
+import { Col, Row, Input, Select } from 'antd';
+import { debounce } from 'lodash';
 
-import { useGlobalContext } from "../../../common/context";
-import ProductCard from "../ProductCard";
-import { useUserData } from "../../../auth/context/UserDataContext";
-import { PRODUCT_TYPES } from "../../constants";
-import styles from "./productList.module.scss";
+import { useGlobalContext } from '../../../common/context';
+import ProductCard from '../ProductCard';
+import { useUserData } from '../../../auth/context/UserDataContext';
+import { PRODUCT_TYPES } from '../../constants';
+import styles from './productList.module.scss';
 
 const { Option } = Select;
 
 const ProductsList = () => {
   const { products } = useGlobalContext();
   const { userData } = useUserData();
-  const [filter, setFilter] = useState({ name: null, type: "ALL" });
+  const [filter, setFilter] = useState({ name: null, type: 'ALL' });
 
   const productTypes = useMemo(() => {
     return products
@@ -38,14 +38,14 @@ const ProductsList = () => {
         setFilter({ name: null, type: filter.type });
       }
     }, 500),
-    [filter]
+    [filter],
   );
 
   const handleSelect = useCallback(
     (value) => {
       setFilter({ name: filter.name, type: value });
     },
-    [filter]
+    [filter],
   );
 
   const filteredProducts = useMemo(() => {
@@ -57,8 +57,7 @@ const ProductsList = () => {
 
           const matchCondition = (item) => {
             return item.type.some(
-              (_) =>
-                _?.fields?.type === drinkProduct || _?.fields?.type === product
+              (_) => _?.fields?.type === drinkProduct || _?.fields?.type === product,
             );
           };
 
@@ -70,16 +69,13 @@ const ProductsList = () => {
 
     const productsByPriceAndSizeIncludeHelper = userData?.helperData
       ? productsByTypeIncludeHelper.sort((prevItem, nextItem) => {
-          const { drinkSize, drinkCost, productCost, productSize } =
-            userData?.helperData;
+          const { drinkSize, drinkCost, productCost, productSize } = userData?.helperData;
 
           const matchCondition = (item) => {
             return item.price.some(
               (_) =>
-                (drinkSize === _?.fields?.sizeType &&
-                  drinkCost === _?.fields?.type) ||
-                (productSize === _?.fields?.sizeType &&
-                  productCost === _?.fields?.type)
+                (drinkSize === _?.fields?.sizeType && drinkCost === _?.fields?.type) ||
+                (productSize === _?.fields?.sizeType && productCost === _?.fields?.type),
             );
           };
 
@@ -89,12 +85,10 @@ const ProductsList = () => {
         })
       : products;
 
-    const productsByType = productsByPriceAndSizeIncludeHelper.filter(
-      ({ type }) => {
-        if (filter.type === "ALL") return true;
-        return type[0].fields.name === filter.type;
-      }
-    );
+    const productsByType = productsByPriceAndSizeIncludeHelper.filter(({ type }) => {
+      if (filter.type === 'ALL') return true;
+      return type[0].fields.name === filter.type;
+    });
 
     if (filter.name) {
       return productsByType.filter(({ name }) => {
@@ -114,11 +108,8 @@ const ProductsList = () => {
       <>
         <div className={styles.filterWrapper}>
           <Input placeholder="Назва продукту" onChange={handleSearch} />
-          <Select
-            placeholder="Тип продукту"
-            className={styles.select}
-            onChange={handleSelect}
-          >
+
+          <Select placeholder="Тип продукту" className={styles.select} onChange={handleSelect}>
             <Option key="ALL" value="ALL">
               {PRODUCT_TYPES.ALL}
             </Option>
@@ -130,20 +121,18 @@ const ProductsList = () => {
           </Select>
         </div>
         <Row gutter={24}>
-          {filteredProducts?.map(
-            ({ id, name, description, type, images, price }) => (
-              <Col key={id} className="row" lg={6} sm={12} xs={24}>
-                <ProductCard
-                  id={id}
-                  title={name}
-                  type={type[0].fields.name}
-                  description={description}
-                  price={price}
-                  url={images[0].file.url}
-                />
-              </Col>
-            )
-          )}
+          {filteredProducts?.map(({ id, name, description, type, images, price }) => (
+            <Col key={id} className="row" lg={6} sm={12} xs={24}>
+              <ProductCard
+                id={id}
+                title={name}
+                type={type[0].fields.name}
+                description={description}
+                price={price}
+                url={images[0].file.url}
+              />
+            </Col>
+          ))}
         </Row>
       </>
     );

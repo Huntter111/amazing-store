@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import '../node_modules/react-datepicker/dist/react-datepicker.css';
 import { ROUTES } from './routes';
 import { OrdersListPage } from './modules/orders';
 import { ProductsListPage, ProductInfoPage } from './modules/products';
@@ -16,6 +16,7 @@ import { UserDataProvider } from './modules/auth/context/UserDataContext';
 import GlobalState from './modules/common/context';
 import './modules/common/globalStyles/antd.scss';
 import './modules/common/globalStyles/app.scss';
+import './modules/common/globalStyles/reactDatepicker.scss';
 import { HelperStatisticPage } from './modules/statistic';
 import ProductStatisticPage from './modules/statistic/pages/ProductStatistic';
 import StatisticsPage from './modules/statistic/pages/Statistics';
