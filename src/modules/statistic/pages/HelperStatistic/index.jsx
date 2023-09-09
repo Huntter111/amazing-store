@@ -11,6 +11,7 @@ const HelperStatisticPage = () => {
 
   useEffect(() => {
     getAllUsersDataInfo();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
