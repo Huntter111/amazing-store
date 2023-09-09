@@ -84,7 +84,7 @@ const generateProductsPricesCostsXYArray = (
     return acc;
   }, []);
 };
-const getCountData = (usersData) => {
+const getHelperStatisticData = (usersData) => {
   const helperData = usersData.reduce((acc, item) => {
     if (item.helperData) return [...acc, item.helperData];
     return acc;
@@ -220,4 +220,4 @@ const getCountData = (usersData) => {
     },
   };
 };
-export default getCountData;
+export default getHelperStatisticData;
