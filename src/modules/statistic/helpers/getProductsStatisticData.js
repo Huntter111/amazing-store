@@ -21,9 +21,6 @@ const formattedOrdersList = (data) => {
 };
 
 const getFilteredOrdersData = (ordersList, from, to, type) => {
-  console.log(from, 'from');
-  console.log(to, 'to');
-
   if (from && to) {
     ordersList = ordersList.filter((item) => {
       return (
@@ -81,8 +78,7 @@ const generateDataByDataType = (ordersList, productsList, dataType, subDataType)
 const getProductsStatisticData = (products, orders, from, to, type) => {
   const productsList = products && formattedProductsList(products);
   const ordersList = orders && formattedOrdersList(orders);
-  const filteredOrdersList =
-    orders && getFilteredOrdersData(ordersList, productsList, from, to, type);
+  const filteredOrdersList = orders && getFilteredOrdersData(ordersList, from, to, type);
 
   const datepickerHighlightDates = getHighlightDates(ordersList);
 
