@@ -14,7 +14,6 @@ const ProductStatisticPage = () => {
   const [graphData, setGraphData] = useState(null);
   const [highlightDates, setHighlightDates] = useState(null);
 
-  const { from, to } = dateRange;
   useEffect(() => {
     getAllOrdersData();
     // eslint-disable-next-line
@@ -22,6 +21,7 @@ const ProductStatisticPage = () => {
 
   //from, to, type
   useEffect(() => {
+    const { from, to } = dateRange;
     const { graphData, datepickerHighlightDates } = getProductsStatisticData(
       products,
       allOrders,
@@ -31,7 +31,7 @@ const ProductStatisticPage = () => {
 
     setHighlightDates(datepickerHighlightDates);
     setGraphData(graphData);
-  }, [products, allOrders, from, to]);
+  }, [products, allOrders, dateRange]);
 
   return (
     <AppLayout>
