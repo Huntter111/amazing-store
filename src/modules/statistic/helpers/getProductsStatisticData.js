@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { TYPE_CHART } from '../../common/constants';
 import { PRODUCT_TYPES } from '../../products/constants';
-import { subDays } from 'date-fns';
 
 const formattedProductsList = (data) => {
   return data.reduce((acc, item) => {
