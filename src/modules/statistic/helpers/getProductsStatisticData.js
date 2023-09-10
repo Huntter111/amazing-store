@@ -39,11 +39,11 @@ const getHighlightDates = (ordersList) => {
     return ordersList
       ?.reduce((acc, date) => {
         if (!acc.includes(date?.orderDate)) {
-          const substrDate = moment(date.orderDate).subtract(0, 'days').toDate()
-          return [...acc, substrDate];
+          console.log('date?.orderDate', date?.orderDate);
+          return [...acc, date.orderDate];
         }
         return acc;
-      }, [])
+      }, []).map(_ => moment(_, 'M/D/YYYY').subtract(0, "days").toDate())
   }
 };
 const generateDataByDataType = (ordersList, productsList, dataType, subDataType) => {
@@ -80,6 +80,8 @@ const getProductsStatisticData = (products, orders, from, to, type) => {
   const filteredOrdersList = orders && getFilteredOrdersData(ordersList, from, to, type);
 
   const datepickerHighlightDates = getHighlightDates(ordersList);
+
+  console.log('datepickerHighlightDates', datepickerHighlightDates);
 
   const productsByCount = generateDataByDataType(filteredOrdersList, productsList, 'count');
   const productsByPrice = generateDataByDataType(
