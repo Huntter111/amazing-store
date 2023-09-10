@@ -1,9 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import Chart from '../../../common/components/Chart';
-import { Select } from 'antd';
 import styles from './siezeAndPrice.module.scss';
-import ProductDropDown from '../../../products/components/ProductDropDown';
-const { Option } = Select;
+import AppDropDown from '../../../common/components/AppDropDown';
 
 const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) => {
   const handlerChangeState = useCallback(
@@ -24,13 +22,14 @@ const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) =
 
   const SelectWithOptions = useMemo(() => {
     return (
-      <ProductDropDown
+      <AppDropDown
         initialOptionKey="all"
         allOptionTitle="Всi продукти"
         arrayTypes={data}
         handleSelect={handlerChangeState}
         styles={styles.select}
         value={menuState}
+        placeholder="Всi продукти"
       />
     );
     // eslint-disable-next-line

@@ -16,7 +16,7 @@ const ProductStatisticPage = () => {
   }, []);
 
   useEffect(() => {
-    getProductsStatisticData(products, allOrders);
+    console.log(getProductsStatisticData(products, allOrders));
   }, [products, allOrders]);
 
   return (

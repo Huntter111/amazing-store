@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useState } from 'react';
 import { useMemo } from 'react';
-import { Col, Row, Input, Select } from 'antd';
+import { Col, Row, Input } from 'antd';
 import { debounce } from 'lodash';
 
 import { useGlobalContext } from '../../../common/context';
@@ -9,8 +9,7 @@ import ProductCard from '../ProductCard';
 import { useUserData } from '../../../auth/context/UserDataContext';
 import { PRODUCT_TYPES } from '../../constants';
 import styles from './productList.module.scss';
-
-const { Option } = Select;
+import AppDropDown from "../../../common/components/AppDropDown";
 
 const ProductsList = () => {
   const { products } = useGlobalContext();
@@ -108,17 +107,18 @@ const ProductsList = () => {
       <>
         <div className={styles.filterWrapper}>
           <Input placeholder="Назва продукту" onChange={handleSearch} />
-
-          <Select placeholder="Тип продукту" className={styles.select} onChange={handleSelect}>
-            <Option key="ALL" value="ALL">
-              {PRODUCT_TYPES.ALL}
-            </Option>
-            {productTypes.map(({ type }) => (
-              <Option key={type} value={type}>
-                {PRODUCT_TYPES[type]}
-              </Option>
-            ))}
-          </Select>
+          <AppDropDown
+            initialOptionKey="ALL"
+            allOptionTitle={PRODUCT_TYPES.ALL}
+            arrayTypes={productTypes.map(({type}) => {
+              return {title: type}
+            })}
+            enumData={PRODUCT_TYPES}
+            handleSelect={handleSelect}
+            styles={styles.select}
+            value={filter?.type}
+            placeholder="Тип продукту"
+          />
         </div>
         <Row gutter={24}>
           {filteredProducts?.map(({ id, name, description, type, images, price }) => (

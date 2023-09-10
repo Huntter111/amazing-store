@@ -1,26 +1,27 @@
 import React from 'react';
 import { Select } from 'antd';
-import styles from './productDropDown.module.scss';
 const { Option } = Select;
 
-const ProductDropDown = ({
+const AppDropDown = ({
   handleSelect,
   arrayTypes,
   allOptionTitle,
   styles,
   value,
+  enumData,
   initialOptionKey,
+  placeholder
 }) => {
   return (
-    <Select placeholder="Тип продукту" className={styles} onChange={handleSelect} value={value}>
+    <Select placeholder={placeholder} className={styles} onChange={handleSelect} value={value}>
       <Option key={initialOptionKey}>{allOptionTitle}</Option>
       {arrayTypes?.map(({ title }, index) => (
         <Option key={title + index} value={title}>
-          {title}
+          {enumData ? enumData[title] : title}
         </Option>
       ))}
     </Select>
   );
 };
 
-export default ProductDropDown;
+export default AppDropDown;
