@@ -1,6 +1,5 @@
 import React from 'react';
 import { Select } from 'antd';
-import styles from './productDropDown.module.scss';
 const { Option } = Select;
 
 const ProductDropDown = ({

@@ -13,9 +13,14 @@ export const Chart = ({ dataX, dataY, title, hole, type }) => {
           ...(isPie && { values: dataY, labels: dataX }),
           ...(isBar && { x: dataX, y: dataY }),
           ...(hole && { hole }),
+          //hovertemplate: '%{label}<br>Цiна = %{value:$,.2f}<br>Percent = %{percent}<extra></extra>',
         },
       ]}
-      layout={{ width: '100%', height: '100%', title: title }}
+      layout={{
+        width: '100%',
+        height: '100%',
+        title: title,
+      }}
     />
   );
 };
