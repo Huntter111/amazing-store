@@ -19,11 +19,7 @@ const ProductStatisticPage = () => {
   }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
     setGraphData(getProductsStatisticData(products, allOrders));
-=======
-    console.log(getProductsStatisticData(products, allOrders));
->>>>>>> 3823a552b80af6506cf21d04d7a4ad206872668e
   }, [products, allOrders]);
 
   return (
