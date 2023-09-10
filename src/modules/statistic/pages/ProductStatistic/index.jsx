@@ -11,6 +11,7 @@ const ProductStatisticPage = () => {
   const { products } = useGlobalContext();
   const { allOrders, getAllOrdersData } = useOrders();
   const [dateRange, setDateRange] = useState({ from: null, to: null });
+  const [filter, setFilter] = useState({ name: null, type: null });
   const [graphData, setGraphData] = useState(null);
   const [highlightDates, setHighlightDates] = useState(null);
 
@@ -27,15 +28,16 @@ const ProductStatisticPage = () => {
       allOrders,
       from,
       to,
+      filter?.type
     );
 
     setHighlightDates(datepickerHighlightDates);
     setGraphData(graphData);
-  }, [products, allOrders, dateRange]);
+  }, [products, allOrders, dateRange, filter]);
 
   return (
     <AppLayout>
-      <ProductStatisticFilter setDateRange={setDateRange} highlightDates={highlightDates} />
+      <ProductStatisticFilter setDateRange={setDateRange} highlightDates={highlightDates} filter={filter} setFilter={setFilter}/>
       <GraphsLayout>
         <AllProducts graphData={graphData} />
       </GraphsLayout>

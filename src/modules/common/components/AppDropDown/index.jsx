@@ -14,7 +14,7 @@ const AppDropDown = ({
 }) => {
   return (
     <Select placeholder={placeholder} className={styles} onChange={handleSelect} value={value}>
-      <Option key={initialOptionKey}>{allOptionTitle}</Option>
+      {initialOptionKey && <Option key={initialOptionKey}>{allOptionTitle}</Option>}
       {arrayTypes?.map(({ title }, index) => (
         <Option key={title + index} value={title}>
           {enumData ? enumData[title] : title}
