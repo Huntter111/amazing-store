@@ -39,7 +39,6 @@ const getHighlightDates = (ordersList) => {
     return ordersList
       ?.reduce((acc, date) => {
         if (!acc.includes(date?.orderDate)) {
-          console.log('date?.orderDate', date?.orderDate);
           return [...acc, date.orderDate];
         }
         return acc;
