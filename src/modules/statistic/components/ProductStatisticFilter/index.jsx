@@ -1,9 +1,9 @@
 import DatePicker from '../ProductDatePicker';
 
-const ProductStatisticFilter = ({ setDateRange }) => {
+const ProductStatisticFilter = ({ setDateRange, highlightDates }) => {
   return (
     <div>
-      <DatePicker setDateRange={setDateRange} />
+      <DatePicker setDateRange={setDateRange} highlightDates={highlightDates} />
     </div>
   );
 };

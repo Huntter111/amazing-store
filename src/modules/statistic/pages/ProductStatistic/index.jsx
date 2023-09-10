@@ -12,19 +12,30 @@ const ProductStatisticPage = () => {
   const { allOrders, getAllOrdersData } = useOrders();
   const [dateRange, setDateRange] = useState({ from: null, to: null });
   const [graphData, setGraphData] = useState(null);
+  const [highlightDates, setHighlightDates] = useState(null);
 
+  const { from, to } = dateRange;
   useEffect(() => {
     getAllOrdersData();
     // eslint-disable-next-line
   }, []);
 
+  //from, to, type
   useEffect(() => {
-    setGraphData(getProductsStatisticData(products, allOrders));
-  }, [products, allOrders]);
+    const { graphData, datepickerHighlightDates } = getProductsStatisticData(
+      products,
+      allOrders,
+      from,
+      to,
+    );
+
+    setHighlightDates(datepickerHighlightDates);
+    setGraphData(graphData);
+  }, [products, allOrders, from, to]);
 
   return (
     <AppLayout>
-      <ProductStatisticFilter setDateRange={setDateRange} />
+      <ProductStatisticFilter setDateRange={setDateRange} highlightDates={highlightDates} />
       <GraphsLayout>
         <AllProducts graphData={graphData} />
       </GraphsLayout>

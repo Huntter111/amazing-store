@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-const ProductDatePicker = ({ setDateRange }) => {
+const ProductDatePicker = ({ setDateRange, highlightDates }) => {
   const [range, setRange] = useState([null, null]);
   const [startDate, endDate] = range;
 
@@ -40,9 +40,11 @@ const ProductDatePicker = ({ setDateRange }) => {
       date: () => 'mm/dd/yyyy',
     },
   };
+  const isHighlightDates = highlightDates ? highlightDates : [];
 
   return (
     <DatePicker
+      highlightDates={isHighlightDates}
       showIcon
       placeholderText="Виберiть дату"
       locale={locale}
