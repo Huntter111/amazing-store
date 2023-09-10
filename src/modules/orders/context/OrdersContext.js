@@ -6,11 +6,23 @@ import useOrdersDB from '../../../api/orders';
 const OrdersContext = createContext();
 
 export const OrdersProvider = ({ children }) => {
-  const { orders, createOrder, getOrders } = useOrdersDB();
+  const { orders, allOrders, createOrder, getOrders, getAllOrders } = useOrdersDB();
 
   const getOrdersData = async (email) => {
     try {
       await getOrders(email);
+    } catch (error) {
+      notification.error({
+        message: "Не вдалося отримати даних замовлень",
+        description:
+          "На жаль не вдалося отримати даних замовлень, спробуйте пізніше",
+      });
+    }
+  };
+
+  const getAllOrdersData = async () => {
+    try {
+      await getAllOrders();
     } catch (error) {
       notification.error({
         message: "Не вдалося отримати даних замовлень",
@@ -38,7 +50,7 @@ export const OrdersProvider = ({ children }) => {
   };
 
   return (
-    <OrdersContext.Provider value={{ orders, getOrdersData, createOrderData }}>
+    <OrdersContext.Provider value={{ orders, allOrders, getOrdersData, getAllOrdersData, createOrderData }}>
       {children}
     </OrdersContext.Provider>
   );

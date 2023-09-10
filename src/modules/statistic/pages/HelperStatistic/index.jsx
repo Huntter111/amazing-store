@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import AppLayout from '../../../common/components/AppLayout';
 import { useUserData } from '../../../auth/context/UserDataContext';
-import getCountData from '../../helpers/getCountData';
+import getHelperStatisticData from '../../helpers/getHelperStatisticData';
 
 import { COMPONENT_TYPE } from '../../constants';
 import AllProducts from '../../components/AllProducts';
@@ -25,7 +25,7 @@ const HelperStatisticPage = () => {
   }, []);
 
   useEffect(() => {
-    usersData && setGraphData(getCountData(usersData));
+    usersData && setGraphData(getHelperStatisticData(usersData));
   }, [usersData]);
 
   useEffect(() => {
@@ -66,7 +66,11 @@ const HelperStatisticPage = () => {
   return (
     <AppLayout>
       <div>
-        <Control setGraphStatistic={setGraphStatistic} setMenuState={setMenuState} graphStatisticKey={graphStatisticKey} />
+        <Control
+          setGraphStatistic={setGraphStatistic}
+          setMenuState={setMenuState}
+          graphStatisticKey={graphStatisticKey}
+        />
         <GraphsLayout>{getGraphComponent}</GraphsLayout>
       </div>
     </AppLayout>

@@ -84,7 +84,7 @@ const generateProductsPricesCostsXYArray = (
     return acc;
   }, []);
 };
-const getCountData = (usersData) => {
+const getHelperStatisticData = (usersData) => {
   const helperData = usersData.reduce((acc, item) => {
     if (item.helperData) return [...acc, item.helperData];
     return acc;
@@ -107,8 +107,8 @@ const getCountData = (usersData) => {
   ];
 
   const setsCountData = {
-    x: ['Комбіновані', 'Одиничні'],
-    y: [sum(singleProductsCountData.y), sum(setProductsCountData.y)],
+    x: ['Одиничні', 'Комбіновані', 'Напої'],
+    y: [sum(singleProductsCountData.y), sum(setProductsCountData.y), sum(drinksProductsCountData.y)],
   };
 
   const countedCostsBySingleProducts = countedCostAndSizeByProducts(
@@ -186,13 +186,13 @@ const getCountData = (usersData) => {
       },
       {
         graphType: TYPE_CHART.PIE,
-        title: 'Продаж комбінованих продуктів',
+        title: 'Продаж одиничних продуктів',
         data: singleProductsCountData,
         hole: 0.5,
       },
       {
         graphType: TYPE_CHART.PIE,
-        title: 'Продаж одиничних продуктів',
+        title: 'Продаж комбінованих продуктів',
         data: setProductsCountData,
         hole: 0.5,
       },
@@ -220,4 +220,4 @@ const getCountData = (usersData) => {
     },
   };
 };
-export default getCountData;
+export default getHelperStatisticData;
