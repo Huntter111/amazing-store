@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { COMPONENT_TYPE, COMPONENT_TITLES } from '../../constants';
 import AppButton from '../../../common/components/AppButton';
 import { BUTTON_TYPE } from '../../../common/constants/';
