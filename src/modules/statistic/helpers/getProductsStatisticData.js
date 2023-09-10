@@ -39,17 +39,15 @@ const getFilteredOrdersData = (ordersList, from, to, type) => {
   return ordersList;
 };
 const getHighlightDates = (ordersList) => {
-  if (ordersList.length > 0) {
+  if (ordersList.length) {
     return ordersList
-      ?.reduce((accumulator, date) => {
-        if (!accumulator.includes(date?.orderDate)) {
-          accumulator.push(date?.orderDate);
+      ?.reduce((acc, date) => {
+        if (!acc.includes(date?.orderDate)) {
+          const substrDate = moment(date.orderDate).subtract(0, 'days').toDate()
+          return [...acc, substrDate];
         }
-        return accumulator;
+        return acc;
       }, [])
-      .map((elem) => {
-        return subDays(new Date(elem), 0);
-      });
   }
 };
 const generateDataByDataType = (ordersList, productsList, dataType, subDataType) => {
