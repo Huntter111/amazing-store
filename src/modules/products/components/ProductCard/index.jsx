@@ -48,7 +48,7 @@ const ProductCard = ({ id, title, description, type, url, price }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   addToCart({
-                    id: id + priceRadius,
+                    id,
                     title,
                     description,
                     price: { priceRadius, priceAmount },

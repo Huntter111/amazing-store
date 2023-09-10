@@ -25,13 +25,16 @@ export const CartContextProvider = ({ children }) => {
     const { id, title, description, url, type, price } = product;
     const newCartProduct = {
       id,
-      title,
-      description,
-      url,
+      title: title || null,
+      description: description || null,
+      url: url || null,
       count: 1,
-      type,
-      initialPriceAmount: price.priceAmount,
-      price,
+      type: type || null,
+      initialPriceAmount: price?.priceAmount || null,
+      price: {
+        priceAmount: price?.priceAmount || null,
+        priceRadius: price?.priceRadius || null,
+      },
     };
 
     const isProductAvailable = cartData?.find((_) => _.id === id);

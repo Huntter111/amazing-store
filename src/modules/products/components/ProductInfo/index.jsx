@@ -97,7 +97,7 @@ const ProductsInfo = () => {
                       onClick={(e) => {
                         e.stopPropagation();
                         addToCart({
-                          id: id + priceRadius,
+                          id,
                           title: name,
                           description,
                           price: { priceRadius, priceAmount },
