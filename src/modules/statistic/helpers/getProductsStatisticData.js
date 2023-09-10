@@ -81,8 +81,6 @@ const getProductsStatisticData = (products, orders, from, to, type) => {
 
   const datepickerHighlightDates = getHighlightDates(ordersList);
 
-  console.log('datepickerHighlightDates', datepickerHighlightDates);
-
   const productsByCount = generateDataByDataType(filteredOrdersList, productsList, 'count');
   const productsByPrice = generateDataByDataType(
     filteredOrdersList,
