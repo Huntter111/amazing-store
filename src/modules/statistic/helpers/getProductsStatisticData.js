@@ -102,6 +102,7 @@ const getProductsStatisticData = (products, orders, from, to, type) => {
         title: `Продаж продуктів за категорією ${PRODUCT_TYPES[type]} (виручка грн)`,
         data: productsByPrice,
         hole: 0.5,
+        hovertemplate: '%{label}<br>%{value:.2f} ₴<br>%{percent}<extra></extra>'
       },
     ],
   };

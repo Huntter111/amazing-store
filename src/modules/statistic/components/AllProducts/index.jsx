@@ -14,6 +14,7 @@ const AllProducts = ({ graphData }) => {
             title={graphData.title}
             hole={graphData.hole}
             type={graphData.graphType}
+            hovertemplate={graphData.hovertemplate}
           />
         );
       })}
