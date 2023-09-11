@@ -11,7 +11,7 @@ const ProductStatisticPage = () => {
   const { products } = useGlobalContext();
   const { allOrders, getAllOrdersData } = useOrders();
   const [dateRange, setDateRange] = useState({ from: null, to: null });
-  const [filter, setFilter] = useState({ name: null, type: null });
+  const [filter, setFilter] = useState({ name: "Всі продукти", type: "ALL" });
   const [graphData, setGraphData] = useState(null);
   const [highlightDates, setHighlightDates] = useState(null);
 
