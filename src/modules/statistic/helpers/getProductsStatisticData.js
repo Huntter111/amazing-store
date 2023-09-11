@@ -28,7 +28,7 @@ const getFilteredOrdersData = (ordersList, from, to, type) => {
       );
     });
   }
-  console.log('type', type);
+
   if (type && type !== 'ALL') {
     ordersList = ordersList.filter((item) => item.type === type);
   }
