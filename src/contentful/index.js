@@ -1,9 +1,10 @@
 import { useCallback } from "react";
 import { createClient } from "contentful";
+import {CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID} from "../env";
 
 const client = createClient({
-  space: process.env.REACT_APP_CONTENTFUL_SPACE_ID,
-  accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
+  space: CONTENTFUL_SPACE_ID,
+  accessToken: CONTENTFUL_ACCESS_TOKEN,
 });
 
 export function useGetContentfulEntries() {

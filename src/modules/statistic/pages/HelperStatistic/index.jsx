@@ -9,15 +9,12 @@ import AllProducts from '../../components/AllProducts';
 import SizeAndPriceGraph from '../../components/SizeAndPriceGraph';
 import Control from '../../components/Control';
 import GraphsLayout from '../../components/GraphsLayout';
-import { useCheckAndProtectAdminRoute } from '../../../common/hooks/useCheckAndProtectAdminRoute';
 
 const HelperStatisticPage = () => {
   const { usersData, getAllUsersDataInfo } = useUserData();
   const [graphData, setGraphData] = useState(null);
   const [graphStatisticKey, setGraphStatistic] = useState();
   const [menuState, setMenuState] = useState(null);
-
-  useCheckAndProtectAdminRoute();
 
   useEffect(() => {
     getAllUsersDataInfo();
