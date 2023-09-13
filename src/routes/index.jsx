@@ -27,18 +27,14 @@ export const ROUTES = {
 export const AppRoutes = () => {
   const { user } = useUserAuth();
 
-  const publicRoutes = useMemo(() => {
-    const isRouteExist = Object.values(ROUTES).includes(window.location.pathname);
-    return (
-      <>
-       <Route path={ROUTES.PRODUCTS_LIST} element={<ProductsListPage/>}/>
-       <Route path={ROUTES.PRODUCT_INFO} element={<ProductInfoPage/>}/>
-       <Route path={ROUTES.ORDERS_LIST} element={<OrdersListPage/>}/>
-       <Route path={ROUTES.CART} element={<CartPage/>}/>
-       {!isRouteExist && <Route path="*" element={<NotFoundPage/>}/>}
-      </>
-    )
-  }, [])
+  const publicRoutes = useMemo(() => (
+    <>
+     <Route path={ROUTES.PRODUCTS_LIST} element={<ProductsListPage/>}/>
+     <Route path={ROUTES.PRODUCT_INFO} element={<ProductInfoPage/>}/>
+     <Route path={ROUTES.ORDERS_LIST} element={<OrdersListPage/>}/>
+     <Route path={ROUTES.CART} element={<CartPage/>}/>
+    </>
+  ), [])
 
   const privateRoutes = useMemo(() =>(
     <>
@@ -48,12 +44,16 @@ export const AppRoutes = () => {
     </>
   ), [])
 
-  return useMemo(() => (
-    <Router>
-      <Routes>
-        {publicRoutes}
-        {user?.email === USER_ADMIN_EMAIL && privateRoutes}
-      </Routes>
-    </Router>
-  ),[privateRoutes, publicRoutes, user?.email])
+  return useMemo(() => {
+    const isRouteExist = Object.values(ROUTES).includes(window.location.pathname);
+    return (
+      <Router>
+        <Routes>
+          {publicRoutes}
+          {user?.email === USER_ADMIN_EMAIL && privateRoutes}
+          {!isRouteExist && <Route path="*" element={<NotFoundPage/>}/>}
+        </Routes>
+      </Router>
+    )
+  },[privateRoutes, publicRoutes, user?.email])
 }
