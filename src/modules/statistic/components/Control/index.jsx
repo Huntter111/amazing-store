@@ -1,5 +1,5 @@
 import React from 'react';
-import { COMPONENT_TYPE, COMPONENT_TITLES } from '../../constants';
+import {COMPONENT_TYPE, COMPONENT_TITLES, STATISTIC_PRODUCT_TYPES} from '../../constants';
 import AppButton from '../../../common/components/AppButton';
 import { BUTTON_TYPE } from '../../../common/constants/';
 import styles from './control.module.scss';
@@ -12,7 +12,7 @@ const Control = ({ setGraphStatistic, graphStatisticKey, setMenuState }) => {
     { keyGraph: COMPONENT_TYPE.DRINKS_PRODUCTS, title: COMPONENT_TITLES.DRINKS_PRODUCTS_TITLE },
   ];
   const hendlerChangesGraphStatistic = (key) => {
-    setMenuState('all')
+    setMenuState(STATISTIC_PRODUCT_TYPES.ALL)
     setGraphStatistic(key);
   };
 

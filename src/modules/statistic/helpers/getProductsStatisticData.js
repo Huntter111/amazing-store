@@ -1,6 +1,27 @@
 import moment from 'moment';
 import { TYPE_CHART } from '../../common/constants';
 import { PRODUCT_TYPES } from '../../products/constants';
+import {STATISTIC_PRODUCT_TYPES} from "../constants";
+import {DRINK_PRODUCTS, SET_PRODUCTS, SINGLE_PRODUCT} from "../../helper/constants";
+
+export const formattedHelperConstants = (constant) => {
+  return Object.values(constant).reduce((acc, item) => {
+    acc[item.value.toUpperCase()] = item.label;
+    return acc;
+  }, {});
+};
+
+export const PRODUCTS_SUB_TYPE_LIST = (() => {
+  const singleProductsMap = formattedHelperConstants(SINGLE_PRODUCT);
+  const setProductsMap = formattedHelperConstants(SET_PRODUCTS);
+  const drinkProductsMap = formattedHelperConstants(DRINK_PRODUCTS);
+
+  return {
+    ...{[STATISTIC_PRODUCT_TYPES.ALL]: "Всі підкатегорії"},
+    ...singleProductsMap,
+    ...setProductsMap,
+    ...drinkProductsMap}
+})();
 
 const formattedProductsList = (data) => {
   return data.reduce((acc, item) => {
@@ -19,7 +40,7 @@ const formattedOrdersList = (data) => {
   }, []);
 };
 
-const getFilteredOrdersData = (ordersList, from, to, type) => {
+const getFilteredOrdersData = (products, ordersList, from, to, type, subType) => {
   if (from && to) {
     ordersList = ordersList.filter((item) => {
       return (
@@ -29,8 +50,15 @@ const getFilteredOrdersData = (ordersList, from, to, type) => {
     });
   }
 
-  if (type && type !== 'ALL') {
-    ordersList = ordersList.filter((item) => item.type === type);
+  if (type && type.toUpperCase() !== STATISTIC_PRODUCT_TYPES.ALL) {
+    ordersList = ordersList.filter((item) => item.type.toLowerCase() === type.toLowerCase());
+  }
+
+  if (subType && subType.toUpperCase() !== STATISTIC_PRODUCT_TYPES.ALL) {
+    ordersList = ordersList.filter((item) => {
+      const foundProduct = products.find(_ => _.id === item.id);
+      return foundProduct?.type[0]?.fields?.type.toLowerCase() === subType.toLowerCase()
+    });
   }
 
   return ordersList;
@@ -74,10 +102,10 @@ const generateDataByDataType = (ordersList, productsList, dataType, subDataType)
     y: Object.values(collectedData),
   };
 };
-const getProductsStatisticData = (products, orders, from, to, type) => {
+const getProductsStatisticData = (products, orders, from, to, type, subType) => {
   const productsList = products && formattedProductsList(products);
   const ordersList = orders && formattedOrdersList(orders);
-  const filteredOrdersList = orders && getFilteredOrdersData(ordersList, from, to, type);
+  const filteredOrdersList = orders && getFilteredOrdersData(products, ordersList, from, to, type, subType);
 
   const datepickerHighlightDates = getHighlightDates(ordersList);
 

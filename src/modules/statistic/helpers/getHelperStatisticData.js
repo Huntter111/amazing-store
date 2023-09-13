@@ -8,7 +8,7 @@ import {
 import { sum } from 'lodash';
 import { TYPE_CHART } from '../../common/constants';
 
-const formattedHelperConstants = (constant) => {
+export const formattedHelperConstants = (constant) => {
   return Object.values(constant).reduce((acc, item) => {
     acc[item.value] = item.label;
     return acc;

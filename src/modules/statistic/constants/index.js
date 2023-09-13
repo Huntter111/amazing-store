@@ -11,3 +11,9 @@ export const COMPONENT_TITLES = {
   SINGLES_PRODUCTS_TITLE: 'Одиничнi продукти',
   SETS_PRODUCTS_TITLE: 'Комбiнованi продукти ',
 };
+
+export const STATISTIC_PRODUCT_TYPES = {
+  ALL: "ALL",
+  FOOD: "FOOD",
+  DRINK: "DRINK"
+}

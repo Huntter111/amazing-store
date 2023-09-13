@@ -17,7 +17,7 @@ const AppDropDown = ({
       {initialOptionKey && <Option key={initialOptionKey}>{allOptionTitle}</Option>}
       {arrayTypes?.map(({ title }, index) => (
         <Option key={title + index} value={title}>
-          {enumData ? enumData[title] : title}
+          {enumData ? enumData[title.toUpperCase()] : title}
         </Option>
       ))}
     </Select>
