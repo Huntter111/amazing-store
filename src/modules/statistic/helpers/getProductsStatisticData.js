@@ -3,18 +3,12 @@ import { TYPE_CHART } from '../../common/constants';
 import { PRODUCT_TYPES } from '../../products/constants';
 import {STATISTIC_PRODUCT_TYPES} from "../constants";
 import {DRINK_PRODUCTS, SET_PRODUCTS, SINGLE_PRODUCT} from "../../helper/constants";
-
-export const formattedHelperConstants = (constant) => {
-  return Object.values(constant).reduce((acc, item) => {
-    acc[item.value.toUpperCase()] = item.label;
-    return acc;
-  }, {});
-};
+import {formattedHelperConstants} from "./getHelperStatisticData";
 
 export const PRODUCTS_SUB_TYPE_LIST = (() => {
-  const singleProductsMap = formattedHelperConstants(SINGLE_PRODUCT);
-  const setProductsMap = formattedHelperConstants(SET_PRODUCTS);
-  const drinkProductsMap = formattedHelperConstants(DRINK_PRODUCTS);
+  const singleProductsMap = formattedHelperConstants(SINGLE_PRODUCT, true);
+  const setProductsMap = formattedHelperConstants(SET_PRODUCTS, true);
+  const drinkProductsMap = formattedHelperConstants(DRINK_PRODUCTS, true);
 
   return {
     ...{[STATISTIC_PRODUCT_TYPES.ALL]: "Всі підкатегорії"},

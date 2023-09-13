@@ -8,9 +8,10 @@ import {
 import { sum } from 'lodash';
 import { TYPE_CHART } from '../../common/constants';
 
-export const formattedHelperConstants = (constant) => {
+export const formattedHelperConstants = (constant, isTransformKeysToUpperCase) => {
   return Object.values(constant).reduce((acc, item) => {
-    acc[item.value] = item.label;
+    const key = isTransformKeysToUpperCase ? item.value.toUpperCase() : item.value;
+    acc[key] = item.label;
     return acc;
   }, {});
 };
