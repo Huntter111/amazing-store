@@ -73,19 +73,23 @@ const generateDataByDataType = (ordersList, productsList, dataType, subDataType)
 
   if (dataType && subDataType) {
     collectedData = ordersList.reduce((acc, item) => {
-      if (acc[productsList[item.id]]) {
-        acc[productsList[item.id]] = acc[productsList[item.id]] + item[dataType][subDataType];
-      } else {
-        acc[productsList[item.id]] = item[dataType][subDataType];
+      if(productsList[item.id]) {
+        if (acc[productsList[item.id]]) {
+          acc[productsList[item.id]] = acc[productsList[item.id]] + item[dataType][subDataType];
+        } else {
+          acc[productsList[item.id]] = item[dataType][subDataType];
+        }
       }
       return acc;
     }, {});
   } else {
     collectedData = ordersList.reduce((acc, item) => {
-      if (acc[productsList[item.id]]) {
-        acc[productsList[item.id]] = acc[productsList[item.id]] + item[dataType];
-      } else {
-        acc[productsList[item.id]] = item[dataType];
+      if(productsList[item.id]) {
+        if (acc[productsList[item.id]]) {
+          acc[productsList[item.id]] = acc[productsList[item.id]] + item[dataType];
+        } else {
+          acc[productsList[item.id]] = item[dataType];
+        }
       }
       return acc;
     }, {});

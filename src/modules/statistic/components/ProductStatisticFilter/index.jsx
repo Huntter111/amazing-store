@@ -28,8 +28,6 @@ const ProductStatisticFilter = ({ setDateRange, highlightDates, filter, setFilte
     [filter.productSubType.name, filter.productType.name, filter.productType.type, setFilter],
   );
 
-  console.log('PRODUCT_TYPES', PRODUCT_TYPES)
-  console.log('PRODUCTS_SUB_TYPE_LIST', PRODUCTS_SUB_TYPE_LIST)
   return (
     <div className={styles.wrapper}>
       <DatePicker setDateRange={setDateRange} highlightDates={highlightDates} />
