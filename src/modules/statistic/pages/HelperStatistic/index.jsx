@@ -4,7 +4,7 @@ import AppLayout from '../../../common/components/AppLayout';
 import { useUserData } from '../../../auth/context/UserDataContext';
 import getHelperStatisticData from '../../helpers/getHelperStatisticData';
 
-import {COMPONENT_TITLES, COMPONENT_TYPE, STATISTIC_PRODUCT_TYPES} from '../../constants';
+import {HELPER_COMPONENT_TITLES, HELPER_COMPONENT_TYPE, STATISTIC_PRODUCT_TYPES} from '../../constants';
 import AllProducts from '../../components/AllProducts';
 import SizeAndPriceGraph from '../../components/SizeAndPriceGraph';
 import Control from '../../components/Control';
@@ -16,10 +16,10 @@ const HelperStatisticPage = () => {
   const [graphStatisticKey, setGraphStatisticKey] = useState();
   const [menuState, setMenuState] = useState(null);
   const controlButtons = [
-    { key: COMPONENT_TYPE.ALL_PRODUCTS, title: COMPONENT_TITLES.ALL_PRODUCTS_TITLE },
-    { key: COMPONENT_TYPE.SINGLES_PRODUCTS, title: COMPONENT_TITLES.SINGLES_PRODUCTS_TITLE },
-    { key: COMPONENT_TYPE.SETS_PRODUCTS, title: COMPONENT_TITLES.SETS_PRODUCTS_TITLE },
-    { key: COMPONENT_TYPE.DRINKS_PRODUCTS, title: COMPONENT_TITLES.DRINKS_PRODUCTS_TITLE },
+    { key: HELPER_COMPONENT_TYPE.ALL_PRODUCTS, title: HELPER_COMPONENT_TITLES.ALL_PRODUCTS },
+    { key: HELPER_COMPONENT_TYPE.SINGLES_PRODUCTS, title: HELPER_COMPONENT_TITLES.SINGLES_PRODUCTS },
+    { key: HELPER_COMPONENT_TYPE.SETS_PRODUCTS, title: HELPER_COMPONENT_TITLES.SETS_PRODUCTS },
+    { key: HELPER_COMPONENT_TYPE.DRINKS_PRODUCTS, title: HELPER_COMPONENT_TITLES.DRINKS_PRODUCTS },
   ];
 
   useEffect(() => {
@@ -32,28 +32,28 @@ const HelperStatisticPage = () => {
   }, [usersData]);
 
   useEffect(() => {
-    setGraphStatisticKey(COMPONENT_TYPE.ALL_PRODUCTS);
+    setGraphStatisticKey(HELPER_COMPONENT_TYPE.ALL_PRODUCTS);
   }, []);
 
   const getGraphComponent = useMemo(() => {
     if (graphData) {
       const grapComponents = {
-        [COMPONENT_TYPE.ALL_PRODUCTS]: <AllProducts graphData={graphData.generalStatistic} />,
-        [COMPONENT_TYPE.SINGLES_PRODUCTS]: (
+        [HELPER_COMPONENT_TYPE.ALL_PRODUCTS]: <AllProducts graphData={graphData.generalStatistic} />,
+        [HELPER_COMPONENT_TYPE.SINGLES_PRODUCTS]: (
           <SizeAndPriceGraph
             setMenuState={setMenuState}
             menuState={menuState}
             {...graphData.singleSizeAndPrice}
           />
         ),
-        [COMPONENT_TYPE.DRINKS_PRODUCTS]: (
+        [HELPER_COMPONENT_TYPE.DRINKS_PRODUCTS]: (
           <SizeAndPriceGraph
             setMenuState={setMenuState}
             menuState={menuState}
             {...graphData.drinksSizeAndPrice}
           />
         ),
-        [COMPONENT_TYPE.SETS_PRODUCTS]: (
+        [HELPER_COMPONENT_TYPE.SETS_PRODUCTS]: (
           <SizeAndPriceGraph
             setMenuState={setMenuState}
             menuState={menuState}
@@ -68,15 +68,13 @@ const HelperStatisticPage = () => {
 
   return (
     <AppLayout>
-      <div>
-        <Control
-          buttons={controlButtons}
-          controlKey={graphStatisticKey}
-          setControlKey={setGraphStatisticKey}
-          callback={() => setMenuState(STATISTIC_PRODUCT_TYPES.ALL)}
-        />
-        <GraphsLayout>{getGraphComponent}</GraphsLayout>
-      </div>
+      <Control
+        buttons={controlButtons}
+        controlKey={graphStatisticKey}
+        setControlKey={setGraphStatisticKey}
+        callback={() => setMenuState(STATISTIC_PRODUCT_TYPES.ALL)}
+      />
+      <GraphsLayout>{getGraphComponent}</GraphsLayout>
     </AppLayout>
   );
 };

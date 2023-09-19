@@ -1,15 +1,27 @@
-export const COMPONENT_TYPE = {
-  ALL_PRODUCTS: 'allProducts',
-  DRINKS_PRODUCTS: 'drinksProducts',
-  SINGLES_PRODUCTS: 'singlesProducts',
-  SETS_PRODUCTS: 'setsProducts',
+export const HELPER_COMPONENT_TYPE = {
+  ALL_PRODUCTS: 'ALL_PRODUCTS',
+  DRINKS_PRODUCTS: 'DRINKS_PRODUCTS',
+  SINGLES_PRODUCTS: 'SINGLES_PRODUCTS',
+  SETS_PRODUCTS: 'SETS_PRODUCTS',
 };
 
-export const COMPONENT_TITLES = {
-  ALL_PRODUCTS_TITLE: 'Всi продукти',
-  DRINKS_PRODUCTS_TITLE: 'Напої',
-  SINGLES_PRODUCTS_TITLE: 'Одиничнi продукти',
-  SETS_PRODUCTS_TITLE: 'Комбiнованi продукти ',
+export const HELPER_COMPONENT_TITLES = {
+  ALL_PRODUCTS: 'Всi продукти',
+  DRINKS_PRODUCTS: 'Напої',
+  SINGLES_PRODUCTS: 'Одиничнi продукти',
+  SETS_PRODUCTS: 'Комбiнованi продукти ',
+};
+
+export const PRODUCTS_COMPONENT_TYPE = {
+  PRODUCTS_STATISTIC: 'PRODUCTS_STATISTIC',
+  PRODUCTS_ASSOTIATIONS: 'PRODUCTS_ASSOTIATIONS',
+  PRODUCTS_GROUPS: 'PRODUCTS_GROUPS',
+};
+
+export const PRODUCTS_COMPONENT_TITLES = {
+  PRODUCTS_STATISTIC: 'Статистика продуктів',
+  PRODUCTS_ASSOTIATIONS: 'Аналіз супутніх продуктів',
+  PRODUCTS_GROUPS: 'Групи продуктів',
 };
 
 export const STATISTIC_PRODUCT_TYPES = {
