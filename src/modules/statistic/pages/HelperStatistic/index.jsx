@@ -4,7 +4,7 @@ import AppLayout from '../../../common/components/AppLayout';
 import { useUserData } from '../../../auth/context/UserDataContext';
 import getHelperStatisticData from '../../helpers/getHelperStatisticData';
 
-import { COMPONENT_TYPE } from '../../constants';
+import {COMPONENT_TITLES, COMPONENT_TYPE, STATISTIC_PRODUCT_TYPES} from '../../constants';
 import AllProducts from '../../components/AllProducts';
 import SizeAndPriceGraph from '../../components/SizeAndPriceGraph';
 import Control from '../../components/Control';
@@ -13,8 +13,14 @@ import GraphsLayout from '../../components/GraphsLayout';
 const HelperStatisticPage = () => {
   const { usersData, getAllUsersDataInfo } = useUserData();
   const [graphData, setGraphData] = useState(null);
-  const [graphStatisticKey, setGraphStatistic] = useState();
+  const [graphStatisticKey, setGraphStatisticKey] = useState();
   const [menuState, setMenuState] = useState(null);
+  const controlButtons = [
+    { key: COMPONENT_TYPE.ALL_PRODUCTS, title: COMPONENT_TITLES.ALL_PRODUCTS_TITLE },
+    { key: COMPONENT_TYPE.SINGLES_PRODUCTS, title: COMPONENT_TITLES.SINGLES_PRODUCTS_TITLE },
+    { key: COMPONENT_TYPE.SETS_PRODUCTS, title: COMPONENT_TITLES.SETS_PRODUCTS_TITLE },
+    { key: COMPONENT_TYPE.DRINKS_PRODUCTS, title: COMPONENT_TITLES.DRINKS_PRODUCTS_TITLE },
+  ];
 
   useEffect(() => {
     getAllUsersDataInfo();
@@ -26,7 +32,7 @@ const HelperStatisticPage = () => {
   }, [usersData]);
 
   useEffect(() => {
-    setGraphStatistic(COMPONENT_TYPE.ALL_PRODUCTS);
+    setGraphStatisticKey(COMPONENT_TYPE.ALL_PRODUCTS);
   }, []);
 
   const getGraphComponent = useMemo(() => {
@@ -64,9 +70,10 @@ const HelperStatisticPage = () => {
     <AppLayout>
       <div>
         <Control
-          setGraphStatistic={setGraphStatistic}
-          setMenuState={setMenuState}
-          graphStatisticKey={graphStatisticKey}
+          buttons={controlButtons}
+          controlKey={graphStatisticKey}
+          setControlKey={setGraphStatisticKey}
+          callback={() => setMenuState(STATISTIC_PRODUCT_TYPES.ALL)}
         />
         <GraphsLayout>{getGraphComponent}</GraphsLayout>
       </div>

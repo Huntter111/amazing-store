@@ -4,6 +4,7 @@ import { PRODUCT_TYPES } from '../../products/constants';
 import {STATISTIC_PRODUCT_TYPES} from "../constants";
 import {DRINK_PRODUCTS, SET_PRODUCTS, SINGLE_PRODUCT} from "../../helper/constants";
 import {formattedHelperConstants} from "./getHelperStatisticData";
+import {getAssociations} from "./getAssociations";
 
 export const PRODUCTS_SUB_TYPE_LIST = (() => {
   const singleProductsMap = formattedHelperConstants(SINGLE_PRODUCT, true);
@@ -104,7 +105,6 @@ const getProductsStatisticData = (products, orders, from, to, type, subType) => 
   const productsList = products && formattedProductsList(products);
   const ordersList = orders && formattedOrdersList(orders);
   const filteredOrdersList = orders && getFilteredOrdersData(products, ordersList, from, to, type, subType);
-
   const datepickerHighlightDates = getHighlightDates(ordersList);
 
   const productsByCount = generateDataByDataType(filteredOrdersList, productsList, 'count');
@@ -114,6 +114,14 @@ const getProductsStatisticData = (products, orders, from, to, type, subType) => 
     'price',
     'priceAmount',
   );
+
+  const formattedOrders = orders.map(_ => _.cartProducts);
+  const transactions = formattedOrders.map(order => order.map(product => product.id));
+  const support = 0.1; // Поддержка (% от общего кол-ва транзакций)
+  const confidence = 0.6; // Минимальная достоверность (например, 50%)
+  const result = getAssociations(transactions, support, confidence)
+
+  console.log('result', result)
 
   return {
     datepickerHighlightDates,

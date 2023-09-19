@@ -1,31 +1,24 @@
 import React from 'react';
-import {COMPONENT_TYPE, COMPONENT_TITLES, STATISTIC_PRODUCT_TYPES} from '../../constants';
 import AppButton from '../../../common/components/AppButton';
 import { BUTTON_TYPE } from '../../../common/constants/';
 import styles from './control.module.scss';
 
-const Control = ({ setGraphStatistic, graphStatisticKey, setMenuState }) => {
-  const buttonsInfo = [
-    { keyGraph: COMPONENT_TYPE.ALL_PRODUCTS, title: COMPONENT_TITLES.ALL_PRODUCTS_TITLE },
-    { keyGraph: COMPONENT_TYPE.SINGLES_PRODUCTS, title: COMPONENT_TITLES.SINGLES_PRODUCTS_TITLE },
-    { keyGraph: COMPONENT_TYPE.SETS_PRODUCTS, title: COMPONENT_TITLES.SETS_PRODUCTS_TITLE },
-    { keyGraph: COMPONENT_TYPE.DRINKS_PRODUCTS, title: COMPONENT_TITLES.DRINKS_PRODUCTS_TITLE },
-  ];
-  const hendlerChangesGraphStatistic = (key) => {
-    setMenuState(STATISTIC_PRODUCT_TYPES.ALL)
-    setGraphStatistic(key);
+const Control = ({ buttons, setControlKey, controlKey, callback }) => {
+  const handleChange = (key) => {
+    callback && callback();
+    setControlKey(key);
   };
 
   return (
     <div className={styles.wrapper}>
-      {buttonsInfo.map((button, i) => {
+      {buttons.map((button) => {
         return (
           <AppButton
-            className={graphStatisticKey === button.keyGraph ? styles.activeBtn : ''}
+            className={controlKey === button.key ? styles.activeBtn : ''}
             type={BUTTON_TYPE.DEFAULT}
             name={button.title}
             key={button.title}
-            onClick={() => hendlerChangesGraphStatistic(button.keyGraph)}
+            onClick={() => handleChange(button.key)}
           />
         );
       })}
