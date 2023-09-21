@@ -64,7 +64,7 @@ const AssociativeProductsFilter = ({ productsAssociationsEnum, filter, setFilter
   return (
     <div className={styles.wrapper}>
       <AppDropDown
-        arrayTypes={Object.keys(productsAssociationsEnum).map((type) => {
+        arrayTypes={Object.keys(productsAssociationsEnum || {}).map((type) => {
           return {title: type}
         })}
         enumData={productsAssociationsEnum}

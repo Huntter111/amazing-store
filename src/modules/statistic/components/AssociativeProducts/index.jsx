@@ -1,15 +1,32 @@
-import React, {useMemo} from 'react';
-import styles from './associativeProducts.module.scss'
+import React, {useEffect, useMemo, useState} from 'react';
 import AssociativeProductsFilter from "../AssociativeProductsFilter";
-import {STATISTIC_PRODUCT_TYPES} from "../../constants";
+import {ASSOCIATIONS_CONFIDENCE_TYPE, ASSOCIATIONS_SUPPORT_TYPE, STATISTIC_PRODUCT_TYPES} from "../../constants";
 import {Card} from "antd";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import {useGlobalContext} from "../../../common/context";
+import {generateProductsAssociationsEnum, getAssociations} from "../../helpers/getAssociations";
 
+import styles from './associativeProducts.module.scss'
 const { Meta } = Card;
 
-const AssociativeProducts = ({associations, productsAssociationsEnum, filter, setFilter}) => {
+const AssociativeProducts = ({orders, filter, setFilter}) => {
+  const [productsAssociationsEnum, setProductsAssociationsEnum] = useState();
+  const [associations, setAssociations] = useState()
   const { products } = useGlobalContext();
+
+  useEffect(() => {
+    const formattedOrders = orders.map(_ => _.cartProducts);
+    const transactions = formattedOrders.map(order => order.map(product => product.id));
+    setAssociations(getAssociations(
+      transactions,
+      ASSOCIATIONS_SUPPORT_TYPE[filter.associationMinSupport.type],
+      ASSOCIATIONS_CONFIDENCE_TYPE[filter.associationMinConfidence.type]));
+  }, [orders, filter.associationMinConfidence.type, filter.associationMinSupport.type]);
+
+  useEffect(() => {
+    setProductsAssociationsEnum(generateProductsAssociationsEnum(associations, products));
+  }, [associations, products]);
+
   const filteredAssociationsByProduct = useMemo(() => {
     if(filter?.product?.type !== STATISTIC_PRODUCT_TYPES.ALL) {
       return associations?.filter(item => {
