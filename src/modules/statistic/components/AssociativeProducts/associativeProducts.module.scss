@@ -1,0 +1,44 @@
+@import '../../../common/globalStyles/colors.scss';
+
+.wrapper {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.associationsInfoWrapper {
+  display: flex;
+  align-items: center;
+  background-color: $powder;
+  margin: 10px 0;
+}
+
+.antecedentWrapper {
+  display: flex;
+  margin: 10px 0;
+}
+
+.card {
+  width: 150px;
+  height: 126px;
+}
+
+.card > div:first-child {
+  height: 100px;
+}
+
+.card > div:last-child {
+  padding: 8px;
+}
+
+.cardTitle > div > div {
+  font-size: 12px;
+}
+
+.symbolToIcon {
+  font-size: 30px;
+}
+
+.confidenceWrapper {
+  font-size: 16px;
+  margin: 0 20px 0 10px;
+}

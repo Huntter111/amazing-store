@@ -7,20 +7,34 @@ import ProductStatisticFilter from '../../components/ProductStatisticFilter';
 import GraphsLayout from '../../components/GraphsLayout';
 import AllProducts from '../../components/AllProducts';
 import {
+  ASSOCIATIONS_MIN_CONFIDENCE_TITLE,
+  ASSOCIATIONS_MIN_CONFIDENCE_TYPE,
+  ASSOCIATIONS_MIN_SUPPORT_TITLE,
+  ASSOCIATIONS_MIN_SUPPORT_TYPE,
   PRODUCTS_COMPONENT_TITLES,
   PRODUCTS_COMPONENT_TYPE,
   STATISTIC_PRODUCT_TYPES
 } from "../../constants";
 import Control from "../../components/Control";
+import AssociativeProducts from "../../components/AssociativeProducts";
+import ProductsGroups from "../../components/ProductsGroups";
+import {generateProductsAssociationsEnum, getAssociations} from "../../helpers/getAssociations";
 
 const ProductStatisticPage = () => {
   const { products } = useGlobalContext();
   const { allOrders, getAllOrdersData } = useOrders();
   const [dateRange, setDateRange] = useState({ from: null, to: null });
   const [controlKey, setControlKey] = useState();
-  const [filter, setFilter] = useState({
+  const [productsAssociationsEnum, setProductsAssociationsEnum] = useState();
+  const [associations, setAssociations] = useState()
+  const [productStatisticFilter, setProductStatisticFilter] = useState({
     productType: {name: "Всі продукти", type: STATISTIC_PRODUCT_TYPES.ALL},
     productSubType: {name: "Всі продукти", type: STATISTIC_PRODUCT_TYPES.ALL}
+  });
+  const [associativesFilter, setAssociativesFilter] = useState({
+    product: {name: "Всі продукти", type: STATISTIC_PRODUCT_TYPES.ALL},
+    associationMinSupport: {name: ASSOCIATIONS_MIN_SUPPORT_TITLE.ONE, type: Object.keys(ASSOCIATIONS_MIN_SUPPORT_TITLE)[0]},
+    associationMinConfidence: {name: ASSOCIATIONS_MIN_CONFIDENCE_TITLE.TEN, type:  Object.keys(ASSOCIATIONS_MIN_CONFIDENCE_TITLE)[0]}
   });
   const [graphData, setGraphData] = useState(null);
   const [highlightDates, setHighlightDates] = useState(null);
@@ -47,36 +61,57 @@ const ProductStatisticPage = () => {
       allOrders,
       from,
       to,
-      filter?.productType.type,
-      filter?.productSubType.type
+      productStatisticFilter?.productType.type,
+      productStatisticFilter?.productSubType.type
     );
 
     setHighlightDates(datepickerHighlightDates);
     setGraphData(graphData);
-  }, [products, allOrders, dateRange, filter]);
+  }, [products, allOrders, dateRange, productStatisticFilter]);
+
+  useEffect(() => {
+    const formattedOrders = allOrders.map(_ => _.cartProducts);
+    const transactions = formattedOrders.map(order => order.map(product => product.id));
+    setAssociations(getAssociations(
+      transactions,
+      ASSOCIATIONS_MIN_SUPPORT_TYPE[associativesFilter.associationMinSupport.type],
+      ASSOCIATIONS_MIN_CONFIDENCE_TYPE[associativesFilter.associationMinConfidence.type]));
+  }, [allOrders, associativesFilter.associationMinConfidence.type, associativesFilter.associationMinSupport.type]);
+
+  useEffect(() => {
+    setProductsAssociationsEnum(generateProductsAssociationsEnum(associations, products));
+  }, [associations, products]);
 
   const getComponent = useMemo(() => {
     if (graphData) {
       const components = {
         [PRODUCTS_COMPONENT_TYPE.PRODUCTS_STATISTIC]: (
           <>
-            <ProductStatisticFilter setDateRange={setDateRange} highlightDates={highlightDates} filter={filter} setFilter={setFilter} />
+            <ProductStatisticFilter setDateRange={setDateRange} highlightDates={highlightDates} filter={productStatisticFilter} setFilter={setProductStatisticFilter} />
             <GraphsLayout>
               <AllProducts graphData={graphData} />
             </GraphsLayout>
           </>
         ),
         [PRODUCTS_COMPONENT_TYPE.PRODUCTS_ASSOTIATIONS]: (
-          <div>PRODUCTS_COMPONENT_TYPE.PRODUCTS_ASSOTIATIONS</div>
+          <AssociativeProducts associations={associations} productsAssociationsEnum={productsAssociationsEnum} filter={associativesFilter} setFilter={setAssociativesFilter} />
         ),
         [PRODUCTS_COMPONENT_TYPE.PRODUCTS_GROUPS]: (
-          <div>PRODUCTS_COMPONENT_TYPE.PRODUCTS_GROUPS</div>
+          <ProductsGroups />
         ),
       };
 
       return components[controlKey];
     }
-  }, [controlKey, filter, graphData, highlightDates]);
+  }, [
+    graphData,
+    highlightDates,
+    productStatisticFilter,
+    associations,
+    productsAssociationsEnum,
+    associativesFilter,
+    controlKey
+  ]);
 
   return (
     <AppLayout>

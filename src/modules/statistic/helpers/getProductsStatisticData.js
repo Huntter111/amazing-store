@@ -115,14 +115,6 @@ const getProductsStatisticData = (products, orders, from, to, type, subType) => 
     'priceAmount',
   );
 
-  const formattedOrders = orders.map(_ => _.cartProducts);
-  const transactions = formattedOrders.map(order => order.map(product => product.id));
-  const support = 0.1; // Поддержка (% от общего кол-ва транзакций)
-  const confidence = 0.6; // Минимальная достоверность (например, 50%)
-  const result = getAssociations(transactions, support, confidence)
-
-  console.log('result', result)
-
   return {
     datepickerHighlightDates,
     graphData: [

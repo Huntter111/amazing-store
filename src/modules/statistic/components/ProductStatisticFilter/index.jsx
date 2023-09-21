@@ -7,7 +7,6 @@ import styles from './productStaticFilter.module.scss';
 import {PRODUCTS_SUB_TYPE_LIST} from "../../helpers/getProductsStatisticData";
 
 const ProductStatisticFilter = ({ setDateRange, highlightDates, filter, setFilter }) => {
-
   const handleSelectProductType = useCallback(
     (value) => {
       setFilter({
