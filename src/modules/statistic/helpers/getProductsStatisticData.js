@@ -4,7 +4,6 @@ import { PRODUCT_TYPES } from '../../products/constants';
 import {STATISTIC_PRODUCT_TYPES} from "../constants";
 import {DRINK_PRODUCTS, SET_PRODUCTS, SINGLE_PRODUCT} from "../../helper/constants";
 import {formattedHelperConstants} from "./getHelperStatisticData";
-import {getAssociations} from "./getAssociations";
 
 export const PRODUCTS_SUB_TYPE_LIST = (() => {
   const singleProductsMap = formattedHelperConstants(SINGLE_PRODUCT, true);
