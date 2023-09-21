@@ -7,10 +7,10 @@ import ProductStatisticFilter from '../../components/ProductStatisticFilter';
 import GraphsLayout from '../../components/GraphsLayout';
 import AllProducts from '../../components/AllProducts';
 import {
-  ASSOCIATIONS_MIN_CONFIDENCE_TITLE,
-  ASSOCIATIONS_MIN_CONFIDENCE_TYPE,
-  ASSOCIATIONS_MIN_SUPPORT_TITLE,
-  ASSOCIATIONS_MIN_SUPPORT_TYPE,
+  ASSOCIATIONS_CONFIDENCE_TITLE,
+  ASSOCIATIONS_CONFIDENCE_TYPE,
+  ASSOCIATIONS_SUPPORT_TITLE,
+  ASSOCIATIONS_SUPPORT_TYPE,
   PRODUCTS_COMPONENT_TITLES,
   PRODUCTS_COMPONENT_TYPE,
   STATISTIC_PRODUCT_TYPES
@@ -33,8 +33,8 @@ const ProductStatisticPage = () => {
   });
   const [associativesFilter, setAssociativesFilter] = useState({
     product: {name: "Всі продукти", type: STATISTIC_PRODUCT_TYPES.ALL},
-    associationMinSupport: {name: ASSOCIATIONS_MIN_SUPPORT_TITLE.ONE, type: Object.keys(ASSOCIATIONS_MIN_SUPPORT_TITLE)[0]},
-    associationMinConfidence: {name: ASSOCIATIONS_MIN_CONFIDENCE_TITLE.TEN, type:  Object.keys(ASSOCIATIONS_MIN_CONFIDENCE_TITLE)[0]}
+    associationMinSupport: {name: ASSOCIATIONS_SUPPORT_TITLE.FIVE, type: Object.keys(ASSOCIATIONS_SUPPORT_TITLE)[0]},
+    associationMinConfidence: {name: ASSOCIATIONS_CONFIDENCE_TITLE.TEN, type:  Object.keys(ASSOCIATIONS_CONFIDENCE_TITLE)[0]}
   });
   const [graphData, setGraphData] = useState(null);
   const [highlightDates, setHighlightDates] = useState(null);
@@ -74,8 +74,8 @@ const ProductStatisticPage = () => {
     const transactions = formattedOrders.map(order => order.map(product => product.id));
     setAssociations(getAssociations(
       transactions,
-      ASSOCIATIONS_MIN_SUPPORT_TYPE[associativesFilter.associationMinSupport.type],
-      ASSOCIATIONS_MIN_CONFIDENCE_TYPE[associativesFilter.associationMinConfidence.type]));
+      ASSOCIATIONS_SUPPORT_TYPE[associativesFilter.associationMinSupport.type],
+      ASSOCIATIONS_CONFIDENCE_TYPE[associativesFilter.associationMinConfidence.type]));
   }, [allOrders, associativesFilter.associationMinConfidence.type, associativesFilter.associationMinSupport.type]);
 
   useEffect(() => {

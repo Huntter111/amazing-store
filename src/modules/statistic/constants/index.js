@@ -30,39 +30,65 @@ export const STATISTIC_PRODUCT_TYPES = {
   DRINK: "DRINK"
 }
 
-export const ASSOCIATIONS_MIN_SUPPORT_TITLE ={
-  ONE: 'Одне співпадіння',
-  TWO: 'Два співпадіння',
-  THREE: 'Три співпадіння',
-  FOUR: 'Чотири співпадіння',
-  FIVE: `П'ять співпадінь`,
-  SIX: `Шість співпадінь`,
-  SEVEN: `Сім співпадінь`
+export const ASSOCIATIONS_SUPPORT_TITLE ={
+  FIVE: '5% Замовлень',
+  TEN: '10% Замовлень',
+  FIFTEEN: '15% Замовлень',
+  TWENTY: '20% Замовлень',
+  TWENTY_FIVE: `25% Замовлень`,
+  THIRTY: `30% Замовлень`,
+  THIRTY_FIVE: `35% Замовлень`,
+  FOURTY: '40% Замовлень',
+  FOURTY_FIVE: '45% Замовлень',
+  FIFTY: '50% Замовлень',
+  FIFTY_FIVE: '55% Замовлень',
+  SIXTY: `60% Замовлень`,
+  SIXTY_FIVE: `65% Замовлень`,
+  SEVENTY: '70% Замовлень',
+  SEVENTY_FIVE: `75% Замовлень`,
+  EIGHTY: `80% Замовлень`,
+  EIGHTY_FIVE: `85% Замовлень`,
+  NIGHTY: '90% Замовлень',
+  NIGHTY_FIVE: '95% Замовлень',
+  ONE_HUNDRED: '100% Замовлень'
 };
 
-export const ASSOCIATIONS_MIN_SUPPORT_TYPE ={
-  ONE: 1,
-  TWO: 2,
-  THREE: 3,
-  FOUR: 4,
-  FIVE: 5,
-  SIX: 6,
-  SEVEN: 7
+export const ASSOCIATIONS_SUPPORT_TYPE ={
+  FIVE: 0.05,
+  TEN: 0.1,
+  FIFTEEN: 0.15,
+  TWENTY: 0.2,
+  TWENTY_FIVE: 0.25,
+  THIRTY: 0.3,
+  THIRTY_FIVE: 0.35,
+  FOURTY: 0.4,
+  FOURTY_FIVE: 0.45,
+  FIFTY: 0.5,
+  FIFTY_FIVE: 0.55,
+  SIXTY: 0.6,
+  SIXTY_FIVE: 0.65,
+  SEVENTY: 0.7,
+  SEVENTY_FIVE: 0.75,
+  EIGHTY: 0.8,
+  EIGHTY_FIVE: 0.85,
+  NIGHTY: 0.9,
+  NIGHTY_FIVE: 0.95,
+  ONE_HUNDRED: 1
 };
 
-export const ASSOCIATIONS_MIN_CONFIDENCE_TITLE = {
-  TEN: '10%',
-  TWENTY: '20%',
-  THIRTY: '30%',
-  FOURTY: '40%',
-  FIFTY: '50%',
-  SIXTY: '60%',
-  SEVENTY: '70%',
-  EIGHTY: '80%',
-  NIGHTY: '90%',
-  ONE_HUNDRED: '100%'
+export const ASSOCIATIONS_CONFIDENCE_TITLE = {
+  TEN: 'Ймовірність 10%',
+  TWENTY: 'Ймовірність 20%',
+  THIRTY: 'Ймовірність 30%',
+  FOURTY: 'Ймовірність 40%',
+  FIFTY: 'Ймовірність 50%',
+  SIXTY: 'Ймовірність 60%',
+  SEVENTY: 'Ймовірність 70%',
+  EIGHTY: 'Ймовірність 80%',
+  NIGHTY: 'Ймовірність 90%',
+  ONE_HUNDRED: 'Ймовірність 100%'
 };
-export const ASSOCIATIONS_MIN_CONFIDENCE_TYPE = {
+export const ASSOCIATIONS_CONFIDENCE_TYPE = {
   TEN: 0.1,
   TWENTY: 0.2,
   THIRTY: 0.3,

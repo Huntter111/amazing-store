@@ -3,8 +3,8 @@ import AppDropDown from "../../../common/components/AppDropDown";
 
 import styles from './associativeProductsFilter.module.scss';
 import {
-  ASSOCIATIONS_MIN_CONFIDENCE_TITLE,
-  ASSOCIATIONS_MIN_SUPPORT_TITLE
+  ASSOCIATIONS_CONFIDENCE_TITLE,
+  ASSOCIATIONS_SUPPORT_TITLE
 } from "../../constants";
 const AssociativeProductsFilter = ({ productsAssociationsEnum, filter, setFilter }) => {
   const handleSelectProduct = useCallback(
@@ -75,20 +75,20 @@ const AssociativeProductsFilter = ({ productsAssociationsEnum, filter, setFilter
         placeholder="Назва продукту"
       />
       <AppDropDown
-        arrayTypes={Object.keys(ASSOCIATIONS_MIN_SUPPORT_TITLE).map((type) => {
+        arrayTypes={Object.keys(ASSOCIATIONS_SUPPORT_TITLE).map((type) => {
           return {title: type}
         })}
-        enumData={ASSOCIATIONS_MIN_SUPPORT_TITLE}
+        enumData={ASSOCIATIONS_SUPPORT_TITLE}
         handleSelect={handleSelectAssociativesMinSupport}
         styles={styles.select}
         value={filter.associationMinSupport.type}
         placeholder="Кількість співпадінь"
       />
       <AppDropDown
-        arrayTypes={Object.keys(ASSOCIATIONS_MIN_CONFIDENCE_TITLE).map((type) => {
+        arrayTypes={Object.keys(ASSOCIATIONS_CONFIDENCE_TITLE).map((type) => {
           return {title: type}
         })}
-        enumData={ASSOCIATIONS_MIN_CONFIDENCE_TITLE}
+        enumData={ASSOCIATIONS_CONFIDENCE_TITLE}
         handleSelect={handleSelectAssociativesMinConfidence}
         styles={styles.select}
         value={filter.associationMinConfidence.type}

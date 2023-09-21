@@ -1,11 +1,11 @@
-//TODO: Шаг 1: Определяем минимальное пороговое значение поддержки --> (Если нужно будет в процентном соотношении)
-// const calculateMinSupportRule = (transactions, support) => {
-//   return transactions.length * support;
-// }
-
-// Шаг 2: Создаём функции для подсчета поддержки и достоверности
 import {STATISTIC_PRODUCT_TYPES} from "../constants";
 
+//TODO: Шаг 1: Определяем минимальное пороговое значение поддержки --> (Если нужно будет в процентном соотношении)
+const calculateMinSupportRule = (transactions, support) => {
+  return transactions.length * support;
+}
+
+// Шаг 2: Создаём функции для подсчета поддержки и достоверности
 const calculateSupport = (transactions, itemSet) => {
   return transactions.filter((transaction) =>
     itemSet.every((item) => transaction.includes(item)),
@@ -121,10 +121,10 @@ function generateAssociationRules(transactions, frequentItemSets, minConfidence)
 }
 
 // Шаг 8: Запускаем процесс Apriori (associations)
-export const getAssociations = (transactions, minSupport, minConfidence) => {
+export const getAssociations = (transactions, support, confidence) => {
   const frequentItemSets = [];
   //TODO: Минимальная поддержка minSupport (например, 2 транзакции с элементом или набором) --> Если нужно будет в процентном соотношении
-  // const minSupport = calculateMinSupportRule(transactions, support);
+  const minSupport = calculateMinSupportRule(transactions, support);
   let frequentItemSetsK = findFrequent1ItemSets(transactions, minSupport);
 
   while (frequentItemSetsK.length > 0) {
@@ -134,7 +134,7 @@ export const getAssociations = (transactions, minSupport, minConfidence) => {
     frequentItemSetsK = findFrequentItemSets(candidateSupport, minSupport);
   }
 
-  return generateAssociationRules(transactions, frequentItemSets.reduce((acc, val) => acc.concat(val), []), minConfidence);
+  return generateAssociationRules(transactions, frequentItemSets.reduce((acc, val) => acc.concat(val), []), confidence);
 }
 
 export const generateProductsAssociationsEnum = (associations, products) => {
