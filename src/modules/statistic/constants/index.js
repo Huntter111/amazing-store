@@ -25,12 +25,12 @@ export const PRODUCTS_COMPONENT_TITLES = {
 };
 
 export const STATISTIC_PRODUCT_TYPES = {
-  ALL: "ALL",
-  FOOD: "FOOD",
-  DRINK: "DRINK"
-}
+  ALL: 'ALL',
+  FOOD: 'FOOD',
+  DRINK: 'DRINK',
+};
 
-export const ASSOCIATIONS_SUPPORT_TITLE ={
+export const ASSOCIATIONS_SUPPORT_TITLE = {
   FIVE: '5% Замовлень',
   TEN: '10% Замовлень',
   FIFTEEN: '15% Замовлень',
@@ -50,10 +50,10 @@ export const ASSOCIATIONS_SUPPORT_TITLE ={
   EIGHTY_FIVE: `85% Замовлень`,
   NIGHTY: '90% Замовлень',
   NIGHTY_FIVE: '95% Замовлень',
-  ONE_HUNDRED: '100% Замовлень'
+  ONE_HUNDRED: '100% Замовлень',
 };
 
-export const ASSOCIATIONS_SUPPORT_TYPE ={
+export const ASSOCIATIONS_SUPPORT_TYPE = {
   FIVE: 0.05,
   TEN: 0.1,
   FIFTEEN: 0.15,
@@ -73,7 +73,7 @@ export const ASSOCIATIONS_SUPPORT_TYPE ={
   EIGHTY_FIVE: 0.85,
   NIGHTY: 0.9,
   NIGHTY_FIVE: 0.95,
-  ONE_HUNDRED: 1
+  ONE_HUNDRED: 1,
 };
 
 export const ASSOCIATIONS_CONFIDENCE_TITLE = {
@@ -86,7 +86,7 @@ export const ASSOCIATIONS_CONFIDENCE_TITLE = {
   SEVENTY: 'Ймовірність 70%',
   EIGHTY: 'Ймовірність 80%',
   NIGHTY: 'Ймовірність 90%',
-  ONE_HUNDRED: 'Ймовірність 100%'
+  ONE_HUNDRED: 'Ймовірність 100%',
 };
 export const ASSOCIATIONS_CONFIDENCE_TYPE = {
   TEN: 0.1,
@@ -99,4 +99,16 @@ export const ASSOCIATIONS_CONFIDENCE_TYPE = {
   EIGHTY: 0.8,
   NIGHTY: 0.9,
   ONE_HUNDRED: 1,
+};
+
+export const USER_STATISTIC_COMPONENT_TYPE = {
+  STATISTIC_ORDERS: 'STATISTIC_ORDERS',
+  STATISTIC_LOYALTY: 'STATISTIC_LOYALTY',
+  STATISTIC_PROFITABILITY: 'STATISTIC_PROFITABILITY',
+};
+
+export const USER_STATISTIC_COMPONENT_TITLES = {
+  STATISTIC_ORDERS: 'Статистика продажів',
+  STATISTIC_LOYALTY: 'Система лояльності',
+  STATISTIC_PROFITABILITY: 'Рентабельність',
 };
