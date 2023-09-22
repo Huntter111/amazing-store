@@ -1,4 +1,6 @@
 import { TYPE_CHART } from '../../common/constants';
+import moment from 'moment';
+
 const sumPricesInOrder = (order) => {
   return order.cartProducts.reduce((acc, cart) => {
     acc += cart.initialPriceAmount;
@@ -42,13 +44,39 @@ const calculateSum = (data) => {
     return acc;
   }, 0);
 };
-const getUserStatisticData = (products) => {
-  const ordersDataList = products && formattedUserList(products);
+
+const getFilteredOrdersData = (ordersList, from, to) => {
+  if (from && to) {
+    return ordersList.filter((item) => {
+      return !moment(item.orderDate).isBefore(from, 'date') && !moment(item.orderDate).isAfter(to, 'date');
+    });
+  }
+  return ordersList;
+};
+
+const getHighlightDates = (ordersList) => {
+  if (ordersList.length) {
+    return ordersList
+      ?.reduce((acc, date) => {
+        if (!acc.includes(date?.orderDate)) {
+          return [...acc, date.orderDate];
+        }
+        return acc;
+      }, [])
+      .map((_) => moment(_, 'M/D/YYYY').subtract(0, 'days').toDate());
+  }
+};
+const getUserStatisticData = (products, from, to) => {
+  const filteredData = products && getFilteredOrdersData(products, from, to);
+  const ordersDataList = filteredData && formattedUserList(filteredData);
   const fullPricesDataByUsers = generateDataToGraph(ordersDataList.fullPrices);
   const averagePricesData = generateDataToGraph(ordersDataList.averagePrices);
   const fullOrdersSum = calculateSum(fullPricesDataByUsers.y);
   const averageOrdersSum = calculateSum(averagePricesData.y);
+
+  const datepickerHighlightDates = getHighlightDates(products);
   return {
+    datepickerHighlightDates,
     graphData: [
       {
         graphType: TYPE_CHART.PIE,
