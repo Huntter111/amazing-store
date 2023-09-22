@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../../routes/';
 import productImg from '../../../../assets/product.png';
 import helperImg from '../../../../assets/helper.png';
+import userStatistic from '../../../../assets/userStatistic.png';
 import styles from './statisticsPage.module.scss';
 
 const StatisticsPage = () => {
@@ -21,6 +22,13 @@ const StatisticsPage = () => {
           <div className={styles.linkContent}>
             <h1 className={styles.title}>Статистика по продуктах</h1>
             <img className={styles.image} alt="Products statistic img" src={productImg} />
+          </div>
+        </Link>
+
+        <Link to={ROUTES.USER_STATISTIC} className={styles.linkButtons}>
+          <div className={styles.linkContent}>
+            <h1 className={styles.title}>Статистика по користувачам</h1>
+            <img className={styles.image} alt="Products statistic img" src={userStatistic} />
           </div>
         </Link>
       </nav>

@@ -16,3 +16,6 @@
 .react-datepicker__input-container input:hover {
   border: 1px solid $blue;
 }
+.react-datepicker__input-container {
+  width: max-content;
+}

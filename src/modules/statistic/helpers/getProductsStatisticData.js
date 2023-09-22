@@ -1,9 +1,9 @@
 import moment from 'moment';
 import { TYPE_CHART } from '../../common/constants';
 import { PRODUCT_TYPES } from '../../products/constants';
-import {STATISTIC_PRODUCT_TYPES} from "../constants";
-import {DRINK_PRODUCTS, SET_PRODUCTS, SINGLE_PRODUCT} from "../../helper/constants";
-import {formattedHelperConstants} from "./getHelperStatisticData";
+import { STATISTIC_PRODUCT_TYPES } from '../constants';
+import { DRINK_PRODUCTS, SET_PRODUCTS, SINGLE_PRODUCT } from '../../helper/constants';
+import { formattedHelperConstants } from './getHelperStatisticData';
 
 export const PRODUCTS_SUB_TYPE_LIST = (() => {
   const singleProductsMap = formattedHelperConstants(SINGLE_PRODUCT, true);
@@ -11,10 +11,11 @@ export const PRODUCTS_SUB_TYPE_LIST = (() => {
   const drinkProductsMap = formattedHelperConstants(DRINK_PRODUCTS, true);
 
   return {
-    ...{[STATISTIC_PRODUCT_TYPES.ALL]: "Всі підкатегорії"},
+    ...{ [STATISTIC_PRODUCT_TYPES.ALL]: 'Всі підкатегорії' },
     ...singleProductsMap,
     ...setProductsMap,
-    ...drinkProductsMap}
+    ...drinkProductsMap,
+  };
 })();
 
 const formattedProductsList = (data) => {
@@ -50,8 +51,8 @@ const getFilteredOrdersData = (products, ordersList, from, to, type, subType) =>
 
   if (subType && subType.toUpperCase() !== STATISTIC_PRODUCT_TYPES.ALL) {
     ordersList = ordersList.filter((item) => {
-      const foundProduct = products.find(_ => _.id === item.id);
-      return foundProduct?.type[0]?.fields?.type.toLowerCase() === subType.toLowerCase()
+      const foundProduct = products.find((_) => _.id === item.id);
+      return foundProduct?.type[0]?.fields?.type.toLowerCase() === subType.toLowerCase();
     });
   }
 
@@ -65,7 +66,8 @@ const getHighlightDates = (ordersList) => {
           return [...acc, date.orderDate];
         }
         return acc;
-      }, []).map(_ => moment(_, 'M/D/YYYY').subtract(0, "days").toDate())
+      }, [])
+      .map((_) => moment(_, 'M/D/YYYY').subtract(0, 'days').toDate());
   }
 };
 const generateDataByDataType = (ordersList, productsList, dataType, subDataType) => {
@@ -73,7 +75,7 @@ const generateDataByDataType = (ordersList, productsList, dataType, subDataType)
 
   if (dataType && subDataType) {
     collectedData = ordersList.reduce((acc, item) => {
-      if(productsList[item.id]) {
+      if (productsList[item.id]) {
         if (acc[productsList[item.id]]) {
           acc[productsList[item.id]] = acc[productsList[item.id]] + item[dataType][subDataType];
         } else {
@@ -84,7 +86,7 @@ const generateDataByDataType = (ordersList, productsList, dataType, subDataType)
     }, {});
   } else {
     collectedData = ordersList.reduce((acc, item) => {
-      if(productsList[item.id]) {
+      if (productsList[item.id]) {
         if (acc[productsList[item.id]]) {
           acc[productsList[item.id]] = acc[productsList[item.id]] + item[dataType];
         } else {
@@ -103,7 +105,8 @@ const generateDataByDataType = (ordersList, productsList, dataType, subDataType)
 const getProductsStatisticData = (products, orders, from, to, type, subType) => {
   const productsList = products && formattedProductsList(products);
   const ordersList = orders && formattedOrdersList(orders);
-  const filteredOrdersList = orders && getFilteredOrdersData(products, ordersList, from, to, type, subType);
+  const filteredOrdersList =
+    orders && getFilteredOrdersData(products, ordersList, from, to, type, subType);
   const datepickerHighlightDates = getHighlightDates(ordersList);
 
   const productsByCount = generateDataByDataType(filteredOrdersList, productsList, 'count');
@@ -128,7 +131,7 @@ const getProductsStatisticData = (products, orders, from, to, type, subType) => 
         title: `Продаж продуктів за категорією ${PRODUCT_TYPES[type]} (виручка грн)`,
         data: productsByPrice,
         hole: 0.5,
-        hovertemplate: '%{label}<br>%{value:.2f} ₴<br>%{percent}<extra></extra>'
+        hovertemplate: '%{label}<br>%{value:.2f} ₴<br>%{percent}<extra></extra>',
       },
     ],
   };
