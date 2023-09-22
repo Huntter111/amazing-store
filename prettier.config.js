@@ -1,5 +1,5 @@
 module.exports = {
-  printWidth: 300,
+  printWidth: 120,
   arrowParens: 'always',
   semi: true,
   'editor.tabsize': 2,

@@ -4,23 +4,22 @@ import Control from '../../components/Control';
 import { USER_STATISTIC_COMPONENT_TITLES, USER_STATISTIC_COMPONENT_TYPE } from '../../constants';
 import GraphsLayout from '../../components/GraphsLayout';
 import { useOrders } from '../../../orders/context/OrdersContext';
-import getUserStatisticData from '../../helpers/getUserStatisticData';
-import UsersOrders from '../../components/UsersOrders';
-
-import UserStatisticFilter from '../../components/UserStatisticFilter';
+import OrdersStatistic from '../../components/OrdersStatistic';
+import UsersStatistic from '../../components/UsersStatistic';
 
 const UserStatistic = () => {
   const { allOrders, getAllOrdersData } = useOrders();
-  const [menuState, setMenuState] = useState(null);
-  const [graphData, setGraphData] = useState(null);
+
   const [controlKey, setControlKey] = useState();
-  const [dateRange, setDateRange] = useState({ from: null, to: null });
-  const [highlightDates, setHighlightDates] = useState(null);
 
   const controlButtons = [
     {
       key: USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS,
       title: USER_STATISTIC_COMPONENT_TITLES.STATISTIC_ORDERS,
+    },
+    {
+      key: USER_STATISTIC_COMPONENT_TYPE.STATISTIC_USER,
+      title: USER_STATISTIC_COMPONENT_TITLES.STATISTIC_USER,
     },
     {
       key: USER_STATISTIC_COMPONENT_TYPE.STATISTIC_LOYALTY,
@@ -37,34 +36,23 @@ const UserStatistic = () => {
   }, []);
 
   useEffect(() => {
-    const { from, to } = dateRange;
-    const { datepickerHighlightDates, graphData } = getUserStatisticData(allOrders, from, to);
-    setGraphData(graphData);
-    setHighlightDates(datepickerHighlightDates);
-  }, [allOrders, dateRange]);
-
-  useEffect(() => {
     setControlKey(USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS);
   }, []);
 
   const getComponent = useMemo(() => {
-    if (graphData) {
+    if (allOrders) {
       const components = {
-        [USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS]: (
-          <>
-            <UserStatisticFilter setDateRange={setDateRange} highlightDates={highlightDates} />
-            <UsersOrders graphData={graphData} />
-          </>
-        ),
+        [USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS]: <OrdersStatistic allOrders={allOrders} />,
+        [USER_STATISTIC_COMPONENT_TYPE.STATISTIC_USER]: <UsersStatistic allOrders={allOrders} />,
       };
 
       return components[controlKey];
     }
-  }, [controlKey, graphData]);
+  }, [controlKey, allOrders]);
 
   return (
     <AppLayout>
-      <Control buttons={controlButtons} controlKey={controlKey} setControlKey={setControlKey} callback={() => setMenuState(USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS)} />
+      <Control buttons={controlButtons} controlKey={controlKey} setControlKey={setControlKey} />
       <GraphsLayout>{getComponent}</GraphsLayout>
     </AppLayout>
   );
