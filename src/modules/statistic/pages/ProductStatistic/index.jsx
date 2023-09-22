@@ -28,8 +28,8 @@ const ProductStatisticPage = () => {
   });
   const [associativesFilter, setAssociativesFilter] = useState({
     product: {name: "Всі продукти", type: STATISTIC_PRODUCT_TYPES.ALL},
-    associationMinSupport: {name: ASSOCIATIONS_SUPPORT_TITLE.FIVE, type: Object.keys(ASSOCIATIONS_SUPPORT_TITLE)[0]},
-    associationMinConfidence: {name: ASSOCIATIONS_CONFIDENCE_TITLE.TEN, type:  Object.keys(ASSOCIATIONS_CONFIDENCE_TITLE)[0]}
+    associationSupport: {name: ASSOCIATIONS_SUPPORT_TITLE.FIVE, type: Object.keys(ASSOCIATIONS_SUPPORT_TITLE)[0]},
+    associationConfidence: {name: ASSOCIATIONS_CONFIDENCE_TITLE.TEN, type:  Object.keys(ASSOCIATIONS_CONFIDENCE_TITLE)[0]}
   });
   const [graphData, setGraphData] = useState(null);
   const [highlightDates, setHighlightDates] = useState(null);

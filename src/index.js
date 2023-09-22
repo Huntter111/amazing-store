@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { AuthContextProvider } from './modules/auth/context/AuthContext';
 import { CartContextProvider } from './modules/cart/context/CartContext';
 import { OrdersProvider } from './modules/orders/context/OrdersContext';
+import {AssociativeDataProvider} from "./modules/statistic/context/AssociativesContext";
 import { UserDataProvider } from './modules/auth/context/UserDataContext';
 import GlobalState from './modules/common/context';
 import './modules/common/globalStyles/antd.scss';
@@ -21,9 +22,11 @@ root.render(
     <GlobalState>
       <UserDataProvider>
         <OrdersProvider>
-          <CartContextProvider>
-            <AppRoutes />
-          </CartContextProvider>
+          <AssociativeDataProvider>
+            <CartContextProvider>
+              <AppRoutes />
+            </CartContextProvider>
+          </AssociativeDataProvider>
         </OrdersProvider>
       </UserDataProvider>
     </GlobalState>

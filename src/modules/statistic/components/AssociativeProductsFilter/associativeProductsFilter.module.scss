@@ -1,3 +1,5 @@
+@import '../../../common/globalStyles/colors.scss';
+
 .wrapper {
   display: flex;
   width: fit-content;
@@ -8,4 +10,18 @@
   width: 170px;
   margin: 0 5px!important;
   padding: 1px!important;
+}
+
+.button {
+  margin: 1px 10px 0;
+  background-color: $blue!important;
+  border: 1px solid $blue!important;
+  color: $white!important;
+}
+
+.button:hover {
+  margin: 1px 10px 0;
+  background-color: $white!important;
+  border: 1px solid $blue!important;
+  color: $blue!important;
 }

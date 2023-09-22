@@ -20,13 +20,14 @@ const calculateConfidence = (transactions, rule) => {
 }
 
 // Шаг 3: Находим все одноэлементные наборы с проверкой на minSupport
-const findFrequent1ItemSets = (transactions, minSupport) => {
+const findFrequent1ItemSets = (transactions, products, minSupport) => {
   const unicCandidatesIDs = [...new Set(transactions.flat())];
 
   return unicCandidatesIDs.reduce((acc, item) => {
-    const foundCandidate = transactions.filter(_ => _.includes(item));
+    const foundCandidates = transactions.filter(_ => _.includes(item));
+    const candidateContent = products.find(_ => _.id === item)
 
-    if(foundCandidate.length >= minSupport) {
+    if(foundCandidates.length >= minSupport && candidateContent?.name) {
       return [...acc, [item]]
     }
 
@@ -121,11 +122,11 @@ function generateAssociationRules(transactions, frequentItemSets, minConfidence)
 }
 
 // Шаг 8: Запускаем процесс Apriori (associations)
-export const getAssociations = (transactions, support, confidence) => {
+export const getAssociations = (transactions, products, support, confidence) => {
   const frequentItemSets = [];
   //TODO: Минимальная поддержка minSupport (например, 2 транзакции с элементом или набором) --> Если нужно будет в процентном соотношении
   const minSupport = calculateMinSupportRule(transactions, support);
-  let frequentItemSetsK = findFrequent1ItemSets(transactions, minSupport);
+  let frequentItemSetsK = findFrequent1ItemSets(transactions, products, minSupport);
 
   while (frequentItemSetsK.length > 0) {
     frequentItemSets.push(frequentItemSetsK);

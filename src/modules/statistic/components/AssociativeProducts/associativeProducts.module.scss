@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   background-color: $powder;
+  border: 2px solid $gold;
   margin: 10px 0;
 }
 
@@ -41,4 +42,33 @@
 .confidenceWrapper {
   font-size: 16px;
   margin: 0 20px 0 10px;
+}
+
+.settingsInfoWrapper {
+  width: 400px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid $green;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.settingsInfo {
+  display: flex;
+  color: $green;
+  font-weight: bold;
+}
+
+.settingItem {
+  margin: 0 5px;
+}
+
+.deleteIcon {
+  font-size: 20px;
+  cursor: pointer;
+
+  & > svg {
+    fill: $red;
+  }
 }

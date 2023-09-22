@@ -1,60 +1,64 @@
 import React, {useCallback} from "react";
 import AppDropDown from "../../../common/components/AppDropDown";
 
-import styles from './associativeProductsFilter.module.scss';
 import {
   ASSOCIATIONS_CONFIDENCE_TITLE,
   ASSOCIATIONS_SUPPORT_TITLE
 } from "../../constants";
-const AssociativeProductsFilter = ({ productsAssociationsEnum, filter, setFilter }) => {
+
+import styles from './associativeProductsFilter.module.scss';
+import AppButton from "../../../common/components/AppButton";
+import {BUTTON_TYPE} from "../../../common/constants";
+
+const AssociativeProductsFilter = ({ isAssociationSettingsExist, productsAssociationsEnum, filter, setFilter, setAssociativeSettings }) => {
   const handleSelectProduct = useCallback(
     (value) => {
       setFilter({
         product: {name: filter.product.name, type: value},
-        associationMinSupport: {name: filter.associationMinSupport.name, type: filter.associationMinSupport.type},
-        associationMinConfidence: {name: filter.associationMinConfidence.name, type: filter.associationMinConfidence.type}
+        associationSupport: {name: filter.associationSupport.name, type: filter.associationSupport.type},
+        associationConfidence: {name: filter.associationConfidence.name, type: filter.associationConfidence.type}
       });
     },
     [
-      filter.associationMinConfidence.name,
-      filter.associationMinConfidence.type,
-      filter.associationMinSupport.name,
-      filter.associationMinSupport.type,
+      filter.associationConfidence.name,
+      filter.associationConfidence.type,
+      filter.associationSupport.name,
+      filter.associationSupport.type,
       filter.product.name,
       setFilter
     ],
   );
 
-  const handleSelectAssociativesMinSupport = useCallback(
+  const handleSelectAssociativesSupport = useCallback(
     (value) => {
       setFilter({
         product: {name: filter.product.name, type: filter.product.type},
-        associationMinSupport: {name: filter.associationMinSupport.name, type: value},
-        associationMinConfidence: {name: filter.associationMinConfidence.name, type: filter.associationMinConfidence.type}
+        associationSupport: {name: filter.associationSupport.name, type: value},
+        associationConfidence: {name: filter.associationConfidence.name, type: filter.associationConfidence.type}
       });
     },
     [
-      filter.associationMinConfidence.name,
-      filter.associationMinConfidence.type,
-      filter.associationMinSupport.name,
+      filter.associationConfidence.name,
+      filter.associationConfidence.type,
+      filter.associationSupport.name,
       filter.product.name,
       filter.product.type,
       setFilter
     ],
   );
 
-  const handleSelectAssociativesMinConfidence = useCallback(
+  const handleSelectAssociativesConfidence = useCallback(
     (value) => {
       setFilter({
         product: {name: filter.product.name, type: filter.product.type},
-        associationMinSupport: {name: filter.associationMinSupport.name, type: filter.associationMinSupport.type},
-        associationMinConfidence: {name: filter.associationMinConfidence.name, type: value}
+        associationSupport: {name: filter.associationSupport.name, type: filter.associationSupport.type},
+        associationConfidence: {name: filter.associationConfidence.name, type: value}
       });
     },
     [
-      filter.associationMinConfidence.name,
-      filter.associationMinSupport.name,
-      filter.associationMinSupport.type,
+      filter.associationConfidence.name,
+      filter.associationSupport.name,
+      filter.associationSupport.type,
       filter.product.name,
       filter.product.type,
       setFilter
@@ -79,9 +83,9 @@ const AssociativeProductsFilter = ({ productsAssociationsEnum, filter, setFilter
           return {title: type}
         })}
         enumData={ASSOCIATIONS_SUPPORT_TITLE}
-        handleSelect={handleSelectAssociativesMinSupport}
+        handleSelect={handleSelectAssociativesSupport}
         styles={styles.select}
-        value={filter.associationMinSupport.type}
+        value={filter.associationSupport.type}
         placeholder="Кількість співпадінь"
       />
       <AppDropDown
@@ -89,10 +93,17 @@ const AssociativeProductsFilter = ({ productsAssociationsEnum, filter, setFilter
           return {title: type}
         })}
         enumData={ASSOCIATIONS_CONFIDENCE_TITLE}
-        handleSelect={handleSelectAssociativesMinConfidence}
+        handleSelect={handleSelectAssociativesConfidence}
         styles={styles.select}
-        value={filter.associationMinConfidence.type}
+        value={filter.associationConfidence.type}
         placeholder="Мінімальна достовірність"
+      />
+      <AppButton
+        className={styles.button}
+        type={BUTTON_TYPE.PRIMARY}
+        name={'Зберегти налаштування'}
+        onClick={setAssociativeSettings}
+        disabled={isAssociationSettingsExist}
       />
     </div>
   );
