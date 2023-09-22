@@ -37,25 +37,25 @@ const CartProductsList = () => {
   const associatives = useMemo(() => {
     if(!associativesData?.length && !products) return []
 
-    const associativesList = associativesData[0].results;
-    const cartProductsIDs = cart.map(_ => _.id);
+    const associativesList = associativesData?.[0].results;
+    const cartProductsIDs = cart?.map(_ => _.id);
 
-    const filteredAssociations = associativesList.filter(({antecedent, consequent}) => {
+    const filteredAssociations = associativesList?.filter(({antecedent, consequent}) => {
       if (!antecedent || !consequent) return false;
 
-      const isAntecedentExist = antecedent.every(id => cartProductsIDs.includes(id));
+      const isAntecedentExist = antecedent?.every(id => cartProductsIDs.includes(id));
 
       if(isAntecedentExist) {
-        return !consequent.some(id => cartProductsIDs.includes(id));
+        return !consequent?.some(id => cartProductsIDs.includes(id));
       }
 
       return false;
     });
 
-    return filteredAssociations.reduce((acc, association) => {
+    return filteredAssociations?.reduce((acc, association) => {
       const {consequent} = association;
 
-      const formattedConsequent = consequent.map(item => {
+      const formattedConsequent = consequent?.map(item => {
         return  products.find(_ => _.id === item)
       });
 
@@ -68,8 +68,6 @@ const CartProductsList = () => {
       return acc;
     }, []);
   }, [associativesData, cart, products]);
-
-  console.log('associatives', associatives);
 
   return (
     <>
