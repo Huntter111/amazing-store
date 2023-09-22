@@ -94,13 +94,7 @@ const ProductStatisticPage = () => {
 
       return components[controlKey];
     }
-  }, [
-    graphData,
-    highlightDates,
-    productStatisticFilter,
-    associativesFilter,
-    controlKey
-  ]);
+  }, [graphData, highlightDates, productStatisticFilter, allOrders, associativesFilter, controlKey]);
 
   return (
     <AppLayout>

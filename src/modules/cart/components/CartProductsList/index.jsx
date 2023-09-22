@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { Breadcrumb } from "antd";
 
 import { useCart } from "../../context/CartContext";
@@ -9,11 +9,21 @@ import { BUTTON_TYPE } from "../../../common/constants";
 import OrderModal from "../../../orders/components/OrderModal";
 
 import styles from "./cartProductsList.module.scss";
+import {useAssociativeData} from "../../../statistic/context/AssociativesContext";
+import {useGlobalContext} from "../../../common/context";
+import ProductCard from "../../../products/components/ProductCard";
 
 const CartProductsList = () => {
   const { cart, clearCart } = useCart();
+  const { products } = useGlobalContext();
   const [totalPrice, setTotalPrice] = useState(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const {associativesData, getAllAssociativesDataInfo} = useAssociativeData();
+
+  useEffect(() => {
+    getAllAssociativesDataInfo();
+    // eslint-disable-next-line
+  }, [])
 
   useEffect(() => {
     const totalPrice = cart.reduce((acc, item) => {
@@ -24,6 +34,43 @@ const CartProductsList = () => {
     setTotalPrice(totalPrice);
   }, [cart]);
 
+  const associatives = useMemo(() => {
+    if(!associativesData?.length && !products) return []
+
+    const associativesList = associativesData[0].results;
+    const cartProductsIDs = cart.map(_ => _.id);
+
+    const filteredAssociations = associativesList.filter(({antecedent, consequent}) => {
+      if (!antecedent || !consequent) return false;
+
+      const isAntecedentExist = antecedent.every(id => cartProductsIDs.includes(id));
+
+      if(isAntecedentExist) {
+        return !consequent.some(id => cartProductsIDs.includes(id));
+      }
+
+      return false;
+    });
+
+    return filteredAssociations.reduce((acc, association) => {
+      const {consequent} = association;
+
+      const formattedConsequent = consequent.map(item => {
+        return  products.find(_ => _.id === item)
+      });
+
+      if(formattedConsequent?.length) {
+        formattedConsequent.forEach(_ => {
+          acc.push(_)
+        })
+      }
+
+      return acc;
+    }, []);
+  }, [associativesData, cart, products]);
+
+  console.log('associatives', associatives);
+
   return (
     <>
       <Breadcrumb className={styles.breadcrumbs} separator=">">
@@ -32,15 +79,36 @@ const CartProductsList = () => {
         </Breadcrumb.Item>
         <Breadcrumb.Item>Кошик</Breadcrumb.Item>
       </Breadcrumb>
-      <div className={styles.cartListWrapper}>
-        {cart.map(({ id, count, description, price, title, type, url }) => {
-          return (
-            <CartProduct
-              key={id}
-              {...{ id, count, description, price, title, type, url }}
-            />
-          );
-        })}
+      <div className={styles.cartInfoWrapper}>
+        <div className={styles.cartListWrapper}>
+          {cart.map(({ id, count, description, price, title, type, url }) => {
+            return (
+              <CartProduct
+                key={id}
+                {...{ id, count, description, price, title, type, url }}
+              />
+            );
+          })}
+        </div>
+        {!!associatives?.length && <div className={styles.associativeSection}>
+          <h3 className={styles.associationTitle}>
+            До Вашого набору продуктів також додають
+          </h3>
+          <div className={styles.associationsWrapper}>
+            {[...new Set(associatives)].map(({id, name, price, images, type}) => {
+              return (
+                <ProductCard
+                  id={id}
+                  style={styles.associativeProductCard}
+                  title={name}
+                  type={type[0].fields.name}
+                  price={price}
+                  url={images[0].file.url}
+                />
+              )
+            })}
+          </div>
+        </div>}
       </div>
       <div className={styles.summary}>
         <AppButton
