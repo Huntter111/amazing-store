@@ -34,6 +34,9 @@
 }
 
 .associationsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   height: 74vh;
   overflow: scroll;
@@ -45,7 +48,7 @@
 
 .associativeProductCard {
   width: 260px;
-  margin: 0 auto 10px auto!important;
+  margin: 5px 0!important;
 }
 
 .associativeProductCard > div:last-child > div {
@@ -53,12 +56,12 @@
 }
 
 .associativeProductCard > div:last-child > div:first-child > div > div {
-  font-size: 12px!important;
+  font-size: 14px!important;
   font-weight: bold;
 }
 
 .associativeProductCard > div:last-child > div:last-child div button {
-  font-size: 14px!important;
+  font-size: 20px!important;
   width: 20px;
   min-width: 20px;
   height: 20px;

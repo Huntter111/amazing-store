@@ -7,25 +7,31 @@
   margin-bottom: 50px;
   flex-direction: column;
   align-items: center;
-  .content {
-    width: 400px;
-    .list {
-      font-weight: bold;
-      width: 100%;
-    }
-    .wrapperButtons {
-      display: flex;
-      margin-bottom: 10px;
-      .btn {
-        margin-left: 5px;
-        width: max-content;
-        height: 35px;
-      }
-      .input {
-        margin-right: 5px;
-        height: 35px;
-        width: 300px;
-      }
-    }
-  }
+}
+
+.list {
+  font-weight: bold;
+  width: 100%;
+  margin: 0!important;
+}
+
+.content {
+  width: 400px;
+}
+
+.wrapperButtons {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.btn {
+  margin-left: 5px;
+  width: 100%;
+  height: 35px!important;
+}
+
+.input {
+  margin-right: 5px;
+  height: 35px;
+  width: 100%!important;
 }
