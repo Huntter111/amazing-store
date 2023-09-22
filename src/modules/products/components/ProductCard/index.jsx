@@ -12,13 +12,13 @@ import { BUTTON_TYPE } from "../../../common/constants";
 
 const { Meta } = Card;
 
-const ProductCard = ({ id, title, description, type, url, price }) => {
+const ProductCard = ({ id, title, description, type, url, price, confidence, style }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
   return (
     <Card
-      className={styles.card}
+      className={style || styles.card}
       hoverable
       cover={
         <LazyLoadImage

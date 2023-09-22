@@ -33,6 +33,7 @@ const UserStatistic = () => {
 
   useEffect(() => {
     getAllOrdersData();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
