@@ -84,6 +84,7 @@ const getUserStatisticOrdersData = (orders, from, to) => {
 
   const datepickerHighlightDates = getHighlightDates(orders);
   return {
+    fullOrdersSum: fullOrdersSum.toFixed(2),
     datepickerHighlightDates,
     graphData: [
       {

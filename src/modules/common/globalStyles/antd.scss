@@ -1,4 +1,4 @@
-@import "./colors.scss";
+@import './colors.scss';
 
 .ant-popconfirm .ant-popover-message {
   padding: 2px 0;
@@ -32,4 +32,7 @@
   .ant-drawer-title {
     text-align: right;
   }
+}
+.ant-card {
+  margin: 0 !important;
 }

@@ -1,0 +1,31 @@
+.inputWrapper {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  top: 40px;
+  width: 100%;
+  margin-bottom: 50px;
+  flex-direction: column;
+  align-items: center;
+  .content {
+    width: 400px;
+    .list {
+      font-weight: bold;
+      width: 100%;
+    }
+    .wrapperButtons {
+      display: flex;
+
+      .btn {
+        margin-left: 5px;
+        width: max-content;
+        height: 35px;
+      }
+      .input {
+        margin-right: 5px;
+        height: 35px;
+        width: 300px;
+      }
+    }
+  }
+}
