@@ -4,6 +4,7 @@ import UsersOrders from '../UsersOrders';
 import UserStatisticFilter from '../OrdersStatisticFilter';
 import { InputNumber, Card, Button } from 'antd';
 import styles from './ordersStatistic.module.scss';
+import { useCallback } from 'react';
 
 const OrdersStatistic = ({ allOrders }) => {
   const [dateRange, setDateRange] = useState({ from: null, to: null });
@@ -21,9 +22,9 @@ const OrdersStatistic = ({ allOrders }) => {
     setOrdersSum(fullOrdersSum);
   }, [allOrders, dateRange]);
 
-  const handlerChangeInputDate = (value) => {
+  const handlerChangeInputDate = useCallback((value) => {
     setInputValue(value);
-  };
+  }, []);
 
   const setColorByProfitability = (procent) => {
     if (procent <= 30) {
@@ -36,7 +37,7 @@ const OrdersStatistic = ({ allOrders }) => {
     }
   };
 
-  const hendlerRent = () => {
+  const hendlerRent = useCallback(() => {
     const profit = (ordersSum - inputValue).toFixed(2);
     const profitability = ((profit / ordersSum) * 100).toFixed(2);
     const color = setColorByProfitability(profitability);
@@ -55,7 +56,7 @@ const OrdersStatistic = ({ allOrders }) => {
         color,
       },
     ]);
-  };
+  }, [ordersSum, inputValue]);
 
   return (
     <>
