@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import UsersStatisticFilter from '../UsersStatisticFilter';
 import { getStatisticOrdersByUser } from '../../helpers/getUserStatisticData';
 import UsersOrders from '../UsersOrders';
+import styles from './usersStatistic.module.scss';
+import Loality from '../Loality';
 
 const UsersStatistic = ({ allOrders }) => {
   const [filterKey, setFilterKey] = useState(null);
@@ -9,9 +11,9 @@ const UsersStatistic = ({ allOrders }) => {
   const [userMails, setUsersMail] = useState(null);
   const [dateRange, setDateRange] = useState({ from: null, to: null });
   const [highlightDates, setHighlightDates] = useState(null);
+
   useEffect(() => {
     const { from, to } = dateRange;
-
     const { usersMailList, graphData, highlightDates } = getStatisticOrdersByUser(allOrders, filterKey, from, to);
     setGraphData(graphData);
     setUsersMail(usersMailList);
@@ -23,14 +25,19 @@ const UsersStatistic = ({ allOrders }) => {
   };
 
   return (
-    <div>
-      <UsersStatisticFilter
-        handlerChangeFilterKey={handlerChangeFilterKey}
-        userMails={userMails}
-        setDateRange={setDateRange}
-        highlightDates={highlightDates}
-      />
-      <UsersOrders graphData={graphData} />
+    <div className={styles.wrapper}>
+      <div className={styles.contenGraph}>
+        <UsersStatisticFilter
+          handlerChangeFilterKey={handlerChangeFilterKey}
+          userMails={userMails}
+          setDateRange={setDateRange}
+          highlightDates={highlightDates}
+        />
+        <UsersOrders graphData={graphData} />
+      </div>
+      <div className={styles.contentLoality}>
+        <Loality />
+      </div>
     </div>
   );
 };

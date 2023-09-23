@@ -1,22 +1,19 @@
-import React, {useCallback} from "react";
-import AppDropDown from "../../../common/components/AppDropDown";
+import React, { useCallback } from 'react';
+import AppDropDown from '../../../common/components/AppDropDown';
 
-import {
-  ASSOCIATIONS_CONFIDENCE_TITLE,
-  ASSOCIATIONS_SUPPORT_TITLE
-} from "../../constants";
+import { ASSOCIATIONS_CONFIDENCE_TITLE, ASSOCIATIONS_SUPPORT_TITLE } from '../../constants';
 
 import styles from './associativeProductsFilter.module.scss';
-import AppButton from "../../../common/components/AppButton";
-import {BUTTON_TYPE} from "../../../common/constants";
+import AppButton from '../../../common/components/AppButton';
+import { BUTTON_TYPE } from '../../../common/constants';
 
 const AssociativeProductsFilter = ({ isAssociationSettingsExist, productsAssociationsEnum, filter, setFilter, setAssociativeSettings }) => {
   const handleSelectProduct = useCallback(
     (value) => {
       setFilter({
-        product: {name: filter.product.name, type: value},
-        associationSupport: {name: filter.associationSupport.name, type: filter.associationSupport.type},
-        associationConfidence: {name: filter.associationConfidence.name, type: filter.associationConfidence.type}
+        product: { name: filter.product.name, type: value },
+        associationSupport: { name: filter.associationSupport.name, type: filter.associationSupport.type },
+        associationConfidence: { name: filter.associationConfidence.name, type: filter.associationConfidence.type },
       });
     },
     [
@@ -25,16 +22,16 @@ const AssociativeProductsFilter = ({ isAssociationSettingsExist, productsAssocia
       filter.associationSupport.name,
       filter.associationSupport.type,
       filter.product.name,
-      setFilter
+      setFilter,
     ],
   );
 
   const handleSelectAssociativesSupport = useCallback(
     (value) => {
       setFilter({
-        product: {name: filter.product.name, type: filter.product.type},
-        associationSupport: {name: filter.associationSupport.name, type: value},
-        associationConfidence: {name: filter.associationConfidence.name, type: filter.associationConfidence.type}
+        product: { name: filter.product.name, type: filter.product.type },
+        associationSupport: { name: filter.associationSupport.name, type: value },
+        associationConfidence: { name: filter.associationConfidence.name, type: filter.associationConfidence.type },
       });
     },
     [
@@ -43,16 +40,16 @@ const AssociativeProductsFilter = ({ isAssociationSettingsExist, productsAssocia
       filter.associationSupport.name,
       filter.product.name,
       filter.product.type,
-      setFilter
+      setFilter,
     ],
   );
 
   const handleSelectAssociativesConfidence = useCallback(
     (value) => {
       setFilter({
-        product: {name: filter.product.name, type: filter.product.type},
-        associationSupport: {name: filter.associationSupport.name, type: filter.associationSupport.type},
-        associationConfidence: {name: filter.associationConfidence.name, type: value}
+        product: { name: filter.product.name, type: filter.product.type },
+        associationSupport: { name: filter.associationSupport.name, type: filter.associationSupport.type },
+        associationConfidence: { name: filter.associationConfidence.name, type: value },
       });
     },
     [
@@ -61,7 +58,7 @@ const AssociativeProductsFilter = ({ isAssociationSettingsExist, productsAssocia
       filter.associationSupport.type,
       filter.product.name,
       filter.product.type,
-      setFilter
+      setFilter,
     ],
   );
 
@@ -69,7 +66,7 @@ const AssociativeProductsFilter = ({ isAssociationSettingsExist, productsAssocia
     <div className={styles.wrapper}>
       <AppDropDown
         arrayTypes={Object.keys(productsAssociationsEnum || {}).map((type) => {
-          return {title: type}
+          return { title: type };
         })}
         enumData={productsAssociationsEnum}
         enumKeyWithoutUppercase
@@ -80,7 +77,7 @@ const AssociativeProductsFilter = ({ isAssociationSettingsExist, productsAssocia
       />
       <AppDropDown
         arrayTypes={Object.keys(ASSOCIATIONS_SUPPORT_TITLE).map((type) => {
-          return {title: type}
+          return { title: type };
         })}
         enumData={ASSOCIATIONS_SUPPORT_TITLE}
         handleSelect={handleSelectAssociativesSupport}
@@ -90,7 +87,7 @@ const AssociativeProductsFilter = ({ isAssociationSettingsExist, productsAssocia
       />
       <AppDropDown
         arrayTypes={Object.keys(ASSOCIATIONS_CONFIDENCE_TITLE).map((type) => {
-          return {title: type}
+          return { title: type };
         })}
         enumData={ASSOCIATIONS_CONFIDENCE_TITLE}
         handleSelect={handleSelectAssociativesConfidence}

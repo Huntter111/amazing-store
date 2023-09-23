@@ -1,0 +1,36 @@
+@import '../../../common/globalStyles/colors.scss';
+
+.settingsInfoWrapper {
+  width: 400px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid $green;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+.settingsInfo {
+  display: flex;
+  color: $green;
+  font-weight: bold;
+}
+
+.settingItem {
+  margin: 0 5px;
+}
+
+.deleteIcon {
+  font-size: 20px;
+  cursor: pointer;
+
+  & > svg {
+    fill: $red;
+  }
+}
+.inputProcentSale {
+  width: 100px !important;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
