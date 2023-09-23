@@ -34,7 +34,7 @@ const ProductStatisticPage = () => {
   ];
 
   useEffect(() => {
-    if(!allOrders) getAllOrdersData();
+    if(!allOrders?.length) getAllOrdersData();
     // eslint-disable-next-line
   }, [allOrders]);
 

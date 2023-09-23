@@ -37,8 +37,6 @@ const groupByABCSystem = (products, formattedProductsList) => {
   //Group B cover 30% of ABCGroupTotalPrice
   const groupBTotalPrice = ABCGroupTotalPrice * 0.3;
 
-  console.log('ABCGroupTotalPrice', ABCGroupTotalPrice);
-
   return Object.keys(formattedProductsList).reduce((acc, productID, idx) => {
     const foundProductContent = products.find(_ => _.id === productID);
     if(!groupDoneFlag.groupA && (acc?.['groupA']?.reduce((acc, item) => acc + item?.priceAmount, 0) < groupATotalPrice)) {

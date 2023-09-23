@@ -23,7 +23,7 @@ const HelperStatisticPage = () => {
   ];
 
   useEffect(() => {
-    if(!usersData) getAllUsersDataInfo();
+    if(!usersData?.length) getAllUsersDataInfo();
     // eslint-disable-next-line
   }, [usersData]);
 
