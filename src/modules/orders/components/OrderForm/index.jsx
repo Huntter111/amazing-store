@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Formik, Form } from "formik";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import * as Yup from "yup";
-import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { Formik, Form } from 'formik';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import * as Yup from 'yup';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
-import { ROUTES } from "../../../../routes";
-import { useUserAuth } from "../../../auth/context/AuthContext";
-import { useOrders } from "../../context/OrdersContext";
-import { useUserData } from "../../../auth/context/UserDataContext";
-import { useCart } from "../../../cart/context/CartContext";
-import InputField from "../../../common/components/InputField";
-import InputPhoneField from "../../../common/components/InputPhoneField";
-import AppButton from "../../../common/components/AppButton";
-import { BUTTON_TYPE } from "../../../common/constants";
-import {sendOrderMessage} from '../../helpers/orderMessanger';
+import { ROUTES } from '../../../../routes';
+import { useUserAuth } from '../../../auth/context/AuthContext';
+import { useOrders } from '../../context/OrdersContext';
+import { useUserData } from '../../../auth/context/UserDataContext';
+import { useCart } from '../../../cart/context/CartContext';
+import InputField from '../../../common/components/InputField';
+import InputPhoneField from '../../../common/components/InputPhoneField';
+import AppButton from '../../../common/components/AppButton';
+import { BUTTON_TYPE } from '../../../common/constants';
+import { sendOrderMessage } from '../../helpers/orderMessanger';
 
-import styles from "./orderForm.module.scss";
+import styles from './orderForm.module.scss';
 
 const OrderForm = ({ closeModal, clearCart }) => {
   const { cart } = useCart();
@@ -28,31 +28,22 @@ const OrderForm = ({ closeModal, clearCart }) => {
   const [orderNumber, setOrderNumber] = useState(null);
 
   useEffect(() => {
-    setOrderNumber(Number(moment().format("x")));
+    setOrderNumber(Number(moment().format('x')));
     user && getUserDataInfo(user.email);
   }, [user]);
 
   const handleSubmit = useCallback(
     (values, { resetForm }) => {
-      const {
-        firstName,
-        lastName,
-        email,
-        phone,
-        city,
-        street,
-        house,
-        apartment,
-      } = values;
-
+      const { firstName, lastName, email, phone, city, street, house, apartment } = values;
+      const totalPrice = cart.reduce((acc, item) => acc + item.price.priceAmount, 0);
       const orderData = {
         orderNumber,
-        orderDate: moment().format("l"),
+        orderDate: moment().format('l'),
         userInfo: {
           firstName,
           lastName,
           email,
-          phone
+          phone,
         },
         address: {
           city,
@@ -61,12 +52,20 @@ const OrderForm = ({ closeModal, clearCart }) => {
           apartment,
         },
         cartProducts: cart,
+        orderSummary: {
+          priceTotalAmount: {
+            totalPriceWithoutAdjastment: totalPrice,
+            totalPriceWithAdjastment: totalPrice - totalPrice * (userData?.loyalti.adjastment || 0),
+            totalAdjastment: totalPrice * (userData?.loyalti.adjastment || 0),
+          },
+          adjastment: userData?.loyalti || null,
+        },
       };
 
       if (!userData) {
         createUserDataInfo({ ...orderData.userInfo, ...orderData.address });
       } else {
-        updateUserDataInfo(userData?.id, { ...orderData.userInfo, ...orderData.address })
+        updateUserDataInfo(userData?.id, { ...orderData.userInfo, ...orderData.address });
       }
 
       createOrderData(orderData);
@@ -76,29 +75,27 @@ const OrderForm = ({ closeModal, clearCart }) => {
       sendOrderMessage(orderData);
       navigate(ROUTES.PRODUCTS_LIST);
     },
-    [orderNumber, userData]
+    [orderNumber, userData],
   );
 
   const initialValues = useMemo(() => {
     if (userData) return userData;
 
     return {
-      firstName: "",
-      lastName: "",
-      email: user?.email || "",
-      phone: "",
-      city: "",
-      street: "",
-      house: "",
-      apartment: "",
+      firstName: '',
+      lastName: '',
+      email: user?.email || '',
+      phone: '',
+      city: '',
+      street: '',
+      house: '',
+      apartment: '',
     };
   }, [userData, user?.email]);
 
   return (
     <>
-      <h1 className={styles.formHeader}>{`Замовлення №${
-        orderNumber ? orderNumber : ""
-      }`}</h1>
+      <h1 className={styles.formHeader}>{`Замовлення №${orderNumber ? orderNumber : ''}`}</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -115,14 +112,7 @@ const OrderForm = ({ closeModal, clearCart }) => {
         enableReinitialize
       >
         {(props) => {
-          const {
-            values,
-            touched,
-            errors,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-          } = props;
+          const { values, touched, errors, handleChange, handleBlur, handleSubmit } = props;
           return (
             <Form>
               <h2>Дані замовника</h2>
