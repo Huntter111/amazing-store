@@ -66,7 +66,13 @@ const UsersOrdersStatistic = ({ allOrders }) => {
       <div className={styles.inputWrapper}>
         <div className={styles.content}>
           <div className={styles.wrapperButtons}>
-            <InputNumber className={styles.input} min={0} max={100000000} defaultValue={0} onChange={handlerChangeInputDate} />
+            <InputNumber
+              className={styles.input}
+              min={0}
+              max={100000000}
+              defaultValue={0}
+              onChange={handlerChangeInputDate}
+            />
             <Button onClick={hendlerRent} className={styles.btn}>
               Розрахувати рентабельнiсть
             </Button>

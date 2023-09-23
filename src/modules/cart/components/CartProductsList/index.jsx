@@ -17,10 +17,11 @@ import { useUserData } from '../../../auth/context/UserDataContext';
 const CartProductsList = () => {
   const { cart, clearCart } = useCart();
   const { products } = useGlobalContext();
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [salePrice, setSalePrice] = useState(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const { associativesData, getAllAssociativesDataInfo } = useAssociativeData();
   const { userData } = useUserData();
+  const [totalPrice, setTotalPrice] = useState(null);
 
   useEffect(() => {
     getAllAssociativesDataInfo();
@@ -32,9 +33,13 @@ const CartProductsList = () => {
       const { price } = item;
       return acc + price.priceAmount;
     }, 0);
-
-    setTotalPrice(totalPrice - totalPrice * userData?.loyalti?.adjastment);
-  }, [cart]);
+    if (userData && userData.loyalti && totalPrice) {
+      setSalePrice((totalPrice * userData?.loyalti?.adjastment).toFixed(2));
+      setTotalPrice((totalPrice - totalPrice * userData?.loyalti?.adjastment).toFixed(2));
+    } else {
+      setTotalPrice(totalPrice);
+    }
+  }, [cart, userData]);
 
   const associatives = useMemo(() => {
     if (!associativesData?.length && !products) return [];
@@ -126,7 +131,11 @@ const CartProductsList = () => {
             <b>{`${totalPrice}`}</b>
           </span>{' '}
           <span>UAH</span>
-          {userData?.loyalti && <span>{`  Скидка - ${userData?.loyalti.adjastment * 100}% `}</span>}
+          {userData?.loyalti && totalPrice ? (
+            <span>{`  ( Скидка - ${userData?.loyalti.adjastment * 100}%  заощаджено ${salePrice} UAH ) `}</span>
+          ) : (
+            ''
+          )}
         </div>
       </div>
       <OrderModal clearCart={clearCart} isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} />
