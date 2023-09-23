@@ -45,12 +45,14 @@ const AppHeader = () => {
       getOrdersData(user.email);
       getAllLoyaltiesDataInfo();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {
     if (user && user?.email && userData && loyaltiesData && orders) {
       setUserLoyalty({ loyaltiesData, orders, updateUserDataInfo, userData });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, orders, loyaltiesData, userData]);
 
   return useMemo(

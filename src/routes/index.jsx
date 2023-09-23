@@ -11,6 +11,7 @@ import UserStatistic from '../modules/statistic/pages/UserStatistic';
 import NotFoundPage from '../modules/common/pages/NotFound';
 import { useUserAuth } from '../modules/auth/context/AuthContext';
 import { USER_ADMIN_EMAIL } from '../env';
+import AppHeader from "../modules/common/components/AppHeader";
 
 export const ROUTES = {
   PRODUCTS_LIST: '/',
@@ -55,6 +56,7 @@ export const AppRoutes = () => {
     const isRouteExist = Object.values(ROUTES).includes(window.location.pathname);
     return (
       <Router>
+        <AppHeader />
         <Routes>
           {publicRoutes}
           {user?.email === USER_ADMIN_EMAIL && privateRoutes}
