@@ -18,14 +18,14 @@ export const PRODUCTS_SUB_TYPE_LIST = (() => {
   };
 })();
 
-const formattedProductsList = (data) => {
+export const formattedProductsList = (data) => {
   return data.reduce((acc, item) => {
     acc[item.id] = item.name;
     return acc;
   }, {});
 };
 
-const formattedOrdersList = (data) => {
+export const formattedOrdersList = (data) => {
   return data.reduce((acc, item) => {
     const { cartProducts, orderDate } = item;
     const cartProductsWithOrderData = cartProducts.map((_) => {
@@ -70,7 +70,7 @@ const getHighlightDates = (ordersList) => {
       .map((_) => moment(_, 'M/D/YYYY').subtract(0, 'days').toDate());
   }
 };
-const generateDataByDataType = (ordersList, productsList, dataType, subDataType) => {
+export const generateDataByDataType = (ordersList, productsList, dataType, subDataType) => {
   let collectedData;
 
   if (dataType && subDataType) {
