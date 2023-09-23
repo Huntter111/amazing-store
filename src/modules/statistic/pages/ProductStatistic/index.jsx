@@ -62,7 +62,7 @@ const ProductStatisticPage = () => {
           </>
         ),
         [PRODUCTS_COMPONENT_TYPE.PRODUCTS_ASSOTIATIONS]: <AssociativeProducts orders={allOrders} filter={associativesFilter} setFilter={setAssociativesFilter} />,
-        [PRODUCTS_COMPONENT_TYPE.PRODUCTS_GROUPS]: <ProductsGroups />,
+        [PRODUCTS_COMPONENT_TYPE.PRODUCTS_GROUPS]: <ProductsGroups orders={allOrders} />,
       };
 
       return components[controlKey];

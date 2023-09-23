@@ -96,6 +96,7 @@ const CartProductsList = () => {
                 return (
                   <ProductCard
                     id={id}
+                    key={id}
                     style={styles.associativeProductCard}
                     title={name}
                     type={type[0].fields.name}
