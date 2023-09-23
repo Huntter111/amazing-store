@@ -26,9 +26,16 @@ const formattedUserList = (products) => {
         acc.fullSummData[user.userInfo.email] = sumPricesInOrder(user);
         acc.transactionCountData[user.userInfo.email] = 1;
       }
+      if (user?.orderSummary?.priceTotalAmount?.totalPriceWithAdjastment) {
+        acc.adjustmen[user.userInfo.email] = Number(
+          (acc.adjustmen[user.userInfo.email] || 0) +
+            (user.orderSummary.priceTotalAmount.totalPriceWithoutAdjastment -
+              user.orderSummary.priceTotalAmount.totalPriceWithAdjastment),
+        );
+      }
       return acc;
     },
-    { fullSummData: {}, transactionCountData: {} },
+    { fullSummData: {}, transactionCountData: {}, adjustmen: {} },
   );
 
   const usersName = Object.keys(dataOrders.fullSummData);
@@ -37,7 +44,7 @@ const formattedUserList = (products) => {
     return acc;
   }, {});
 
-  return { averagePrices, fullPrices: dataOrders.fullSummData };
+  return { averagePrices, fullPrices: dataOrders.fullSummData, adjustmen: dataOrders.adjustmen };
 };
 
 const calculateSum = (data) => {
@@ -79,9 +86,11 @@ const getUserStatisticOrdersData = (orders, from, to) => {
   const ordersDataList = filteredData && formattedUserList(filteredData);
   const fullPricesDataByUsers = generateDataToGraph(ordersDataList.fullPrices);
   const averagePricesData = generateDataToGraph(ordersDataList.averagePrices);
+  const averagePricesAdjustment = generateDataToGraph(ordersDataList.adjustmen);
+
   const fullOrdersSum = calculateSum(fullPricesDataByUsers.y);
   const averageOrdersSum = calculateSum(averagePricesData.y);
-
+  const adjastmentSum = calculateSum(averagePricesAdjustment.y);
   const datepickerHighlightDates = getHighlightDates(orders);
   return {
     fullOrdersSum: fullOrdersSum.toFixed(2),
@@ -89,15 +98,22 @@ const getUserStatisticOrdersData = (orders, from, to) => {
     graphData: [
       {
         graphType: TYPE_CHART.PIE,
-        title: `Продаж продуктів (загальна сума : ${fullOrdersSum.toFixed(2)} грн)`,
+        title: `Продаж продуктів ( загальна сума : ${fullOrdersSum.toFixed(2)} грн )`,
         data: fullPricesDataByUsers,
         hole: 0.5,
         hovertemplate: '%{label}<br>%{value:.2f} ₴<br>%{percent}<extra></extra>',
       },
       {
         graphType: TYPE_CHART.PIE,
-        title: `Продаж продуктів (середнiй чек : ${averageOrdersSum.toFixed(2)} грн)`,
+        title: `Продаж продуктів ( середнiй чек : ${averageOrdersSum.toFixed(2)} грн )`,
         data: averagePricesData,
+        hole: 0.5,
+        hovertemplate: '%{label}<br>%{value:.2f} ₴<br>%{percent}<extra></extra>',
+      },
+      {
+        graphType: TYPE_CHART.PIE,
+        title: `Продажи зi скидкою ( загальна сума : ${adjastmentSum.toFixed(2)} грн )`,
+        data: averagePricesAdjustment,
         hole: 0.5,
         hovertemplate: '%{label}<br>%{value:.2f} ₴<br>%{percent}<extra></extra>',
       },

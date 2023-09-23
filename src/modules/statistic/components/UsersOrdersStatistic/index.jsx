@@ -61,8 +61,6 @@ const UsersOrdersStatistic = ({ allOrders }) => {
   return (
     <>
       <UserStatisticFilter setDateRange={setDateRange} highlightDates={highlightDates} />
-      <UsersOrders graphData={graphData} />
-
       <div className={styles.inputWrapper}>
         <div className={styles.content}>
           <div className={styles.wrapperButtons}>
@@ -88,6 +86,7 @@ const UsersOrdersStatistic = ({ allOrders }) => {
           </Card>
         </div>
       </div>
+      <UsersOrders graphData={graphData} />
     </>
   );
 };

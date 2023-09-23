@@ -7,6 +7,7 @@ export const Chart = ({ dataX, dataY, title, hole, type, hovertemplate }) => {
 
   return (
     <Plot
+      style={{ margin: '5px' }}
       data={[
         {
           type,
