@@ -1,25 +1,26 @@
-import React, { useEffect } from "react";
-import { useMemo } from "react";
-import { useParams } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
-import ReactMarkdown from "react-markdown";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Breadcrumb } from "antd";
-import { RestOutlined } from "@ant-design/icons";
+import React, { useEffect } from 'react';
+import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper';
+import ReactMarkdown from 'react-markdown';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Breadcrumb } from 'antd';
+import { RestOutlined } from '@ant-design/icons';
+import imageTopSale from '../../../../assets/labelHit.png';
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "./productInfo.global.scss";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import './productInfo.global.scss';
 
-import { useCart } from "../../../cart/context/CartContext";
-import { ROUTES } from "../../../../routes";
-import useProductsDB from "../../../../api/products";
-import AppButton from "../../../common/components/AppButton";
-import { BUTTON_TYPE } from "../../../common/constants";
-import styles from "./productInfo.module.scss";
+import { useCart } from '../../../cart/context/CartContext';
+import { ROUTES } from '../../../../routes';
+import useProductsDB from '../../../../api/products';
+import AppButton from '../../../common/components/AppButton';
+import { BUTTON_TYPE } from '../../../common/constants';
+import styles from './productInfo.module.scss';
 
 const ProductsInfo = () => {
   const { id } = useParams();
@@ -39,12 +40,13 @@ const ProductsInfo = () => {
     return (
       <>
         <Breadcrumb className={styles.breadcrumbs} separator=">">
-          <Breadcrumb.Item href={ROUTES.PRODUCTS_LIST}>
-            Список продуктів
-          </Breadcrumb.Item>
+          <Breadcrumb.Item href={ROUTES.PRODUCTS_LIST}>Список продуктів</Breadcrumb.Item>
           <Breadcrumb.Item>{name}</Breadcrumb.Item>
         </Breadcrumb>
         <div className={styles.wrapper}>
+          <div className={styles.labelInfo}>
+            <img className={styles.imageTopSale} src={imageTopSale} alt="hit" />
+          </div>
           <Swiper
             className="swiper"
             modules={[Navigation, Pagination]}
@@ -52,19 +54,13 @@ const ProductsInfo = () => {
             slidesPerView={1}
             pagination={{ clickable: true }}
             navigation
-            onSlideChange={() => console.log("slide change")}
+            onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
           >
             {images.map(({ file }) => (
               <SwiperSlide key={file.url}>
                 <div className={styles.imageWrapper}>
-                  <LazyLoadImage
-                    alt="Product image"
-                    src={file.url}
-                    effect="blur"
-                    width="100%"
-                    height="100%"
-                  />
+                  <LazyLoadImage alt="Product image" src={file.url} effect="blur" width="100%" height="100%" />
                 </div>
               </SwiperSlide>
             ))}
@@ -72,9 +68,7 @@ const ProductsInfo = () => {
           <div className={styles.info}>
             <>
               <h1 className={styles.title}>{name}</h1>
-              <ReactMarkdown className={styles.description}>
-                {description}
-              </ReactMarkdown>
+              <ReactMarkdown className={styles.description}>{description}</ReactMarkdown>
             </>
             <div>
               {price.map(({ fields }, idx) => {
@@ -114,7 +108,7 @@ const ProductsInfo = () => {
         </div>
       </>
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 };
 

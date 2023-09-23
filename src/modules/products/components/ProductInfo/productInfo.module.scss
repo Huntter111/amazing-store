@@ -1,13 +1,25 @@
-@import "../../../common/globalStyles/colors.scss";
+@import '../../../common/globalStyles/colors.scss';
 
 .breadcrumbs {
   margin-bottom: 20px !important;
 }
 
 .wrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
   background-color: $white;
+}
+
+.labelInfo {
+  position: absolute;
+  top: -16px;
+  left: -12px;
+  z-index: 2;
+}
+
+.imageTopSale {
+  width: 100px;
 }
 
 .info {

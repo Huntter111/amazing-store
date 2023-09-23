@@ -1,4 +1,4 @@
-@import "../../../common/globalStyles/colors.scss";
+@import '../../../common/globalStyles/colors.scss';
 
 .card {
   width: 100%;
@@ -52,4 +52,14 @@
   text-align: right;
   width: 70px;
   font-weight: bold;
+}
+
+.labelInfo {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+
+.imageTopSale {
+  width: 65px;
 }
