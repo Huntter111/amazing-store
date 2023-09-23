@@ -62,9 +62,6 @@ const groupByABCSystem = (products, formattedProductsList) => {
 
       acc['groupC'] = [...acc['groupC'], newProductData]
     } else {
-      console.log(acc?.['groupC']?.reduce((acc, item) => item?.price,0) + formattedProductsList[productID])
-      console.log(acc['groupA'][acc['groupA']?.length -1].priceAmount)
-      console.log(totalPricesCost - acc['groupA'][acc['groupA']?.length -1].priceAmount - acc['groupB'][acc['groupB']?.length -1].priceAmount)
       const newProductData = {
         code: `X00${idx - acc?.['groupA'].length - acc?.['groupB'].length - acc?.['groupC'].length + 1}`,
         name: foundProductContent.name,
