@@ -27,18 +27,20 @@ const OrdersList = () => {
       </Breadcrumb>
       <div className={styles.listWrapper}>
         <h1 className={styles.title}>Мої замовлення</h1>
-        {orders.map(({ orderNumber, orderDate, id, cartProducts }) => {
-          const totalAmount = cartProducts.reduce((acc, item) => {
-            return acc + item.price.priceAmount;
-          }, 0);
+        <div className={styles.ordersListWrapper}>
+          {orders.map(({ orderNumber, orderDate, id, cartProducts }) => {
+            const totalAmount = cartProducts.reduce((acc, item) => {
+              return acc + item.price.priceAmount;
+            }, 0);
 
-          return (
-            <OrderItem
-              key={id}
-              {...{ orderNumber, orderDate, id, cartProducts, totalAmount }}
-            />
-          );
-        })}
+            return (
+              <OrderItem
+                key={id}
+                {...{ orderNumber, orderDate, id, cartProducts, totalAmount }}
+              />
+            );
+          })}
+        </div>
       </div>
     </>
   );

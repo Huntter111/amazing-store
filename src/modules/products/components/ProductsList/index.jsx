@@ -120,7 +120,7 @@ const ProductsList = () => {
             placeholder="Тип продукту"
           />
         </div>
-        <Row gutter={24}>
+        <Row gutter={24} className={styles.rowWrapper}>
           {filteredProducts?.map(({ id, name, description, type, images, price }) => (
             <Col key={id} className="row" lg={6} sm={12} xs={24}>
               <ProductCard

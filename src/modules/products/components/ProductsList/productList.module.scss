@@ -7,3 +7,8 @@
 .select {
   width: 170px;
 }
+
+.rowWrapper {
+  overflow: auto;
+  height: calc(100vh - 153px)
+}
