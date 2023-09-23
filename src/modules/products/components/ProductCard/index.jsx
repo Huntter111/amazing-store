@@ -13,7 +13,7 @@ import imageTopSale from '../../../../assets/labelHit.png';
 
 const { Meta } = Card;
 
-const ProductCard = ({ id, title, description, type, url, price, confidence, style }) => {
+const ProductCard = ({ id, title, description, type, url, price, style, hitEnabled }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -24,9 +24,12 @@ const ProductCard = ({ id, title, description, type, url, price, confidence, sty
       cover={<LazyLoadImage alt="Product card img" effect="blur" src={url} width="100%" height="100%" />}
       onClick={() => navigate(`${ROUTES.PRODUCT}/${id}`)}
     >
-      <div className={styles.labelInfo}>
-        <img className={styles.imageTopSale} src={imageTopSale} alt="hit" />
-      </div>
+      {hitEnabled && (
+        <div className={styles.labelInfo}>
+          <img className={styles.imageTopSale} src={imageTopSale} alt="hit" />
+        </div>
+      )}
+
       <Meta className={styles.description} title={title} description={<ReactMarkdown>{description}</ReactMarkdown>} />
       <div className={styles.pricesWrapper}>
         {price.map(({ fields }, idx) => {

@@ -35,7 +35,7 @@ const ProductsInfo = () => {
   return useMemo(() => {
     if (!product) return null;
 
-    const { name, type, description, images, price } = product;
+    const { name, type, description, images, price, hitEnabled } = product;
 
     return (
       <>
@@ -44,9 +44,11 @@ const ProductsInfo = () => {
           <Breadcrumb.Item>{name}</Breadcrumb.Item>
         </Breadcrumb>
         <div className={styles.wrapper}>
-          <div className={styles.labelInfo}>
-            <img className={styles.imageTopSale} src={imageTopSale} alt="hit" />
-          </div>
+          {hitEnabled && (
+            <div className={styles.labelInfo}>
+              <img className={styles.imageTopSale} src={imageTopSale} alt="hit" />
+            </div>
+          )}
           <Swiper
             className="swiper"
             modules={[Navigation, Pagination]}
