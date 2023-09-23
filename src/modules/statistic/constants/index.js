@@ -103,12 +103,24 @@ export const ASSOCIATIONS_CONFIDENCE_TYPE = {
 
 export const USER_STATISTIC_COMPONENT_TYPE = {
   STATISTIC_ORDERS: 'STATISTIC_ORDERS',
-  STATISTIC_LOYALTY: 'STATISTIC_LOYALTY',
   STATISTIC_USER: 'STATISTIC_USER',
 };
 
 export const USER_STATISTIC_COMPONENT_TITLES = {
   STATISTIC_ORDERS: 'Статистика продажів',
-  STATISTIC_LOYALTY: 'Система лояльності',
   STATISTIC_USER: 'Статистика користувача',
+};
+
+export const LOYALTY_SUPPORT_TITLE = {
+  THREE: '3%',
+  FIVE: '5%',
+  TEN: '10%',
+  FIFTEEN: '15%',
+};
+
+export const LOYALTY_SUPPORT_TYPE = {
+  THREE: 0.03,
+  FIVE: 0.05,
+  TEN: 0.1,
+  FIFTEEN: 0.15,
 };

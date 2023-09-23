@@ -6,7 +6,7 @@ import { InputNumber, Card, Button } from 'antd';
 import styles from './ordersStatistic.module.scss';
 import { useCallback } from 'react';
 
-const OrdersStatistic = ({ allOrders }) => {
+const UsersOrdersStatistic = ({ allOrders }) => {
   const [dateRange, setDateRange] = useState({ from: null, to: null });
   const [highlightDates, setHighlightDates] = useState(null);
   const [graphData, setGraphData] = useState(null);
@@ -86,4 +86,4 @@ const OrdersStatistic = ({ allOrders }) => {
   );
 };
 
-export default OrdersStatistic;
+export default UsersOrdersStatistic;

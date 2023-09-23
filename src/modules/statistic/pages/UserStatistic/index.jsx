@@ -4,7 +4,7 @@ import Control from '../../components/Control';
 import { USER_STATISTIC_COMPONENT_TITLES, USER_STATISTIC_COMPONENT_TYPE } from '../../constants';
 import GraphsLayout from '../../components/GraphsLayout';
 import { useOrders } from '../../../orders/context/OrdersContext';
-import OrdersStatistic from '../../components/OrdersStatistic';
+import UsersOrdersStatistic from '../../components/UsersOrdersStatistic';
 import UsersStatistic from '../../components/UsersStatistic';
 
 const UserStatistic = () => {
@@ -21,10 +21,6 @@ const UserStatistic = () => {
       key: USER_STATISTIC_COMPONENT_TYPE.STATISTIC_USER,
       title: USER_STATISTIC_COMPONENT_TITLES.STATISTIC_USER,
     },
-    {
-      key: USER_STATISTIC_COMPONENT_TYPE.STATISTIC_LOYALTY,
-      title: USER_STATISTIC_COMPONENT_TITLES.STATISTIC_LOYALTY,
-    },
   ];
 
   useEffect(() => {
@@ -39,7 +35,7 @@ const UserStatistic = () => {
   const getComponent = useMemo(() => {
     if (allOrders) {
       const components = {
-        [USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS]: <OrdersStatistic allOrders={allOrders} />,
+        [USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS]: <UsersOrdersStatistic allOrders={allOrders} />,
         [USER_STATISTIC_COMPONENT_TYPE.STATISTIC_USER]: <UsersStatistic allOrders={allOrders} />,
       };
 

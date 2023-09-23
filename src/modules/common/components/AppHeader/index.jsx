@@ -17,12 +17,17 @@ import { useCart } from '../../../cart/context/CartContext';
 import { HelperModal } from '../../../helper/HelperModal';
 import { useModal } from '../AppModal';
 import { useUserData } from '../../../auth/context/UserDataContext';
+import { useOrders } from '../../../orders/context/OrdersContext';
+import { useLoyaltiesData } from '../../../statistic/context/LoyaltyContext';
+import setUserLoyalty from '../../../auth/helpers/index';
 
 const AppHeader = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [authFormType, setAuthFormType] = useState(AUTH_FORM_TYPE.SIGN_IN);
   const { user, signOut } = useUserAuth();
-  const { userData, getUserDataInfo } = useUserData();
+  const { loyaltiesData, getAllLoyaltiesDataInfo } = useLoyaltiesData();
+  const { userData, getUserDataInfo, updateUserDataInfo } = useUserData();
+  const { orders, getOrdersData } = useOrders();
   //TODO: when mobile will need
   // const { isLarge, isMedium, isSmall, isXlarge, ref: headerRef } = useMedia();
   const navigate = useNavigate();
@@ -34,6 +39,19 @@ const AppHeader = () => {
     user && getUserDataInfo(user.email);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    if (user && user?.email) {
+      getOrdersData(user.email);
+      getAllLoyaltiesDataInfo();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user?.email && userData && loyaltiesData && orders) {
+      setUserLoyalty({ loyaltiesData, orders, updateUserDataInfo, userData });
+    }
+  }, [user, orders, loyaltiesData, userData]);
 
   return useMemo(
     () => {
@@ -55,9 +73,7 @@ const AppHeader = () => {
                 name={'Кошик'}
                 onClick={() => navigate(ROUTES.CART)}
               />
-              {isShowCartProductCount && (
-                <div className={styles.cartProductCount}>{cart.length}</div>
-              )}
+              {isShowCartProductCount && <div className={styles.cartProductCount}>{cart.length}</div>}
             </div>
             {!user ? (
               <AppButton
