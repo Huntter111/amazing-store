@@ -8,9 +8,8 @@ import UsersOrdersStatistic from '../../components/UsersOrdersStatistic';
 import UsersStatistic from '../../components/UsersStatistic';
 
 const UserStatistic = () => {
-  const { allOrders, getAllOrdersData } = useOrders();
-
   const [controlKey, setControlKey] = useState();
+  const { allOrders, getAllOrdersData } = useOrders();
 
   const controlButtons = [
     {
@@ -24,9 +23,9 @@ const UserStatistic = () => {
   ];
 
   useEffect(() => {
-    getAllOrdersData();
+    if(!allOrders) getAllOrdersData();
     // eslint-disable-next-line
-  }, []);
+  }, [allOrders]);
 
   useEffect(() => {
     setControlKey(USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS);

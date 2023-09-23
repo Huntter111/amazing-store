@@ -24,6 +24,11 @@ const getSortedProductsWithTotalAmountOfOrdersPrice = (products) => {
 }
 
 const groupByABCSystem = (products, formattedProductsList) => {
+  let groupDoneFlag = {
+    groupA: false,
+    groupB: false,
+    groupC: false
+  }
   const totalPricesCost = Object.keys(formattedProductsList).reduce((acc, item) => acc + formattedProductsList[item], 0);
   //ABC products cover 80% of total amount of orders prices
   const ABCGroupTotalPrice = totalPricesCost * 0.8;
@@ -32,41 +37,49 @@ const groupByABCSystem = (products, formattedProductsList) => {
   //Group B cover 30% of ABCGroupTotalPrice
   const groupBTotalPrice = ABCGroupTotalPrice * 0.3;
 
+  console.log('ABCGroupTotalPrice', ABCGroupTotalPrice);
+
   return Object.keys(formattedProductsList).reduce((acc, productID, idx) => {
     const foundProductContent = products.find(_ => _.id === productID);
-    if(acc?.['groupA']?.reduce((acc, item) => item?.priceAmount, 0) + formattedProductsList[productID] < groupATotalPrice) {
+    if(!groupDoneFlag.groupA && (acc?.['groupA']?.reduce((acc, item) => acc + item?.priceAmount, 0) < groupATotalPrice)) {
       const newProductData = {
         code: `A00${idx + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
-        percentage: formattedProductsList[productID] * 100 / totalPricesCost
+        percentage: (formattedProductsList[productID] * 100 / totalPricesCost).toFixed(1)
       }
 
       acc['groupA'] = [...acc['groupA'], newProductData]
-    } else if(acc?.['groupB']?.reduce((acc, item) => item?.priceAmount, 0) + formattedProductsList[productID] < groupBTotalPrice) {
+    } else if(!groupDoneFlag.groupB && (acc?.['groupB']?.reduce((acc, item) => acc + item?.priceAmount, 0) < groupBTotalPrice)) {
+      groupDoneFlag.groupA = true;
+
       const newProductData = {
         code: `B00${idx - acc?.['groupA'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
-        percentage: formattedProductsList[productID] * 100 / totalPricesCost
+        percentage: (formattedProductsList[productID] * 100 / totalPricesCost).toFixed(1)
       }
 
       acc['groupB'] = [...acc['groupB'], newProductData]
-    } else if(acc?.['groupC']?.reduce((acc, item) => item?.priceAmount, 0) + formattedProductsList[productID] < totalPricesCost - acc['groupA'][acc['groupA']?.length -1].priceAmount - acc['groupB'][acc['groupB']?.length -1].priceAmount) {
+    } else if(!groupDoneFlag.groupC && (acc?.['groupC']?.reduce((acc, item) => acc + item?.priceAmount, 0) < ABCGroupTotalPrice - acc?.['groupA']?.reduce((acc, item) => acc + item?.priceAmount, 0) - acc?.['groupB']?.reduce((acc, item) => acc + item?.priceAmount, 0))) {
+      groupDoneFlag.groupB = true;
+
       const newProductData = {
         code: `C00${idx - acc?.['groupA'].length - acc?.['groupB'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
-        percentage: formattedProductsList[productID] * 100 / totalPricesCost
+        percentage: (formattedProductsList[productID] * 100 / totalPricesCost).toFixed(1)
       }
 
       acc['groupC'] = [...acc['groupC'], newProductData]
     } else {
+      groupDoneFlag.groupC = true;
+
       const newProductData = {
         code: `X00${idx - acc?.['groupA'].length - acc?.['groupB'].length - acc?.['groupC'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
-        percentage: formattedProductsList[productID] * 100 / totalPricesCost
+        percentage: (formattedProductsList[productID] * 100 / totalPricesCost).toFixed(1)
       }
 
       acc['groupX'] = [...acc['groupX'], newProductData]
@@ -82,7 +95,5 @@ export const getProductsGroups = (products, orders) => {
   const productsWithTotalAmountOfOrdersPrice = generateTotalPriceForEachProduct(productsList, ordersList)
   const sortedProductsWithTotalAmountOfOrdersPrice = getSortedProductsWithTotalAmountOfOrdersPrice(productsWithTotalAmountOfOrdersPrice)
 
-  const dd = groupByABCSystem(products, sortedProductsWithTotalAmountOfOrdersPrice);
-
-  console.log('dd', dd)
+  return groupByABCSystem(products, sortedProductsWithTotalAmountOfOrdersPrice);
 }

@@ -23,9 +23,9 @@ const HelperStatisticPage = () => {
   ];
 
   useEffect(() => {
-    getAllUsersDataInfo();
+    if(!usersData) getAllUsersDataInfo();
     // eslint-disable-next-line
-  }, []);
+  }, [usersData]);
 
   useEffect(() => {
     usersData && setGraphData(getHelperStatisticData(usersData));

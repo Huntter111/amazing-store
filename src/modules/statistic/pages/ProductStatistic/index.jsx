@@ -34,9 +34,9 @@ const ProductStatisticPage = () => {
   ];
 
   useEffect(() => {
-    getAllOrdersData();
+    if(!allOrders) getAllOrdersData();
     // eslint-disable-next-line
-  }, []);
+  }, [allOrders]);
 
   useEffect(() => {
     setControlKey(PRODUCTS_COMPONENT_TYPE.PRODUCTS_STATISTIC);
@@ -67,7 +67,7 @@ const ProductStatisticPage = () => {
 
       return components[controlKey];
     }
-  }, [graphData, highlightDates, productStatisticFilter, associativesFilter, controlKey]);
+  }, [graphData, highlightDates, productStatisticFilter, allOrders, associativesFilter, controlKey]);
 
   return (
     <AppLayout>
