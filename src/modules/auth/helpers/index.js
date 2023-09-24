@@ -15,6 +15,8 @@ const setUserLoyalty = ({ loyaltiesData, orders, updateUserDataInfo, userData })
   const loyaltyUser = loyaltiesData?.find((item) => sumOrders >= item.totalAmount);
   if (loyaltyUser && userData) {
     updateUserDataInfo(userData.id, { ...userData, loyalty: loyaltyUser });
+  } else {
+    updateUserDataInfo(userData.id, { ...userData, loyalty: null });
   }
 };
 export default setUserLoyalty;
