@@ -9,7 +9,7 @@ import ProductCard from '../ProductCard';
 import { useUserData } from '../../../auth/context/UserDataContext';
 import { PRODUCT_TYPES } from '../../constants';
 import styles from './productList.module.scss';
-import AppDropDown from "../../../common/components/AppDropDown";
+import AppDropDown from '../../../common/components/AppDropDown';
 
 const ProductsList = () => {
   const { products } = useGlobalContext();
@@ -55,9 +55,7 @@ const ProductsList = () => {
           const { drinkProduct, product } = userData?.helperData;
 
           const matchCondition = (item) => {
-            return item.type.some(
-              (_) => _?.fields?.type === drinkProduct || _?.fields?.type === product,
-            );
+            return item.type.some((_) => _?.fields?.type === drinkProduct || _?.fields?.type === product);
           };
 
           if (matchCondition(prevItem) && !matchCondition(nextItem)) return -1;
@@ -110,8 +108,8 @@ const ProductsList = () => {
           <AppDropDown
             initialOptionKey="ALL"
             allOptionTitle={PRODUCT_TYPES.ALL}
-            arrayTypes={productTypes.map(({type}) => {
-              return {title: type}
+            arrayTypes={productTypes.map(({ type }) => {
+              return { title: type };
             })}
             enumData={PRODUCT_TYPES}
             handleSelect={handleSelect}
@@ -120,8 +118,8 @@ const ProductsList = () => {
             placeholder="Тип продукту"
           />
         </div>
-        <Row gutter={24}>
-          {filteredProducts?.map(({ id, name, description, type, images, price }) => (
+        <Row gutter={24} className={styles.rowWrapper}>
+          {filteredProducts?.map(({ id, name, description, type, images, price, hitEnabled }) => (
             <Col key={id} className="row" lg={6} sm={12} xs={24}>
               <ProductCard
                 id={id}
@@ -130,6 +128,7 @@ const ProductsList = () => {
                 description={description}
                 price={price}
                 url={images[0].file.url}
+                hitEnabled={hitEnabled}
               />
             </Col>
           ))}

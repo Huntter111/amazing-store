@@ -49,9 +49,9 @@ export const UserDataProvider = ({ children }) => {
       await updateUserData(id, data);
     } catch (error) {
       notification.error({
-        message: "Не вдалося додати даних користувача",
+        message: "Не вдалося оновити даних користувача",
         description:
-          "На жаль не вдалося додати даних користувача, спробуйте пізніше",
+          "На жаль не вдалося оновити даних користувача, спробуйте пізніше",
       });
     }
   };

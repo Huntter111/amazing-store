@@ -1,0 +1,16 @@
+.wrapper {
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: space-around;
+}
+.contenGraph {
+  position: relative;
+  margin-right: 10px;
+}
+.contenGraph div {
+  top: 0 !important;
+}
+.contentLoyalty {
+  margin: 10px;
+}

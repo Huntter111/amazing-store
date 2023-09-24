@@ -10,14 +10,15 @@ const AppDropDown = ({
   value,
   enumData,
   initialOptionKey,
-  placeholder
+  placeholder,
+  enumKeyWithoutUppercase
 }) => {
   return (
     <Select placeholder={placeholder} className={styles} onChange={handleSelect} value={value}>
       {initialOptionKey && <Option key={initialOptionKey}>{allOptionTitle}</Option>}
       {arrayTypes?.map(({ title }, index) => (
         <Option key={title + index} value={title}>
-          {enumData ? enumData[title] : title}
+          {enumData ? enumData[enumKeyWithoutUppercase ? title : title.toUpperCase()] : title}
         </Option>
       ))}
     </Select>

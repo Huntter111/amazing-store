@@ -1,0 +1,46 @@
+@import '../../../common/globalStyles/colors.scss';
+
+.wrapper {
+  width: 70%;
+  margin: 20px auto 0 auto;
+}
+
+.tableWrapper {
+  margin: 20px 0;
+}
+
+.groupATitle {
+  color: $green;
+}
+
+.groupBCTitle {
+  color: $blue;
+}
+
+.groupXTitle {
+  color: $red;
+}
+
+.button {
+  background-color: $white!important;
+  border: 1px solid $gray!important;
+  color: $gray!important;
+}
+
+.button:hover {
+  background-color: $white!important;
+  border: 1px solid $gray!important;
+  color: $gray!important;
+}
+
+.buttonActive {
+  background-color: $green!important;
+  border: 1px solid $green!important;
+  color: $white!important;
+}
+
+.buttonActive:hover {
+  background-color: $green!important;
+  border: 1px solid $green!important;
+  color: $white!important;
+}

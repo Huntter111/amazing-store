@@ -1,41 +1,36 @@
-import { Card } from "antd";
-import ReactMarkdown from "react-markdown";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Card } from 'antd';
+import ReactMarkdown from 'react-markdown';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import { useCart } from "../../../cart/context/CartContext";
-import { ROUTES } from "../../../../routes";
-import styles from "./productCard.module.scss";
-import AppButton from "../../../common/components/AppButton";
-import { BUTTON_TYPE } from "../../../common/constants";
+import { useCart } from '../../../cart/context/CartContext';
+import { ROUTES } from '../../../../routes';
+import styles from './productCard.module.scss';
+import AppButton from '../../../common/components/AppButton';
+import { BUTTON_TYPE } from '../../../common/constants';
+import imageTopSale from '../../../../assets/labelHit.png';
 
 const { Meta } = Card;
 
-const ProductCard = ({ id, title, description, type, url, price }) => {
+const ProductCard = ({ id, title, description, type, url, price, style, hitEnabled }) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
   return (
     <Card
-      className={styles.card}
+      className={style || styles.card}
       hoverable
-      cover={
-        <LazyLoadImage
-          alt="Product card img"
-          effect="blur"
-          src={url}
-          width="100%"
-          height="100%"
-        />
-      }
+      cover={<LazyLoadImage alt="Product card img" effect="blur" src={url} width="100%" height="100%" />}
       onClick={() => navigate(`${ROUTES.PRODUCT}/${id}`)}
     >
-      <Meta
-        className={styles.description}
-        title={title}
-        description={<ReactMarkdown>{description}</ReactMarkdown>}
-      />
+      {hitEnabled && (
+        <div className={styles.labelInfo}>
+          <img className={styles.imageTopSale} src={imageTopSale} alt="hit" />
+        </div>
+      )}
+
+      <Meta className={styles.description} title={title} description={<ReactMarkdown>{description}</ReactMarkdown>} />
       <div className={styles.pricesWrapper}>
         {price.map(({ fields }, idx) => {
           const { priceRadius, priceAmount } = fields;
