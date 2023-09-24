@@ -1,12 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import styles from './productsGroups.module.scss'
 import {getProductsGroups} from "../../helpers/getProductsGroups";
-import {useGlobalContext} from "../../../common/context";
 import {Table} from "antd";
+import AppButton from "../../../common/components/AppButton";
+import {BUTTON_TYPE} from "../../../common/constants";
+import {useProductsData} from "../../../products/context/ProductsContext";
 
 const ProductsGroups = ({orders}) => {
   const [productsGroups, setProductsGroups] = useState();
-  const { products } = useGlobalContext();
+  const [toggle, setToggle] = useState(false);
+  const {products, getAllProductsDataInfo, updateProductDataInfo} = useProductsData();
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      getAllProductsDataInfo()
+    }, 100);
+
+    return () => {
+      clearTimeout(delay)
+    }
+    // eslint-disable-next-line
+  }, [toggle]);
+
+  useEffect(() => {
+    products && setProductsGroups(getProductsGroups(products, orders))
+  }, [products, orders]);
 
   const columns = [
     {
@@ -33,13 +51,27 @@ const ProductsGroups = ({orders}) => {
       key: 'percentage',
       width: '25%'
     },
+    {
+      title: '',
+      key: 'hitBtn',
+      fixed: 'right',
+      width: 100,
+      render: (item) => {
+        const foundProduct = products.find(_ => _.id === item.productID);
+        return (
+          <AppButton
+            className={foundProduct?.hitEnabled ? styles.buttonActive : styles.button}
+            type={BUTTON_TYPE.PRIMARY}
+            name={'Хіт продажу'}
+            onClick={() => {
+              updateProductDataInfo(item.productID, {...foundProduct, hitEnabled: !foundProduct?.hitEnabled});
+              setToggle(prev => !prev);
+            }}
+          />
+        )
+      },
+    },
   ];
-
-  useEffect(() => {
-    setProductsGroups(getProductsGroups(products, orders))
-  }, [products, orders]);
-
-
 
   return (
     <div className={styles.wrapper}>

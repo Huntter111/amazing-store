@@ -41,6 +41,7 @@ const groupByABCSystem = (products, formattedProductsList) => {
     const foundProductContent = products.find(_ => _.id === productID);
     if(!groupDoneFlag.groupA && (acc?.['groupA']?.reduce((acc, item) => acc + item?.priceAmount, 0) < groupATotalPrice)) {
       const newProductData = {
+        productID,
         code: `A00${idx + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
@@ -52,6 +53,7 @@ const groupByABCSystem = (products, formattedProductsList) => {
       groupDoneFlag.groupA = true;
 
       const newProductData = {
+        productID,
         code: `B00${idx - acc?.['groupA'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
@@ -63,6 +65,7 @@ const groupByABCSystem = (products, formattedProductsList) => {
       groupDoneFlag.groupB = true;
 
       const newProductData = {
+        productID,
         code: `C00${idx - acc?.['groupA'].length - acc?.['groupB'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
@@ -74,6 +77,7 @@ const groupByABCSystem = (products, formattedProductsList) => {
       groupDoneFlag.groupC = true;
 
       const newProductData = {
+        productID,
         code: `X00${idx - acc?.['groupA'].length - acc?.['groupB'].length - acc?.['groupC'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
