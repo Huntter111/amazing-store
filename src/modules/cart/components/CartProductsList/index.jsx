@@ -33,9 +33,9 @@ const CartProductsList = () => {
       const { price } = item;
       return acc + price.priceAmount;
     }, 0);
-    if (userData && userData.loyalti && totalPrice) {
-      setSalePrice((totalPrice * userData?.loyalti?.adjastment).toFixed(2));
-      setTotalPrice((totalPrice - totalPrice * userData?.loyalti?.adjastment).toFixed(2));
+    if (userData && userData.loyalty && totalPrice) {
+      setSalePrice((totalPrice * userData?.loyalty?.adjustment).toFixed(2));
+      setTotalPrice((totalPrice - totalPrice * userData?.loyalty?.adjustment).toFixed(2));
     } else {
       setTotalPrice(totalPrice);
     }
@@ -131,8 +131,8 @@ const CartProductsList = () => {
             <b>{`${totalPrice}`}</b>
           </span>{' '}
           <span>UAH</span>
-          {userData?.loyalti && totalPrice ? (
-            <span>{`  ( Скидка - ${userData?.loyalti.adjastment * 100}%  заощаджено ${salePrice} UAH ) `}</span>
+          {userData?.loyalty && totalPrice ? (
+            <span>{`  ( Знижка - ${userData?.loyalty.adjustment * 100}%  заощаджено ${salePrice} UAH ) `}</span>
           ) : (
             ''
           )}

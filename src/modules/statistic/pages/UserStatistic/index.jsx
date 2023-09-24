@@ -23,9 +23,9 @@ const UserStatistic = () => {
   ];
 
   useEffect(() => {
-    if(!allOrders?.length) getAllOrdersData();
+    getAllOrdersData();
     // eslint-disable-next-line
-  }, [allOrders]);
+  }, []);
 
   useEffect(() => {
     setControlKey(USER_STATISTIC_COMPONENT_TYPE.STATISTIC_ORDERS);

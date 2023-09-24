@@ -54,11 +54,11 @@ const OrderForm = ({ closeModal, clearCart }) => {
         cartProducts: cart,
         orderSummary: {
           priceTotalAmount: {
-            totalPriceWithoutAdjastment: totalPrice,
-            totalPriceWithAdjastment: totalPrice - totalPrice * (userData?.loyalti.adjastment || 0),
-            totalAdjastment: totalPrice * (userData?.loyalti.adjastment || 0),
+            totalPriceWithoutAdjustment: totalPrice,
+            totalPriceWithAdjustment: totalPrice - totalPrice * (userData?.loyalty.adjustment || 0),
+            totalAdjustment: totalPrice * (userData?.loyalty.adjustment || 0),
           },
-          adjastment: userData?.loyalti || null,
+          adjustment: userData?.loyalty || null,
         },
       };
 

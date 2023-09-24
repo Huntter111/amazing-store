@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import AssociativeProductsFilter from "../AssociativeProductsFilter";
 import {
   ASSOCIATIONS_CONFIDENCE_TITLE,
@@ -52,10 +52,11 @@ const AssociativeProducts = ({orders, filter, setFilter}) => {
     return associations;
   }, [associations, filter?.product?.type])
 
-  const handleClick = (id) => {
+  const handleClick = useCallback(id => {
     deleteAssociativeDataInfo(id);
     getAllAssociativesDataInfo()
-  };
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className={styles.wrapper}>

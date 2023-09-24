@@ -34,9 +34,9 @@ const ProductStatisticPage = () => {
   ];
 
   useEffect(() => {
-    if(!allOrders?.length) getAllOrdersData();
+    getAllOrdersData();
     // eslint-disable-next-line
-  }, [allOrders]);
+  }, []);
 
   useEffect(() => {
     setControlKey(PRODUCTS_COMPONENT_TYPE.PRODUCTS_STATISTIC);

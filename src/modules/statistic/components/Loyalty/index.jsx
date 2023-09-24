@@ -5,42 +5,53 @@ import AppDropDown from '../../../common/components/AppDropDown';
 import AppButton from '../../../common/components/AppButton';
 import { BUTTON_TYPE } from '../../../common/constants';
 import { LOYALTY_SUPPORT_TYPE, LOYALTY_SUPPORT_TITLE } from '../../constants';
-import styles from './loality.module.scss';
+import styles from './loyalty.module.scss';
 import { DeleteOutlined } from '@ant-design/icons';
 
-const Loality = () => {
+const Loyalty = () => {
   const { loyaltiesData, getAllLoyaltiesDataInfo, deleteLoyaltyDataDataInfo, createLoyaltiesDataInfo } =
     useLoyaltiesData();
   const [totalAmount, setTotalAmount] = useState(null);
-  const [adjastment, setAdjastment] = useState(null);
+  const [adjustment, setAdjustment] = useState(null);
+  const [handled, setHandled] = useState(false);
 
   useEffect(() => {
-    getAllLoyaltiesDataInfo();
-  }, []);
+    const delay = setTimeout(() => {
+      getAllLoyaltiesDataInfo();
+    }, 100);
+
+    return () => {
+      clearTimeout(delay)
+    }
+    // eslint-disable-next-line
+  }, [handled]);
 
   const handlerChangeInputAmount = useCallback((value) => {
     setTotalAmount(value);
   }, []);
-  const handlerChangeInputAdjastment = useCallback((value) => {
+
+  const handlerChangeInputAdjustment = useCallback((value) => {
     const dataToSet = LOYALTY_SUPPORT_TYPE[value];
-    setAdjastment(dataToSet);
+    setAdjustment(dataToSet);
   }, []);
 
   const handlerSaveInDB = useCallback(() => {
-    if (totalAmount && adjastment && loyaltiesData && loyaltiesData?.length <= 3) {
+    if (totalAmount && adjustment && loyaltiesData && loyaltiesData?.length <= 3) {
       const data = {
         totalAmount,
-        adjastment,
+        adjustment,
       };
       createLoyaltiesDataInfo(data);
-      getAllLoyaltiesDataInfo();
+      setHandled(prev => !prev);
     }
-  }, [totalAmount, adjastment, loyaltiesData]);
+    // eslint-disable-next-line
+  }, [totalAmount, adjustment, loyaltiesData]);
 
-  const handleClickDelete = (id) => {
+  const handleClickDelete = useCallback(id => {
     deleteLoyaltyDataDataInfo(id);
-    getAllLoyaltiesDataInfo();
-  };
+    setHandled(prev => !prev);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
@@ -52,8 +63,8 @@ const Loality = () => {
             return { title: type };
           })}
           enumKeyWithoutUppercase
-          handleSelect={handlerChangeInputAdjastment}
-          placeholder="Процент скидки"
+          handleSelect={handlerChangeInputAdjustment}
+          placeholder="Процент знижки"
           enumData={LOYALTY_SUPPORT_TITLE}
         />
         <AppButton
@@ -68,8 +79,8 @@ const Loality = () => {
           return (
             <div className={styles.settingsInfoWrapper} key={item.id}>
               <div className={styles.settingsInfo}>
-                <div>{`Сумма : ${item.totalAmount}`}</div>
-                <div className={styles.settingItem}>{`Розмiр скидки : ${item.adjastment * 100} %`}</div>
+                <div>{`Сумма : ${item.totalAmount} грн`}</div>
+                <div className={styles.settingItem}>{`Розмiр знижки : ${item.adjustment * 100} %`}</div>
               </div>
               <DeleteOutlined
                 className={styles.deleteIcon}
@@ -85,4 +96,4 @@ const Loality = () => {
   );
 };
 
-export default Loality;
+export default Loyalty;

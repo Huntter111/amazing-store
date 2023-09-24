@@ -26,11 +26,11 @@ const formattedUserList = (products) => {
         acc.fullSummData[user.userInfo.email] = sumPricesInOrder(user);
         acc.transactionCountData[user.userInfo.email] = 1;
       }
-      if (user?.orderSummary?.priceTotalAmount?.totalPriceWithAdjastment) {
+      if (user?.orderSummary?.priceTotalAmount?.totalPriceWithAdjustment) {
         acc.adjustmen[user.userInfo.email] = Number(
           (acc.adjustmen[user.userInfo.email] || 0) +
-            (user.orderSummary.priceTotalAmount.totalPriceWithoutAdjastment -
-              user.orderSummary.priceTotalAmount.totalPriceWithAdjastment),
+            (user.orderSummary.priceTotalAmount.totalPriceWithoutAdjustment -
+              user.orderSummary.priceTotalAmount.totalPriceWithAdjustment),
         );
       }
       return acc;
@@ -90,7 +90,7 @@ const getUserStatisticOrdersData = (orders, from, to) => {
 
   const fullOrdersSum = calculateSum(fullPricesDataByUsers.y);
   const averageOrdersSum = calculateSum(averagePricesData.y);
-  const adjastmentSum = calculateSum(averagePricesAdjustment.y);
+  const adjustmentSum = calculateSum(averagePricesAdjustment.y);
   const datepickerHighlightDates = getHighlightDates(orders);
   return {
     fullOrdersSum: fullOrdersSum.toFixed(2),
@@ -112,7 +112,7 @@ const getUserStatisticOrdersData = (orders, from, to) => {
       },
       {
         graphType: TYPE_CHART.PIE,
-        title: `Продажи зi скидкою ( загальна сума : ${adjastmentSum.toFixed(2)} грн )`,
+        title: `Продажи зi знижкою ( загальна сума : ${adjustmentSum.toFixed(2)} грн )`,
         data: averagePricesAdjustment,
         hole: 0.5,
         hovertemplate: '%{label}<br>%{value:.2f} ₴<br>%{percent}<extra></extra>',

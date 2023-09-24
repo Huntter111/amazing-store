@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './productsGroups.module.scss'
 import {getProductsGroups} from "../../helpers/getProductsGroups";
 import {Table} from "antd";

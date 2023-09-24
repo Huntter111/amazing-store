@@ -3,7 +3,7 @@ import UsersStatisticFilter from '../UsersStatisticFilter';
 import { getStatisticOrdersByUser } from '../../helpers/getUserStatisticData';
 import UsersOrders from '../UsersOrders';
 import styles from './usersStatistic.module.scss';
-import Loality from '../Loality';
+import Loyalty from '../Loyalty';
 
 const UsersStatistic = ({ allOrders }) => {
   const [filterKey, setFilterKey] = useState(null);
@@ -35,8 +35,8 @@ const UsersStatistic = ({ allOrders }) => {
         />
         <UsersOrders graphData={graphData} />
       </div>
-      <div className={styles.contentLoality}>
-        <Loality />
+      <div className={styles.contentLoyalty}>
+        <Loyalty />
       </div>
     </div>
   );
