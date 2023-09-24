@@ -36,7 +36,7 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
   const store = useHelperStore((state) => state);
   const { current, next, prev, answers } = store;
   const { user } = useUserAuth();
-  const { userData, updateUserDataInfo, createUserDataInfo } = useUserData();
+  const { userData, updateUserDataInfo, createUserDataInfo, getUserDataInfo } = useUserData();
   const currentAnswerValue = store.answers[stepsOrder[current]];
 
   return (
@@ -84,6 +84,7 @@ export const HelperModal = ({ isOpenModal, closeHelper }) => {
                     createUserDataInfo({email: user?.email || "", helperData: answers})
                   }
                   closeHelper();
+                  getUserDataInfo(user?.email)
                   notification.success({
                     message: "Дякуємо за ваш вибір",
                     description:

@@ -5,27 +5,31 @@
   align-items: center;
   justify-content: center;
   height: 75vh;
-  .linkButtons {
-    margin: 20px;
-    border: 1px solid $black;
-    border-radius: 5px;
-    .linkContent {
-      position: relative;
-      text-align: center;
-      h1 {
-        font-size: 25px;
-        position: absolute;
-        top: 12%;
-        left: 50%;
-        width: 100%;
-        background-color: $lightGray;
-        z-index: 1;
-        transform: translate(-50%, -50%);
-      }
-      img {
-        filter: blur(2px);
-        width: 250px;
-      }
-    }
-  }
+}
+
+.linkButtons {
+  height: 165px;
+  margin: 20px;
+  border: 1px solid $black;
+  border-radius: 5px;
+}
+
+.linkContent {
+  position: relative;
+  text-align: center;
+}
+
+.title {
+  font-size: 25px;
+  position: absolute;
+  line-height: 30px;
+  padding: 5px 0;
+  top: 0;
+  background-color: $lightGray;
+  z-index: 1;
+}
+
+.image {
+  filter: blur(2px);
+  width: 250px;
 }

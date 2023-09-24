@@ -2,9 +2,13 @@
   margin-bottom: 20px !important;
 }
 
+.cartInfoWrapper {
+  display: flex;
+}
+
 .summary {
   min-width: 300px;
-  width: 40%;
+  width: fit-content;
   margin: 20px auto 0;
   display: flex;
   justify-content: space-between;
@@ -13,10 +17,61 @@
 
 .positionCount,
 .totalPrice {
+  margin-right: 5px;
   font-size: 16px;
 }
 
 .cartListWrapper {
-  height: 79vh;
+  width: 100%;
+  height: 74vh;
   overflow: scroll;
+}
+
+.associativeSection {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.associationsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 74vh;
+  overflow: scroll;
+}
+
+.associationTitle {
+  margin-bottom: 20px;
+}
+.priceButton {
+  margin-right: 10px;
+  width: fit-content;
+}
+.associativeProductCard {
+  width: 260px;
+  margin: 5px 0 !important;
+}
+
+.associativeProductCard > div:last-child > div {
+  height: auto;
+}
+
+.associativeProductCard > div:last-child > div:first-child > div > div {
+  font-size: 14px !important;
+  font-weight: bold;
+}
+
+.associativeProductCard > div:last-child > div:last-child div button {
+  font-size: 20px !important;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+}
+
+.associativeProductCard > div:last-child > div:last-child div p {
+  font-size: 12px !important;
+  font-weight: bold;
 }

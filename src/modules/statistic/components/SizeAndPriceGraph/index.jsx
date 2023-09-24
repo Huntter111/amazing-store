@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import Chart from '../../../common/components/Chart';
 import styles from './siezeAndPrice.module.scss';
 import AppDropDown from '../../../common/components/AppDropDown';
+import {STATISTIC_PRODUCT_TYPES} from "../../constants";
 
 const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) => {
   const handlerChangeState = useCallback(
@@ -12,7 +13,7 @@ const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) =
   );
 
   const graphData = useMemo(() => {
-    if (!menuState || menuState === 'all') {
+    if (!menuState || menuState.toUpperCase() === STATISTIC_PRODUCT_TYPES.ALL) {
       return data;
     }
     return data.filter((data) => {
@@ -23,7 +24,7 @@ const SizeAndPriceGraph = ({ data, graphType, hole, menuState, setMenuState }) =
   const SelectWithOptions = useMemo(() => {
     return (
       <AppDropDown
-        initialOptionKey="all"
+        initialOptionKey={STATISTIC_PRODUCT_TYPES.ALL}
         allOptionTitle="Всi продукти"
         arrayTypes={data}
         handleSelect={handlerChangeState}

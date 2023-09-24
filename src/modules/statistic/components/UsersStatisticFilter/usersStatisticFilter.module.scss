@@ -1,0 +1,8 @@
+.filterWrapper {
+  display: flex;
+  justify-content: center;
+
+  & > div {
+    margin: 10px;
+  }
+}
