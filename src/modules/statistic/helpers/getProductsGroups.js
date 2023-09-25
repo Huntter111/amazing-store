@@ -42,7 +42,7 @@ const groupByABCSystem = (products, formattedProductsList) => {
     if(!groupDoneFlag.groupA && (acc?.['groupA']?.reduce((acc, item) => acc + item?.priceAmount, 0) < groupATotalPrice)) {
       const newProductData = {
         productID,
-        code: `A00${idx + 1}`,
+        code: `GA-0${idx + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
         percentage: (formattedProductsList[productID] * 100 / totalPricesCost).toFixed(1)
@@ -54,7 +54,7 @@ const groupByABCSystem = (products, formattedProductsList) => {
 
       const newProductData = {
         productID,
-        code: `B00${idx - acc?.['groupA'].length + 1}`,
+        code: `GB-0${idx - acc?.['groupA'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
         percentage: (formattedProductsList[productID] * 100 / totalPricesCost).toFixed(1)
@@ -66,7 +66,7 @@ const groupByABCSystem = (products, formattedProductsList) => {
 
       const newProductData = {
         productID,
-        code: `C00${idx - acc?.['groupA'].length - acc?.['groupB'].length + 1}`,
+        code: `GC-0${idx - acc?.['groupA'].length - acc?.['groupB'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
         percentage: (formattedProductsList[productID] * 100 / totalPricesCost).toFixed(1)
@@ -78,7 +78,7 @@ const groupByABCSystem = (products, formattedProductsList) => {
 
       const newProductData = {
         productID,
-        code: `X00${idx - acc?.['groupA'].length - acc?.['groupB'].length - acc?.['groupC'].length + 1}`,
+        code: `GD-0${idx - acc?.['groupA'].length - acc?.['groupB'].length - acc?.['groupC'].length + 1}`,
         name: foundProductContent.name,
         priceAmount: formattedProductsList[productID],
         percentage: (formattedProductsList[productID] * 100 / totalPricesCost).toFixed(1)
